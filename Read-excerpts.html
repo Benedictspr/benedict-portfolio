@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Read Sample - The XVII-th</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Lato&family=Merriweather:wght@700&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome for star icons -->
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
+  <style>
+    body {
+      margin: 0;
+      background-color: #f4f4f4;
+      font-family: 'Lato', sans-serif;
+      color: #222;
+      user-select: none;
+    }
+
+    h2, h3 {
+      font-family: 'Merriweather', serif;
+    }
+
+    .top-bar {
+      background-color: #004a63;
+      color: white;
+      padding: 15px 20px;
+      text-align: center;
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    .book-section {
+      max-width: 1000px;
+      margin: 40px auto 20px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 30px;
+      justify-content: center;
+      padding: 0 20px;
+    }
+
+    .book-image {
+      flex: 1 1 300px;
+    }
+
+    .book-image img {
+      max-width: 100%;
+      border-radius: 10px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .book-details {
+      flex: 1 1 350px;
+    }
+
+    .book-details h2 {
+      margin-top: 0;
+      font-size: 26px;
+      color: #2c3e50;
+    }
+
+    .author {
+      font-size: 14px;
+      color: #777;
+      margin-bottom: 10px;
+    }
+
+    .description {
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    .price {
+      font-size: 24px;
+      color: #004a63;
+      font-weight: bold;
+      margin-bottom: 15px;
+    }
+
+    .btn {
+      display: inline-block;
+      margin: 6px 6px 0 0;
+      padding: 10px 18px;
+      font-size: 15px;
+      border-radius: 30px;
+      border: 2px solid #004a63;
+      background-color: #004a63;
+      color: white;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .btn:hover {
+      background-color: white;
+      color: #004a63;
+    }
+
+    .btn-outline {
+      background: none;
+      color: #004a63;
+    }
+
+    .preview-note {
+      text-align: center;
+      margin: 40px auto 20px;
+      font-style: italic;
+      color: #333;
+    }
+
+    .back-home {
+      display: block;
+      margin: 20px 30px 0;
+      color: #004a63;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 16px;
+    }
+
+    .iframe-section {
+      max-width: 1000px;
+      margin: 10px auto 40px;
+      height: 600px;
+      background: white;
+    }
+
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    .comment-section {
+      max-width: 700px;
+      margin: 0 auto 50px;
+      background: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .comment-section h3 {
+      margin-bottom: 15px;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+    }
+
+    input, textarea, select {
+      margin-bottom: 15px;
+      padding: 10px;
+      font-size: 16px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      font-family: 'Lato', sans-serif;
+    }
+
+    button {
+      background-color: #004a63;
+      color: white;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #006c90;
+    }
+
+    .comment-list {
+      margin-top: 30px;
+    }
+
+    .comment-item {
+      background: #f1f1f1;
+      padding: 15px;
+      border-radius: 6px;
+      margin-bottom: 10px;
+    }
+
+    .stars {
+      color: gold;
+      font-size: 16px;
+      margin: 4px 0;
+    }
+
+    .stars i {
+      margin-right: 2px;
+    }
+
+    .comment-meta {
+      font-size: 14px;
+      color: #555;
+      margin-top: 20px;
+    }
+
+    .pagination {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+      gap: 10px;
+    }
+
+    .pagination button {
+      padding: 6px 12px;
+      border: none;
+      background-color: #ddd;
+      cursor: pointer;
+      border-radius: 4px;
+    }
+
+    .pagination button.active {
+      background-color: #004a63;
+      color: white;
+    }
+
+    blockquote {
+      font-style: italic;
+      font-size: 18px;
+      color: #444;
+      border-left: 4px solid #ccc;
+      margin: 20px 0;
+      padding: 10px 20px;
+      background-color: #f9f9f9;
+      border-radius: 6px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 25px 10px;
+      background: #004a63;
+      color: white;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body oncontextmenu="return false">
+  
+  <header style="background-color: #004a63; color: white; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center;">
+  <div style="font-size: 18px; font-weight: bold;">Read Excerpts</div>
+  <a href="index.html" style="color: white; background-color: #006c90; padding: 8px 14px; text-decoration: none; border-radius: 6px; font-weight: bold; font-size: 14px;">Home</a>
+</header>
+
+
+  <section class="book-section">
+    <div class="book-image">
+      <img src="book-cover.png" alt="The XVII-th Book Cover">
+    </div>
+    <div class="book-details">
+      <h2>The XVII-th: Letters to the One Who Will Come</h2>
+      <div class="author">by Benedict Adurosakin</div>
+      <div class="description">
+        The XVII-th: Letters to the One Who Will Come is a 166-page philosophical letter-series, written by a vanished voice to the one fated to rise.<br><br>
+        It is not a guide. It is a mirror. It is a journey through silence, power, betrayal, and the burden of knowing too much, wrapped in metaphor and mystery.
+      </div>
+      <div class="price">₦10,000 • $9.99 • £9.99</div>
+      <a href="https://selar.com/f8e09466jy" class="btn" target="_blank">Buy E-book</a>
+      <a href="https://shorturl.at/C9Jxd" class="btn btn-outline" target="_blank">Order Hardcover / Paperback</a>
+    </div>
+  </section>
+
+  <div class="preview-note">Would you love to preview a chapter before buying? Read a sample below.</div>
+
+  <div class="iframe-section">
+    <iframe src="The XVII-th (Sample Pages).pdf#toolbar=0&navpanes=0&scrollbar=0"></iframe>
+  </div>
+
+  <div class="comment-section">
+    <h3>Leave a Comment</h3>
+    <form id="commentForm">
+      <input type="text" id="name" placeholder="Your Name" required />
+      <textarea id="comment" rows="4" placeholder="Your Comment" required></textarea>
+      <label for="rating">Rating:</label>
+      <select id="rating" required>
+        <option value="">Select stars</option>
+        <option value="1">★☆☆☆☆</option>
+        <option value="2">★★☆☆☆</option>
+        <option value="3">★★★☆☆</option>
+        <option value="4">★★★★☆</option>
+        <option value="5">★★★★★</option>
+      </select>
+      <button type="submit">Submit</button>
+    </form>
+
+    <div class="comment-meta">
+      <span id="totalComments">0</span> comments • Average rating: <span id="averageRating">0</span>/5
+    </div>
+
+    <div class="comment-list" id="commentList"></div>
+    <div class="pagination" id="pagination"></div>
+  </div>
+
+  <footer>
+    © 2025 Benedict Adurosakin • Lagos, Nigeria • All Rights Reserved.
+  </footer>
+
+  <script>
+    const form = document.getElementById('commentForm');
+    const commentList = document.getElementById('commentList');
+    const pagination = document.getElementById('pagination');
+    const totalCommentsEl = document.getElementById('totalComments');
+    const averageRatingEl = document.getElementById('averageRating');
+
+    const COMMENTS_PER_PAGE = 5;
+    let currentPage = 1;
+
+    let comments = JSON.parse(localStorage.getItem('bookComments')) || [];
+
+    function getStarsHTML(rating) {
+      let html = '';
+      for (let i = 1; i <= 5; i++) {
+        html += i <= rating
+          ? '<i class="fas fa-star"></i>'
+          : '<i class="far fa-star" style="color: #ccc;"></i>';
+      }
+      return html;
+    }
+
+    function updateMeta() {
+      totalCommentsEl.textContent = comments.length;
+      const avg = comments.reduce((sum, c) => sum + Number(c.rating), 0) / (comments.length || 1);
+      averageRatingEl.textContent = avg.toFixed(1);
+    }
+
+    function displayComments() {
+      commentList.innerHTML = '';
+      const start = (currentPage - 1) * COMMENTS_PER_PAGE;
+      const end = start + COMMENTS_PER_PAGE;
+      const paginated = comments.slice(start, end);
+
+      paginated.forEach(({ name, comment, rating }) => {
+        const div = document.createElement('div');
+        div.className = 'comment-item';
+        const starsHTML = getStarsHTML(Number(rating));
+        div.innerHTML = `<strong>${name}</strong><div class="stars">${starsHTML}</div><p>${comment}</p>`;
+        commentList.appendChild(div);
+      });
+    }
+
+    function displayPagination() {
+      pagination.innerHTML = '';
+      const pageCount = Math.ceil(comments.length / COMMENTS_PER_PAGE);
+      for (let i = 1; i <= pageCount; i++) {
+        const btn = document.createElement('button');
+        btn.textContent = i;
+        btn.className = i === currentPage ? 'active' : '';
+        btn.addEventListener('click', () => {
+          currentPage = i;
+          displayComments();
+          displayPagination();
+        });
+        pagination.appendChild(btn);
+      }
+    }
+
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      const name = document.getElementById('name').value;
+      const comment = document.getElementById('comment').value;
+      const rating = document.getElementById('rating').value;
+
+      comments.unshift({ name, comment, rating });
+      localStorage.setItem('bookComments', JSON.stringify(comments));
+
+      currentPage = 1;
+      updateMeta();
+      displayComments();
+      displayPagination();
+      form.reset();
+    });
+
+    updateMeta();
+    displayComments();
+    displayPagination();
+  </script>
+</body>
+</html>

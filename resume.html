@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Resume - Benedict Adurosakin</title>
+  <style>
+    body {
+      margin: 0;
+      background-color: #f4f4f4;
+      font-family: Arial, sans-serif;
+    }
+
+    .top-bar {
+      background-color: #004a63;
+      color: white;
+      padding: 10px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .back-button {
+      background-color: white;
+      color: #004a63;
+      border: 2px solid #004a63;
+      padding: 6px 12px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 14px;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    .back-button:hover {
+      background-color: #004a63;
+      color: white;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      background: white;
+      height: calc(100vh - 50px);
+    }
+
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    .note {
+      text-align: center;
+      font-size: 14px;
+      color: #777;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="top-bar">
+    <a href="Get-a-project.html" class="back-button">Hire Me</a>
+    <span>My Resume</span>
+  </div>
+
+  <div class="container">
+    <iframe src="resume.pdf#toolbar=0&navpanes=0&scrollbar=0"></iframe>
+  </div>
+
+  <div class="note">
+    View only – Downloading disabled
+  </div>
+
+</body>
+</html>

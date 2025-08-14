@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Content Strategy - Benedict Adurosakin</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/quill@1.3.7/dist/quill.snow.css" />
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      background: #f4f6f9;
+      color: #222;
+    }
+
+    header {
+      background: #004a63;
+      color: white;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 1.6rem;
+    }
+
+    .home-link {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 1rem;
+      padding: 0.5rem 1rem;
+      background: #006c90;
+      border-radius: 6px;
+      transition: background 0.3s;
+    }
+
+    .home-link:hover {
+      background: #0084b4;
+    }
+
+    footer {
+      background: #004a63;
+      color: white;
+      text-align: center;
+      padding: 1rem;
+      font-size: 14px;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 2rem auto;
+      background: white;
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      text-align: center;
+      color: #004a63;
+    }
+
+    .update-section {
+      margin-top: 3rem;
+    }
+
+    .post {
+      border: 1px solid #ccc;
+      padding: 1rem;
+      border-radius: 10px;
+      margin-bottom: 1.5rem;
+      background: #fafafa;
+    }
+
+    .post img {
+      max-width: 100%;
+      height: auto;
+      margin-top: 0.5rem;
+      border-radius: 8px;
+    }
+
+    .post h3 {
+      margin: 0 0 0.5rem;
+      font-size: 1.2rem;
+    }
+
+    .admin-tools {
+      margin-top: 1.5rem;
+      display: none;
+    }
+
+    .quill-container {
+      margin-bottom: 1rem;
+    }
+
+    .toolbar {
+      margin-bottom: 0.5rem;
+    }
+
+    .editor-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .editor-actions input[type="text"] {
+      flex: 1;
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    .editor-actions input[type="file"] {
+      padding: 5px;
+    }
+
+    .editor-actions button {
+      background: #004a63;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .editor-actions button:hover {
+      background: #006c90;
+    }
+
+    .edit-delete-buttons {
+      text-align: right;
+      margin-top: 10px;
+    }
+
+    .edit-delete-buttons button {
+      margin-left: 10px;
+      padding: 5px 10px;
+      font-size: 13px;
+      border: none;
+      background: #d9534f;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .edit-delete-buttons button.edit-btn {
+      background: #f0ad4e;
+    }
+
+    .login-box {
+      display: none;
+      margin-top: 1rem;
+    }
+
+    .login-box input {
+      margin: 0.3rem;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+
+    .login-box button {
+      padding: 10px;
+      background: #004a63;
+      color: white;
+      border: none;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Content Strategy</h1>
+    <a href="index.html" class="home-link">Home</a>
+  </header>
+
+  <div class="container">
+    <p>
+      I manage MedSageHQ, a platform dedicated to promoting health education and delivering clear, accurate medical information. Through MedSageHQ, I create well-researched and informative content that translates complex medical terminology into language that is easy for the general public to understand. I also work closely with healthcare professionals to ensure that the content is reliable and value-driven. My goal is to empower individuals with the knowledge they need to make informed health decisions.
+    </p>
+    <p>
+      In addition to my work with MedSageHQ, I run DriveVirtual, a platform focused on intelligent and engaging automotive content. Despite not having physical access to the vehicles, I conduct extensive research and use data-driven insights to explore various aspects of car performance, design, and market trends. I present this information in a visually appealing and accessible way to help car enthusiasts and potential buyers better understand the vehicles they are interested in.
+    </p>
+    <p>
+      As a graphics designer, I bring a strong visual identity to both platforms. I create high-quality visuals that are clean, consistent with each brand, and strategically designed to enhance audience engagement. Whether it's an infographic, a digital brochure, or a social media post, every design element is crafted with purpose to support the message and improve the user experience.
+    </p>
+    <p>
+      Through these projects, I combine creativity, research, and communication to build platforms that inform, inspire, and connect with diverse audiences.
+    </p>
+
+    <!-- MedSageHQ Section -->
+    <div class="update-section">
+      <h2>MedSageHQ Updates</h2>
+      <div id="medsage-posts"></div>
+      <div class="admin-tools" id="medsage-tools">
+        <div class="editor-actions">
+          <input type="text" id="medsage-title" placeholder="Post Title" />
+          <input type="file" id="medsage-image" accept="image/*" />
+        </div>
+        <div id="medsage-editor" class="quill-container"></div>
+        <button onclick="addPost('medsage')">Post</button>
+        <button onclick="clearAll('medsage')">Delete All Posts</button>
+      </div>
+    </div>
+
+    <!-- DriveVirtual Section -->
+    <div class="update-section">
+      <h2>DriveVirtual Updates</h2>
+      <div id="drive-posts"></div>
+      <div class="admin-tools" id="drive-tools">
+        <div class="editor-actions">
+          <input type="text" id="drive-title" placeholder="Post Title" />
+          <input type="file" id="drive-image" accept="image/*" />
+        </div>
+        <div id="drive-editor" class="quill-container"></div>
+        <button onclick="addPost('drive')">Post</button>
+        <button onclick="clearAll('drive')">Delete All Posts</button>
+      </div>
+    </div>
+
+    <div class="login-box" id="admin-login">
+      <input type="text" id="admin-user" placeholder="Username" />
+      <input type="password" id="admin-pass" placeholder="Password" />
+      <button onclick="verifyAdmin()">Login</button>
+    </div>
+  </div>
+
+  <footer>
+    © 2025 Benedict Adurosakin • Lagos, Nigeria • All Rights Reserved.
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/quill@1.3.7/dist/quill.min.js"></script>
+  <script>
+    const correctUser = "Benedictspr";
+    const correctPass = "Benedictspr1#";
+    const adminLogin = document.getElementById('admin-login');
+    let isAdmin = false;
+    let quillEditors = {};
+
+    document.addEventListener('keydown', function(e) {
+      if (e.shiftKey && e.altKey && e.key.toLowerCase() === 'r') {
+        e.preventDefault();
+        if (!isAdmin) {
+          adminLogin.style.display = 'block';
+        } else {
+          toggleTools();
+        }
+      }
+    });
+
+    function verifyAdmin() {
+      const user = document.getElementById('admin-user').value;
+      const pass = document.getElementById('admin-pass').value;
+      if (user === correctUser && pass === correctPass) {
+        isAdmin = true;
+        adminLogin.style.display = 'none';
+        toggleTools();
+      } else {
+        alert("Invalid credentials.");
+      }
+    }
+
+    function toggleTools() {
+      document.getElementById('medsage-tools').style.display = 'block';
+      document.getElementById('drive-tools').style.display = 'block';
+    }
+
+    function initEditor(id) {
+      quillEditors[id] = new Quill(`#${id}-editor`, {
+        theme: 'snow',
+        placeholder: 'Write your update here...',
+        modules: {
+          toolbar: [['bold', 'italic', 'underline'], [{ 'list': 'ordered'}, { 'list': 'bullet' }]]
+        }
+      });
+    }
+
+    function addPost(type) {
+      const title = document.getElementById(`${type}-title`).value.trim();
+      const imageInput = document.getElementById(`${type}-image`);
+      const content = quillEditors[type].root.innerHTML;
+
+      const reader = new FileReader();
+      reader.onload = function () {
+        const image = imageInput.files[0] ? reader.result : "";
+        const posts = JSON.parse(localStorage.getItem(`${type}-posts`)) || [];
+        posts.unshift({ title, content, image });
+        localStorage.setItem(`${type}-posts`, JSON.stringify(posts));
+        renderPosts(type);
+        document.getElementById(`${type}-title`).value = '';
+        quillEditors[type].setText('');
+        imageInput.value = '';
+      };
+      if (imageInput.files[0]) reader.readAsDataURL(imageInput.files[0]);
+      else reader.onload();
+    }
+
+    function clearAll(type) {
+      if (confirm("Are you sure you want to delete all posts?")) {
+        localStorage.removeItem(`${type}-posts`);
+        renderPosts(type);
+      }
+    }
+
+    function deletePost(type, index) {
+      const posts = JSON.parse(localStorage.getItem(`${type}-posts`)) || [];
+      posts.splice(index, 1);
+      localStorage.setItem(`${type}-posts`, JSON.stringify(posts));
+      renderPosts(type);
+    }
+
+    function renderPosts(type) {
+      const posts = JSON.parse(localStorage.getItem(`${type}-posts`)) || [];
+      const container = document.getElementById(`${type}-posts`);
+      container.innerHTML = '';
+      posts.forEach((post, index) => {
+        const div = document.createElement('div');
+        div.className = 'post';
+        div.innerHTML = `
+          <h3>${post.title}</h3>
+          ${post.image ? `<img src="${post.image}" alt="Post Image" />` : ''}
+          ${post.content}
+          ${isAdmin ? `
+            <div class="edit-delete-buttons">
+              <button class="edit-btn" onclick="editPost('${type}', ${index})">Edit</button>
+              <button onclick="deletePost('${type}', ${index})">Delete</button>
+            </div>` : ''}
+        `;
+        container.appendChild(div);
+      });
+    }
+
+    function editPost(type, index) {
+      const posts = JSON.parse(localStorage.getItem(`${type}-posts`)) || [];
+      const post = posts[index];
+      document.getElementById(`${type}-title`).value = post.title;
+      quillEditors[type].root.innerHTML = post.content;
+      document.getElementById(`${type}-image`).value = '';
+      posts.splice(index, 1);
+      localStorage.setItem(`${type}-posts`, JSON.stringify(posts));
+      renderPosts(type);
+    }
+
+    window.onload = function() {
+      initEditor('medsage');
+      initEditor('drive');
+      renderPosts('medsage');
+      renderPosts('drive');
+    };
+  </script>
+</body>
+</html>

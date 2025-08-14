@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Benedict Adurosakin</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f6f9;
+      color: #000000;
+    }
+
+    .hero {
+      padding: 4rem 2rem;
+      text-align: center;
+      background-color: #ffffff;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    }
+
+    .images {
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-bottom: 2.5rem;
+    }
+
+    .images img {
+      width: 110px;
+      height: 150px;
+      border-radius: 1rem;
+      object-fit: cover;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+      transform: rotate(var(--angle));
+    }
+
+    .title {
+      font-size: 3.2rem;
+      font-weight: bold;
+      color: #2c3e50;
+      margin: 0;
+    }
+
+    .about {
+      max-width: 700px;
+      margin: 2rem auto 0;
+      font-size: 1.05rem;
+      line-height: 1.7;
+      color: #777;
+      padding: 0 1rem;
+    }
+
+    .section {
+      padding: 2rem 1.5rem;
+      margin: 2rem auto;
+      background-color: #ffffff;
+      border-radius: 1rem;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.06);
+      max-width: 950px;
+    }
+
+    .section h2 {
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+      color: #2c3e50;
+      text-align: center;
+    }
+
+    .section p {
+      font-size: 1rem;
+      line-height: 1.6;
+    }
+
+    .cards {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      margin-top: 2rem;
+      justify-content: center;
+    }
+
+    .card, a.card {
+      background-color: #fdfdfd;
+      border-radius: 1rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      width: 180px;
+      padding: 1.2rem;
+      text-align: center;
+      transition: transform 0.2s ease-in-out;
+      text-decoration: none;
+      color: inherit;
+      display: block;
+    }
+
+    .card:hover, a.card:hover {
+      transform: translateY(-5px);
+      background-color: #f0f8ff;
+      box-shadow: 0 3px 12px rgba(0, 74, 99, 0.1);
+    }
+
+    .card h3 {
+      margin: 0.5rem 0 0.25rem;
+      font-size: 1.2rem;
+      color: #2c3e50;
+    }
+
+    .card p {
+      margin: 0;
+      font-size: 0.95rem;
+      color: #777;
+    }
+
+    .projects {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      justify-content: center;
+      margin-top: 1.5rem;
+    }
+
+    .project-box {
+      background-color: #ffffff;
+      border-radius: 1rem;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.06);
+      padding: 1.5rem;
+      width: 300px;
+      text-align: center;
+      transition: transform 0.2s ease-in-out;
+    }
+
+    .project-box:hover {
+      transform: translateY(-5px);
+    }
+
+    .project-box strong {
+      font-size: 1.2rem;
+      color: #2c3e50;
+      display: block;
+      margin-bottom: 0.3rem;
+    }
+
+    .project-box h4 {
+      margin: 0.25rem 0;
+      font-size: 0.95rem;
+      font-weight: normal;
+      color: #777;
+    }
+
+    .project-box button {
+      background: #004a63;
+      color: white;
+      border: none;
+      padding: 10px 18px;
+      margin: 0.5rem 0.4rem;
+      border-radius: 8px;
+      font-size: 14px;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      transition: transform 0.2s ease, background 0.3s ease;
+    }
+
+    .project-box button:hover {
+      background: #006c90;
+      transform: translateY(-4px);
+    }
+
+    .cta-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .cta-buttons a {
+      background-color: #0a0a0a;
+      color: white;
+      padding: 0.75rem 1.2rem;
+      border-radius: 0.5rem;
+      text-decoration: none;
+      font-weight: bold;
+      transition: background 0.3s;
+    }
+
+    .cta-buttons a:hover {
+      background-color: #010101;
+    }
+
+    .touch-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-top: 20px;
+    }
+
+    .touch-buttons button {
+      background: #004a63;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      transition: transform 0.2s ease, background 0.3s ease;
+    }
+
+    .touch-buttons button:hover {
+      background: #006c90;
+      transform: translateY(-4px);
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px 10px;
+      background: #004a63;
+      color: white;
+      font-size: 14px;
+    }
+
+    @media (max-width: 768px) {
+      .images img {
+        width: 80px;
+        height: 110px;
+      }
+
+      .title {
+        font-size: 2rem;
+      }
+
+      .about {
+        font-size: 0.95rem;
+        padding: 0 1rem;
+      }
+
+      .cards {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .card {
+        width: 90%;
+      }
+
+      .touch-buttons {
+        flex-direction: column;
+        gap: 15px;
+      }
+
+      .touch-buttons button {
+        width: 90%;
+        font-size: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="hero">
+    <div class="images">
+      <img src="image1.jpeg" style="--angle: -10deg;" />
+      <img src="image2.jpeg" style="--angle: -5deg;" />
+      <img src="image3.jpeg" style="--angle: 0deg;" />
+      <img src="image4.jpeg" style="--angle: 5deg;" />
+      <img src="image5.jpeg" style="--angle: 10deg;" />
+    </div>
+    <h1 class="title">Benedict Adurosakin</h1>
+    <div class="about">
+      Someone who's always been deeply curious about people, healing, and meaning. That curiosity naturally led me into the world of nursing, research, and creative writing, where I get to bring clarity and structure to complex experiences. Whether I’m treating patients, building health content, or writing allegorical novels, I focus on creating human-centred impact that lasts.
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>What I’m About</h2>
+    <div class="cards">
+      <a href="nurse.html" class="card">
+  <h3>Nurse</h3>
+  <p>Registered Nurse, caring for lives with science and purpose.</p>
+</a>
+
+      <a href="creative-writing.html" class="card">
+  <h3>Creative Writing</h3>
+  <p>Philosophy & fiction focused on human experience.</p>
+</a>
+
+      <a href="healthcare-research.html" class="card">
+        <h3>Healthcare Research</h3>
+        <p>SPSS-based analyses and public health insights.</p>
+      </a>
+      <a href="content-strategy.html" class="card">
+        <h3>Content Strategy</h3>
+        <p>Driving projects like MedSageHQ and DriveVirtual.</p>
+      </a>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Projects</h2>
+    <div class="projects">
+      <div class="project-box" style="background: linear-gradient(rgba(255,255,255,0.8), rgba(255,255,255,0.8)), url('image6.png'); background-size: cover; background-position: center;">
+        <strong>Book Project</strong>
+        <h4>The XVII-th: Letters to the One Who Will Come</h4>
+        <a href="Read-excerpts.html"><button>Read Excerpts</button></a>
+        <a href="https://selar.com/f8e09466jy" target="_blank" rel="noopener noreferrer"><button>Buy Now</button></a>
+      </div>
+      <div class="project-box" style="background: linear-gradient(rgba(255,255,255,0.8), rgba(255,255,255,0.8)), url('image7.jpg'); background-size: cover; background-position: center;">
+        <strong>Research Project</strong>
+        <h4>Health Research Studies</h4>
+        <a href="Research-projects.html">
+          <button>View Project</button>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Stats</h2>
+    <div class="cards">
+      <div class="card">
+        <h3>56+</h3>
+        <p>Projects Completed</p>
+      </div>
+      <div class="card">
+        <h3>98%</h3>
+        <p>Satisfaction Rate</p>
+      </div>
+      <div class="card">
+        <h3>5 Years</h3>
+        <p>Experience</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Get in Touch</h2>
+    <div class="touch-buttons">
+      <a href="Get-a-project.html" class="cta-button">
+        <button>Get a Project</button>
+      </a>
+      <a href="resume.html" class="cta-button">
+        <button>My Resume</button>
+      </a>
+    </div>
+  </div>
+
+  <footer>
+    © 2025 Benedict Adurosakin • Lagos, Nigeria • All Rights Reserved.
+  </footer>
+</body>
+</html>

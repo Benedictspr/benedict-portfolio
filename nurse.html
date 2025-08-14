@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Nursing Portfolio - Benedict Adurosakin</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f6f9;
+      color: #000000;
+    }
+
+    header {
+      background-color: #004a63;
+      color: white;
+      padding: 1.2rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    header h1 {
+      font-size: 1.5rem;
+      margin: 0;
+    }
+
+    .back-button {
+      background-color: white;
+      color: #004a63;
+      border: none;
+      padding: 8px 14px;
+      border-radius: 6px;
+      font-weight: bold;
+      text-decoration: none;
+    }
+
+    .section {
+      max-width: 900px;
+      margin: 2rem auto;
+      padding: 1.5rem;
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.06);
+      line-height: 1.7;
+      font-size: 1rem;
+      color: #444;
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px 10px;
+      background: #004a63;
+      color: white;
+      font-size: 14px;
+      margin-top: 3rem;
+    }
+
+    #loginPopup {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0,0,0,0.5);
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    #loginPopup .login-box {
+      background: #fff;
+      padding: 2rem;
+      border-radius: 10px;
+      width: 300px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    }
+
+    .login-box h2 {
+      margin-top: 0;
+      color: #004a63;
+      text-align: center;
+    }
+
+    .login-box input {
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      margin-bottom: 20px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+
+    .login-box button {
+      width: 100%;
+      padding: 10px;
+      background-color: #004a63;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .login-box button:hover {
+      background-color: #006c90;
+    }
+
+    #editBtn {
+      display: none;
+      margin-top: 1rem;
+      background-color: #004a63;
+      color: white;
+      padding: 10px 16px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    #editBtn:hover {
+      background-color: #006c90;
+    }
+
+    #saveBtn {
+      display: none;
+      background-color: #2ecc71;
+      color: white;
+      padding: 10px 16px;
+      border: none;
+      border-radius: 6px;
+      margin-top: 1rem;
+      cursor: pointer;
+    }
+
+    #saveBtn:hover {
+      background-color: #27ae60;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Nurse</h1>
+  <a href="index.html" class="back-button">Home</a>
+</header>
+
+<div class="section" id="nurseContent" contenteditable="false">
+  I am a licensed and passionate Registered Nurse with a growing portfolio in both clinical care and public health. My approach to healthcare integrates scientific knowledge with compassion, ensuring that each patient interaction is grounded in both evidence and empathy. With experience in acute care, community health, and health education, I am committed to delivering patient-centered care marked by clinical precision, ethical standards, and emotional intelligence.
+
+  <br><br>
+
+  Beyond the bedside, I have actively contributed to community health outreach, health promotion, and collaborative research initiatives. These experiences have deepened my commitment to improving health outcomes not only through direct clinical care but also through education and preventive healthcare. I believe that advancing health literacy and empowering individuals to make informed decisions are essential components of sustainable healthcare systems.
+
+  <br><br>
+
+  Whether working in hospitals or engaging communities, I strive to bridge the gap between clinical expertise and human connection. From managing complex symptoms to offering comfort during moments of vulnerability, I view every encounter as an opportunity to make a measurable and lasting difference.
+
+  <br><br>
+
+  In addition to my nursing career, I also have a background in Information Technology, with skills in web development. Drawing from this experience, I designed and built this portfolio website myself to reflect both my professional journey and my passion for digital health communication.
+
+  <br><br>
+
+  Looking ahead, I aspire to collaborate with leading international health organizations such as the World Health Organization (WHO), UNICEF, Médecins Sans Frontières (Doctors Without Borders), the Centers for Disease Control and Prevention (CDC), and The Gates Foundation. I am convinced that global partnerships and cross-border collaborations are key to driving innovative and equitable solutions for underserved populations.
+
+  <br><br>
+
+  To expand my impact as a caregiver, educator, and health strategist, I am preparing to pursue a Master’s degree abroad in Public Health, Global Nursing Leadership, or Healthcare Policy. This academic pursuit will further deepen my expertise and equip me to contribute meaningfully to local and global healthcare systems through evidence-based interventions and advocacy.
+</div>
+
+<div style="text-align:center;">
+  <button id="editBtn">Edit Text</button>
+  <button id="saveBtn">Save</button>
+</div>
+
+<div id="loginPopup">
+  <div class="login-box">
+    <h2>Admin Login</h2>
+    <input type="text" id="username" placeholder="Username" />
+    <input type="password" id="password" placeholder="Password" />
+    <button onclick="validateLogin()">Login</button>
+  </div>
+</div>
+
+<footer>
+  © 2025 Benedict Adurosakin • Lagos, Nigeria • All Rights Reserved.
+</footer>
+
+<script>
+  const popup = document.getElementById('loginPopup');
+  const editBtn = document.getElementById('editBtn');
+  const saveBtn = document.getElementById('saveBtn');
+  const content = document.getElementById('nurseContent');
+
+  document.addEventListener('keydown', function (e) {
+    if (e.shiftKey && e.altKey && e.key === 'R') {
+      popup.style.display = 'flex';
+    }
+  });
+
+  function validateLogin() {
+    const u = document.getElementById('username').value;
+    const p = document.getElementById('password').value;
+    if (u === 'Benedictspr' && p === 'Benedictspr1#') {
+      popup.style.display = 'none';
+      editBtn.style.display = 'inline-block';
+    } else {
+      alert('Invalid credentials.');
+    }
+  }
+
+  editBtn.addEventListener('click', () => {
+    content.contentEditable = "true";
+    content.focus();
+    saveBtn.style.display = 'inline-block';
+    editBtn.style.display = 'none';
+  });
+
+  saveBtn.addEventListener('click', () => {
+    content.contentEditable = "false";
+    saveBtn.style.display = 'none';
+    editBtn.style.display = 'inline-block';
+    alert('Changes saved locally. To preserve, please backup the file.');
+  });
+</script>
+
+</body>
+</html>

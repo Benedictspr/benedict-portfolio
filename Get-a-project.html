@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contact - Get a Project</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 40px;
+      background-color: #f9f9f9;
+      color: #2c3e50; /* Applies to all text */
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    form {
+      max-width: 500px;
+      margin: 0 auto;
+      background-color: #fff;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    label {
+      font-weight: bold;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      color: #2c3e50;
+    }
+
+    button {
+      background-color: #006c90;
+      color: white;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #2c3e50;
+    }
+
+    .back-box {
+      max-width: 500px;
+      margin: 20px auto 0;
+      text-align: center;
+    }
+
+    .back-link {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: #ddd;
+      border-radius: 5px;
+      color: white; /* Override to keep it white */
+      text-decoration: none;
+      font-size: 14px;
+      background-color: #2c3e50;
+    }
+
+    .back-link:hover {
+      background-color: #1f2c38;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Have a project in mind? Let's talk.</h2>
+  <form action="/contact" method="POST">
+    <label for="name">Name:</label><br />
+    <input type="text" id="name" name="name" required /><br />
+
+    <label for="email">Email:</label><br />
+    <input type="email" id="email" name="email" required /><br />
+
+    <label for="message">Project Details:</label><br />
+    <textarea id="message" name="message" rows="6" required></textarea><br />
+
+    <button type="submit">Submit Project</button>
+  </form>
+
+  <div class="back-box">
+    <a class="back-link" href="index.html">Home</a>
+  </div>
+
+</body>
+</html>

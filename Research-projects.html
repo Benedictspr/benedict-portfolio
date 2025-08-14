@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Health Research Projects - Benedict Adurosakin</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f6f9;
+      color: #000000;
+    }
+
+    header {
+      background-color: #004a63;
+      color: white;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 1.6rem;
+    }
+
+    .home-link {
+      background: #006c90;
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 1rem;
+      transition: background 0.3s;
+    }
+
+    .home-link:hover {
+      background: #0084b4;
+    }
+
+    .section {
+      padding: 2rem 1.5rem;
+      margin: 2rem auto;
+      background-color: #ffffff;
+      border-radius: 1rem;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.06);
+      max-width: 950px;
+    }
+
+    .section h2 {
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+      color: #2c3e50;
+      text-align: center;
+    }
+
+    .section p {
+      font-size: 1rem;
+      line-height: 1.6;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+
+    button {
+      background-color: #004a63;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #006c90;
+    }
+
+    #admin-login {
+      display: none;
+      margin-top: 20px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px 10px;
+      background: #004a63;
+      color: white;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Research Projects</h1>
+    <a class="home-link" href="index.html">Home</a>
+  </header>
+
+  <div class="section" id="research-section">
+    <h2>Health Research Projects</h2>
+    <p>
+      As a Registered Nurse with vast and evolving expertise, I’ve contributed to over 56 health-related research projects, serving as a lead investigator, collaborator, and data analyst. My scope spans maternal health, epidemiology, data modeling, community health diagnostics, healthcare technology, policy analysis, non-communicable disease research, infectious disease surveillance, and more. Each study reflects my passion for using science to solve real-world problems, and my commitment to meaningful, actionable findings. 
+    </p>
+
+    <div id="admin-login">
+      <input type="text" id="admin-user" placeholder="Username" />
+      <input type="password" id="admin-pass" placeholder="Password" />
+      <button onclick="verifyAdmin()">Login</button>
+    </div>
+
+    <div id="project-form" style="display: none; margin-top: 20px;">
+      <h3>Add New Research Project</h3>
+      <input type="text" id="project-title" placeholder="Project Title" />
+      <input type="text" id="project-author" placeholder="Author" />
+      <input type="text" id="project-coauthors" placeholder="Co-Authors (optional)" />
+      <textarea id="project-abstract" placeholder="Project Abstract"></textarea>
+      <button onclick="addProject()">Add Project</button>
+    </div>
+
+    <div id="projects-container" style="margin-top: 30px;"></div>
+
+    <h3 style="margin-top: 50px;">Client Reviews</h3>
+    <form id="reviewForm">
+      <input type="text" id="reviewer" placeholder="Your Name" required />
+      <textarea id="reviewText" placeholder="Your Feedback" required></textarea>
+      <button type="submit">Submit Review</button>
+    </form>
+    <div id="reviews" style="margin-top: 20px;"></div>
+  </div>
+
+  <footer>
+    © 2025 Benedict Adurosakin • Lagos, Nigeria • All Rights Reserved.
+  </footer>
+
+  <script>
+    const adminForm = document.getElementById('project-form');
+    const loginBox = document.getElementById('admin-login');
+    const projectListEl = document.getElementById('projects-container');
+    const reviewForm = document.getElementById('reviewForm');
+    const reviewsEl = document.getElementById('reviews');
+
+    const correctUser = atob("QmVuZWRpY3RzcHI=");
+    const correctPass = atob("QmVuZWRpY3RzcHIxIw==");
+
+    // Secret login toggle: Shift + Alt + R
+    document.addEventListener('keydown', function (e) {
+      if (e.shiftKey && e.altKey && e.key.toLowerCase() === 'r') {
+        e.preventDefault();
+        loginBox.style.display = loginBox.style.display === 'none' ? 'block' : 'none';
+      }
+    });
+
+    function verifyAdmin() {
+      const user = document.getElementById('admin-user').value;
+      const pass = document.getElementById('admin-pass').value;
+      if (user === correctUser && pass === correctPass) {
+        adminForm.style.display = 'block';
+        loginBox.style.display = 'none';
+      } else {
+        alert('Invalid credentials.');
+      }
+    }
+
+    let projects = JSON.parse(localStorage.getItem('researchProjects')) || [];
+
+    function renderProjects() {
+      projectListEl.innerHTML = '';
+      projects.forEach(proj => {
+        const div = document.createElement('div');
+        div.style.background = '#f9f9f9';
+        div.style.border = '1px solid #ddd';
+        div.style.padding = '15px';
+        div.style.borderRadius = '8px';
+        div.style.marginBottom = '15px';
+        div.innerHTML = `
+          <h4>${proj.title}</h4>
+          <p><strong>Author:</strong> ${proj.author}</p>
+          ${proj.coauthors ? `<p><strong>Co-Authors:</strong> ${proj.coauthors}</p>` : ''}
+          <p>${proj.abstract}</p>
+          <a href="Get-a-project.html" style="text-decoration: none;">
+            <button>Contact for Collaboration</button>
+          </a>`;
+        projectListEl.appendChild(div);
+      });
+    }
+
+    function addProject() {
+      const title = document.getElementById('project-title').value.trim();
+      const author = document.getElementById('project-author').value.trim();
+      const coauthors = document.getElementById('project-coauthors').value.trim();
+      const abstract = document.getElementById('project-abstract').value.trim();
+      if (title && author && abstract) {
+        projects.unshift({ title, author, coauthors, abstract });
+        localStorage.setItem('researchProjects', JSON.stringify(projects));
+        renderProjects();
+        document.getElementById('project-title').value = '';
+        document.getElementById('project-author').value = '';
+        document.getElementById('project-coauthors').value = '';
+        document.getElementById('project-abstract').value = '';
+      }
+    }
+
+    let reviews = JSON.parse(localStorage.getItem('projectReviews')) || [];
+
+    reviewForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+      const name = document.getElementById('reviewer').value;
+      const feedback = document.getElementById('reviewText').value;
+      reviews.unshift({ name, feedback });
+      localStorage.setItem('projectReviews', JSON.stringify(reviews));
+      renderReviews();
+      reviewForm.reset();
+    });
+
+    function renderReviews() {
+      reviewsEl.innerHTML = '';
+      reviews.forEach(r => {
+        const div = document.createElement('div');
+        div.style.border = '1px solid #ccc';
+        div.style.background = '#eef3f5';
+        div.style.padding = '10px';
+        div.style.borderRadius = '5px';
+        div.style.marginBottom = '10px';
+        div.innerHTML = `<strong>${r.name}</strong><p>${r.feedback}</p>`;
+        reviewsEl.appendChild(div);
+      });
+    }
+
+    renderProjects();
+    renderReviews();
+  </script>
+</body>
+</html>
