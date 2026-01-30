@@ -1,100 +1,124 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark scroll-smooth">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Contact - Get a Project</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 40px;
-      background-color: #f9f9f9;
-      color: #2c3e50; /* Applies to all text */
-    }
+  <title>Get a Project | Benedict Adurosakin</title>
 
-    h2 {
-      text-align: center;
-      margin-bottom: 20px;
-    }
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300..900&family=Great+Vibes&family=JetBrains+Mono:wght@300..800&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
 
-    form {
-      max-width: 500px;
-      margin: 0 auto;
-      background-color: #fff;
-      padding: 30px;
-      border-radius: 8px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Geist', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+            script: ['Great Vibes', 'cursive']
+          }
+        }
+      }
     }
+  </script>
 
-    label {
-      font-weight: bold;
+  <style type="text/tailwindcss">
+    @layer base {
+      body {
+        @apply bg-white dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 antialiased font-sans;
+      }
     }
-
-    input, textarea {
-      width: 100%;
-      padding: 10px;
-      margin-top: 5px;
-      margin-bottom: 15px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      color: #2c3e50;
-    }
-
-    button {
-      background-color: #006c90;
-      color: white;
-      padding: 12px 20px;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-    }
-
-    button:hover {
-      background-color: #2c3e50;
-    }
-
-    .back-box {
-      max-width: 500px;
-      margin: 20px auto 0;
-      text-align: center;
-    }
-
-    .back-link {
-      display: inline-block;
-      padding: 10px 20px;
-      background-color: #ddd;
-      border-radius: 5px;
-      color: white; /* Override to keep it white */
-      text-decoration: none;
-      font-size: 14px;
-      background-color: #2c3e50;
-    }
-
-    .back-link:hover {
-      background-color: #1f2c38;
+    @layer components {
+      .bento-card {
+        @apply border border-zinc-200 dark:border-zinc-800 rounded-2xl p-8
+               bg-white/50 dark:bg-zinc-900/40 backdrop-blur-md;
+      }
+      .input-field {
+        @apply w-full bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-lg p-4 outline-none focus:ring-1 focus:ring-zinc-400 dark:focus:ring-zinc-600 transition-all text-sm;
+      }
+      .mask {
+        mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+      }
     }
   </style>
 </head>
+
 <body>
 
-  <h2>Have a project in mind? Let's talk.</h2>
-  <form action="/contact" method="POST">
-    <label for="name">Name:</label><br />
-    <input type="text" id="name" name="name" required /><br />
+<div class="flex min-h-screen">
+  <div class="hidden lg:block w-[20%] border-r border-zinc-200 dark:border-zinc-800"></div>
 
-    <label for="email">Email:</label><br />
-    <input type="email" id="email" name="email" required /><br />
+  <main class="w-full lg:w-[60%] border-x border-zinc-200 dark:border-zinc-800 flex flex-col">
+    
+    <header class="pt-12 px-6 md:px-12">
+      <div class="flex justify-between items-end mb-10">
+        <h1 class="font-script text-4xl md:text-6xl leading-none">Collaboration</h1>
+        <div class="font-mono text-[10px] text-zinc-400 uppercase tracking-widest italic">Start a Project</div>
+      </div>
+      
+      <nav class="flex gap-6 font-mono text-[10px] tracking-widest uppercase mask mb-16 overflow-x-auto whitespace-nowrap pb-2">
+        <a href="index.html" class="text-zinc-500 hover:text-black dark:hover:text-white transition">About</a>
+        <a href="nurse.html" class="text-zinc-500 hover:text-black dark:hover:text-white transition">Registered Nurse</a>
+        <a href="healthcare-research.html" class="text-zinc-500 hover:text-black dark:hover:text-white transition">Nursing Research</a>
+        <a href="creative-writing.html" class="text-zinc-500 hover:text-black dark:hover:text-white transition">Writing</a>
+        <a href="https://benedictspr.github.io/benedict-portfolio/content-strategy.html" class="text-zinc-500 hover:text-black dark:hover:text-white transition">Content Strategy</a>
+      </nav>
+    </header>
 
-    <label for="message">Project Details:</label><br />
-    <textarea id="message" name="message" rows="6" required></textarea><br />
+    <section class="px-6 md:px-12 pb-20 flex-grow">
+      <div class="max-w-xl mx-auto">
+        <h2 class="text-2xl md:text-3xl font-light mb-8 leading-tight">
+          Have a project in mind? <br/>
+          <span class="font-bold border-b-2 border-zinc-900 dark:border-white">Let’s talk.</span>
+        </h2>
 
-    <button type="submit">Submit Project</button>
-  </form>
+        <form action="/contact" method="POST" class="space-y-6">
+          <div class="space-y-2">
+            <label class="font-mono text-[10px] uppercase tracking-widest text-zinc-400">Your Name</label>
+            <input type="text" id="name" name="name" placeholder="Benedict Adurosakin" class="input-field" required />
+          </div>
 
-  <div class="back-box">
-    <a class="back-link" href="index.html">Home</a>
-  </div>
+          <div class="space-y-2">
+            <label class="font-mono text-[10px] uppercase tracking-widest text-zinc-400">Email Address</label>
+            <input type="email" id="email" name="email" placeholder="benedict@example.com" class="input-field" required />
+          </div>
+
+          <div class="space-y-2">
+            <label class="font-mono text-[10px] uppercase tracking-widest text-zinc-400">Project Details</label>
+            <textarea id="message" name="message" rows="6" placeholder="Describe the problem we are solving..." class="input-field" required></textarea>
+          </div>
+
+          <button type="submit" class="w-full py-4 bg-black dark:bg-white text-white dark:text-black font-bold text-[10px] uppercase tracking-[0.2em] rounded-lg hover:opacity-90 transition-opacity">
+            Submit Project Proposal
+          </button>
+        </form>
+        
+        <div class="mt-12 text-center">
+          <p class="text-[10px] font-mono text-zinc-400 uppercase tracking-widest">Or Reach out directly</p>
+          <p class="text-sm mt-2 text-zinc-600 dark:text-zinc-300">benedictadurosakin@gmail.com</p>
+        </div>
+      </div>
+    </section>
+
+    <footer class="px-6 md:px-12 pt-12 pb-10 border-t border-zinc-100 dark:border-zinc-900 flex justify-between items-center mt-auto">
+      <div class="flex gap-6 text-xl text-zinc-500">
+        <a href="https://github.com/Benedictspr" target="_blank"><i class="fa-brands fa-github"></i></a>
+        <a href="https://www.linkedin.com/in/benedict-adurosakin-736774398" target="_blank"><i class="fa-brands fa-linkedin"></i></a>
+        <a href="https://x.com/icreate_idesign" target="_blank"><i class="fa-brands fa-x-twitter"></i></a>
+        <a href="https://www.instagram.com/icreate.idesign" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+        <a href="https://web.facebook.com/profile.php?id=61578122076472" target="_blank"><i class="fa-brands fa-facebook"></i></a>
+      </div>
+      <div class="font-mono text-[10px] bg-zinc-50 dark:bg-zinc-900 px-4 py-2 rounded-md text-zinc-500">
+        ➜ git commit -m "project-inbound"
+      </div>
+    </footer>
+  </main>
+
+  <div class="hidden lg:block w-[20%] border-l border-zinc-200 dark:border-zinc-800"></div>
+</div>
 
 </body>
 </html>
