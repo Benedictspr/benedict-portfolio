@@ -1,159 +1,153 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark scroll-smooth">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Creative Writing - Benedict Adurosakin</title>
-  <style>
-    * {
-      box-sizing: border-box;
-    }
+  <title>Creative Writing | Benedict Adurosakin</title>
 
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      margin: 0;
-      padding: 0;
-      background-color: #f4f6f9;
-      color: #000000;
-    }
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300..900&family=Great+Vibes&family=JetBrains+Mono:wght@300..800&family=Playfair+Display:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
 
-    header {
-      background-color: #004a63;
-      color: white;
-      padding: 1.2rem 2rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Geist', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+            script: ['Great Vibes', 'cursive'],
+            author: ['Playfair Display', 'serif']
+          }
+        }
+      }
     }
+  </script>
 
-    header h1 {
-      font-size: 1.5rem;
-      margin: 0;
+  <style type="text/tailwindcss">
+    @layer base {
+      body {
+        @apply bg-white dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 antialiased font-sans;
+      }
     }
-
-    .back-button {
-      background-color: white;
-      color: #004a63;
-      border: none;
-      padding: 8px 14px;
-      border-radius: 6px;
-      font-weight: bold;
-      text-decoration: none;
-    }
-
-    .section {
-      max-width: 900px;
-      margin: 2rem auto;
-      padding: 1.5rem;
-      background-color: white;
-      border-radius: 10px;
-      box-shadow: 0 3px 10px rgba(0,0,0,0.06);
-    }
-
-    .section h2 {
-      font-size: 1.8rem;
-      color: #2c3e50;
-      margin-bottom: 0.5rem;
-      text-align: center;
-    }
-
-    .section p {
-      font-size: 1.05rem;
-      line-height: 1.7;
-      color: #444;
-      margin-bottom: 1.5rem;
-    }
-
-    .book-title {
-      font-size: 1.3rem;
-      color: #2c3e50;
-      font-weight: bold;
-      margin-bottom: 0.5rem;
-    }
-
-    .buttons {
-      margin-top: 0.8rem;
-    }
-
-    .buttons a {
-      background-color: #004a63;
-      color: white;
-      padding: 10px 16px;
-      border-radius: 6px;
-      text-decoration: none;
-      margin-right: 0.6rem;
-      font-size: 0.95rem;
-      display: inline-block;
-      transition: background 0.3s;
-    }
-
-    .buttons a:hover {
-      background-color: #006c90;
-    }
-
-    footer {
-      text-align: center;
-      padding: 30px 10px;
-      background: #004a63;
-      color: white;
-      font-size: 14px;
-      margin-top: 3rem;
+    @layer components {
+      .bento-card {
+        @apply border border-zinc-200 dark:border-zinc-800 rounded-2xl p-8
+               bg-white/50 dark:bg-zinc-900/40 backdrop-blur-md transition-all hover:border-zinc-400 dark:hover:border-zinc-600;
+      }
+      .circle-sketch {
+        @apply relative inline-block px-2;
+      }
+      .circle-svg {
+        @apply absolute -left-1 -top-1 w-[calc(100%+8px)] h-[calc(100%+8px)] text-amber-500/40 dark:text-amber-200/20;
+      }
+      .mask {
+        mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+      }
     }
   </style>
 </head>
+
 <body>
 
-<header>
-  <h1>Creative Writing</h1>
-  <a href="index.html" class="back-button">Home</a>
-</header>
+<div class="flex min-h-screen">
+  <div class="hidden lg:block w-[20%] border-r border-zinc-200 dark:border-zinc-800"></div>
 
-<!-- Writing Philosophy -->
-<div class="section">
-  <h2>My Writing Philosophy</h2>
-  <p>
-    My creative writing explores the depth of the human condition through fiction and philosophical reflection. Influenced by authors such as Rainer Maria Rilke, Kahlil Gibran, James Baldwin, Clarice Lispector, David Whyte, and Rumi, I aim to capture emotion, introspection, and layered meaning in every piece. My work blends mystery, moral tension, silence, and symbolism, always anchoring the voice of the voiceless.
-  </p>
-  <p>
-    I’ve authored works such as <em>The XVII-th: Letters to the One Who Will Come</em>, a reflective novel in letter form and <em>Five Pieces of Sam</em>, a psychological crime thriller. I'm currently working on a new allegorical novel titled <em>The Ivory Vultures</em>, which explores themes of corruption, foreign aid, and the vanishing soul of a nation, set against the backdrop of political deception.
-  </p>
+  <main class="w-full lg:w-[60%] border-x border-zinc-200 dark:border-zinc-800 flex flex-col">
+    
+    <header class="pt-12 px-6 md:px-12">
+      <div class="flex justify-between items-end mb-10">
+        <h1 class="font-script text-4xl md:text-6xl leading-none">Creative Writing</h1>
+        <div class="font-mono text-[10px] text-zinc-400 uppercase tracking-widest italic">The Written Word</div>
+      </div>
+      
+      <nav class="flex gap-6 font-mono text-[10px] tracking-widest uppercase mask mb-16 overflow-x-auto whitespace-nowrap pb-2">
+        <a href="index.html" class="text-zinc-500 hover:text-black dark:hover:text-white transition">About</a>
+        <a href="nurse.html" class="text-zinc-500 hover:text-black dark:hover:text-white transition">Registered Nurse</a>
+        <a href="healthcare-research.html" class="text-zinc-500 hover:text-black dark:hover:text-white transition">Nursing Research</a>
+        <a class="text-black dark:text-white border-b-2 border-black dark:border-white pb-1">Writing</a>
+        <a href="https://benedictspr.github.io/benedict-portfolio/content-strategy.html" class="text-zinc-500 hover:text-black dark:hover:text-white transition">Content Strategy</a>
+      </nav>
+    </header>
+
+    <section class="px-6 md:px-12 pb-20 flex-grow">
+      
+      <div class="mb-20">
+        <h2 class="font-mono text-[10px] uppercase tracking-[0.3em] text-zinc-400 mb-8">Philosophy</h2>
+        <div class="font-author text-2xl md:text-3xl leading-relaxed italic text-zinc-700 dark:text-zinc-300">
+          "My writing explores the depth of the human condition... I aim to capture emotion, introspection, and layered meaning in every piece, anchoring the 
+          <span class="circle-sketch not-italic font-bold text-black dark:text-white">
+            voice of the voiceless
+            <svg class="circle-svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M5,50 C5,20 95,20 95,50 C95,80 5,80 5,50" stroke="currentColor" stroke-width="2" fill="none" vector-effect="non-scaling-stroke"/></svg>
+          </span>."
+        </div>
+        <p class="mt-8 text-zinc-500 font-sans max-w-xl">
+          Influenced by Rainer Maria Rilke, Kahlil Gibran, and James Baldwin, my work blends mystery, moral tension, and symbolism.
+        </p>
+      </div>
+
+      <h2 class="font-mono text-[10px] uppercase tracking-[0.3em] text-zinc-400 mb-8">Selected Bibliography</h2>
+      <div class="grid gap-6">
+        
+        <div class="bento-card group border-amber-200/50 dark:border-amber-900/20">
+          <div class="flex justify-between items-start mb-6">
+             <h3 class="font-author text-2xl italic">The XVII-th: Letters to the One Who Will Come</h3>
+             <span class="text-[10px] font-mono border border-amber-300 text-amber-600 px-2 py-1 rounded">PHILOSOPHICAL NOVEL</span>
+          </div>
+          <p class="text-zinc-500 dark:text-zinc-400 text-sm leading-relaxed mb-8">
+            The XVII-th is a 166-page philosophical letter-series, written by a vanished voice to the one fated to rise. It is not a guide. It is a mirror. It is a journey through silence, power, betrayal, and the burden of knowing too much, wrapped in metaphor and mystery. Each page seeks to awaken the still, sovereign self buried beneath life’s noise and injustice.
+          </p>
+          <div class="flex gap-6">
+            <a href="Read-excerpts.html" class="text-[10px] font-bold border-b border-black dark:border-white pb-1 group-hover:text-amber-600 transition">READ EXCERPTS</a>
+            <a href="https://selar.com/f8e09466jy" target="_blank" class="text-[10px] font-bold border-b border-black dark:border-white pb-1 group-hover:text-amber-600 transition">BUY NOVEL ↗</a>
+          </div>
+        </div>
+
+        <div class="bento-card group">
+          <div class="flex justify-between items-start mb-6">
+             <h3 class="font-author text-2xl italic">Five Pieces of Sam</h3>
+             <span class="text-[10px] font-mono border border-zinc-300 text-zinc-500 px-2 py-1 rounded">CRIME THRILLER</span>
+          </div>
+          <p class="text-zinc-500 dark:text-zinc-400 text-sm leading-relaxed mb-8">
+            A murder in Lagos. Five suspects. One chilling truth. Five Pieces of Sam by Adurosakin Benedict is the psychological thriller you won’t put down. Dive into a web of betrayal and secrets. Can you solve it before the last page?
+          </p>
+          <div class="flex gap-6">
+            <a href="https://benedicta71.gumroad.com/l/gyeanz" target="_blank" class="text-[10px] font-bold border-b border-black dark:border-white pb-1 transition">READ NOW ↗</a>
+          </div>
+        </div>
+
+        <div class="bento-card opacity-80 border-dashed">
+          <div class="flex justify-between items-start mb-4">
+             <h3 class="font-author text-2xl italic text-zinc-400">The Ivory Vultures</h3>
+             <span class="text-[10px] font-mono bg-zinc-100 dark:bg-zinc-800 px-2 py-1 rounded">IN PROGRESS</span>
+          </div>
+          <p class="text-zinc-500 text-sm leading-relaxed">
+            The Ivory Vultures is a political allegory exploring the decay of a fictional nation plagued by corruption, collapsing values, and the manipulation of foreign influence. Told through betrayal, alliances, and raw emotion, it draws readers into the heart of a country teetering on the edge. This upcoming novel builds on the legacy of The XVII-th and aims to spark critical reflection about our collective future.
+          </p>
+        </div>
+
+      </div>
+    </section>
+
+    <footer class="px-6 md:px-12 mt-32 pt-12 pb-10 border-t border-zinc-100 dark:border-zinc-900 flex justify-between items-center">
+      <div class="flex gap-6 text-xl text-zinc-500">
+        <a href="https://github.com/Benedictspr" target="_blank"><i class="fa-brands fa-github"></i></a>
+        <a href="https://www.linkedin.com/in/benedict-adurosakin-736774398" target="_blank"><i class="fa-brands fa-linkedin"></i></a>
+        <a href="https://x.com/icreate_idesign" target="_blank"><i class="fa-brands fa-x-twitter"></i></a>
+        <a href="https://www.instagram.com/icreate.idesign" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+        <a href="https://web.facebook.com/profile.php?id=61578122076472" target="_blank"><i class="fa-brands fa-facebook"></i></a>
+      </div>
+
+      <div class="font-mono text-[10px] bg-zinc-50 dark:bg-zinc-900 px-4 py-2 rounded-md text-zinc-500">
+        ➜ git commit -m "letters-vanished"
+      </div>
+    </footer>
+  </main>
+
+  <div class="hidden lg:block w-[20%] border-l border-zinc-200 dark:border-zinc-800"></div>
 </div>
-
-<!-- The XVII-th -->
-<div class="section">
-  <h2>The XVII-th: Letters to the One Who Will Come</h2>
-  <p>
-    <em>The XVII-th</em> is a 166-page philosophical letter-series, written by a vanished voice to the one fated to rise. It is not a guide. It is a mirror. It is a journey through silence, power, betrayal, and the burden of knowing too much, wrapped in metaphor and mystery. Each page seeks to awaken the still, sovereign self buried beneath life’s noise and injustice.
-  </p>
-  <div class="buttons">
-    <a href="Read-excerpts.html">Read Excerpts</a>
-    <a href="https://selar.com/f8e09466jy" target="_blank">Buy Novel</a>
-  </div>
-</div>
-
-<!-- Five Pieces of Sam -->
-<div class="section">
-  <h2>Five Pieces of Sam</h2>
-  <p>
-    A murder in Lagos. Five suspects. One chilling truth.  
-    <em>Five Pieces of Sam</em> by Adurosakin Benedict is the psychological thriller you won’t put down. Dive into a web of betrayal and secrets. Can you solve it before the last page?
-  </p>
-  <div class="buttons">
-    <a href="https://benedicta71.gumroad.com/l/gyeanz" target="_blank">Read Now</a>
-  </div>
-</div>
-
-<!-- The Ivory Vultures -->
-<div class="section">
-  <h2>The Ivory Vultures <span style="font-weight: normal;">(Coming Soon)</span></h2>
-  <p>
-    <em>The Ivory Vultures</em> is a political allegory exploring the decay of a fictional nation plagued by corruption, collapsing values, and the manipulation of foreign influence. Told through betrayal, alliances, and raw emotion, it draws readers into the heart of a country teetering on the edge. This upcoming novel builds on the legacy of <em>The XVII-th</em> and aims to spark critical reflection about our collective future.
-  </p>
-</div>
-
-<footer>
-  © 2025 Benedict Adurosakin • Lagos, Nigeria • All Rights Reserved.
-</footer>
 
 </body>
 </html>
