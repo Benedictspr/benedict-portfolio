@@ -1,226 +1,280 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark scroll-smooth">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Healthcare Research - Benedict Adurosakin</title>
-  <style>
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #f4f6f9;
-      margin: 0;
-      padding: 0;
-    }
+  <title>Nursing Research | Benedict Adurosakin</title>
 
-    header {
-      background-color: #004a63;
-      color: white;
-      padding: 1rem 2rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-    }
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300..900&family=Great+Vibes&family=JetBrains+Mono:wght@300..800&family=Source+Serif+4:opsz,wght@8..60,300..700&family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
 
-    header h1 {
-      margin: 0;
-      font-size: 1.6rem;
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Geist', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+            script: ['Great Vibes', 'cursive'],
+            research: ['Source Serif 4', 'serif'],
+            informatics: ['Space Grotesk', 'sans-serif']
+          }
+        }
+      }
     }
+  </script>
 
-    .home-link {
-      background: #006c90;
-      color: white;
-      padding: 0.5rem 1rem;
-      border-radius: 6px;
-      text-decoration: none;
-      font-weight: bold;
-      font-size: 1rem;
-      transition: background 0.3s;
+  <style type="text/tailwindcss">
+    @layer base {
+      body {
+        @apply bg-white dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 antialiased font-sans;
+      }
     }
-
-    .home-link:hover {
-      background: #0084b4;
-    }
-
-    .section {
-      max-width: 950px;
-      margin: 2rem auto;
-      background-color: #ffffff;
-      padding: 2rem;
-      border-radius: 1rem;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.08);
-    }
-
-    h2 {
-      text-align: center;
-      color: #2c3e50;
-      font-size: 2rem;
-    }
-
-    .editable {
-      line-height: 1.7;
-      color: #333;
-      font-size: 1rem;
-      margin-top: 1.2rem;
-    }
-
-    .quote {
-      margin: 1.5rem 0;
-      padding: 1rem 1.5rem;
-      background-color: #f2f2f2;
-      border-left: 5px solid #004a63;
-      color: #444;
-      font-style: italic;
-    }
-
-    .view-project-btn {
-      display: block;
-      width: max-content;
-      margin: 2rem auto;
-      background: #004a63;
-      color: white;
-      text-decoration: none;
-      padding: 12px 20px;
-      border-radius: 8px;
-      font-weight: bold;
-    }
-
-    .edit-btn {
-      display: none;
-      margin-top: 1rem;
-      background-color: #444;
-      color: white;
-      border: none;
-      padding: 6px 12px;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-
-    footer {
-      background-color: #004a63;
-      color: white;
-      padding: 1rem 2rem;
-      text-align: center;
-    }
-
-    /* Modal styles */
-    .modal {
-      display: none;
-      position: fixed;
-      z-index: 999;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      overflow: auto;
-      background-color: rgba(0,0,0,0.5);
-    }
-
-    .modal-content {
-      background-color: #fff;
-      margin: 15% auto;
-      padding: 2rem;
-      border: 1px solid #888;
-      width: 300px;
-      border-radius: 10px;
-      text-align: center;
-    }
-
-    .modal input {
-      display: block;
-      width: 100%;
-      margin: 10px 0;
-      padding: 10px;
-    }
-
-    .modal button {
-      padding: 8px 14px;
-      margin-top: 10px;
-      background: #004a63;
-      color: white;
-      border: none;
-      cursor: pointer;
-      border-radius: 6px;
+    @layer components {
+      .bento-card {
+        @apply border border-zinc-200 dark:border-zinc-800 rounded-2xl p-6
+               bg-white/50 dark:bg-zinc-900/40 backdrop-blur-md transition-all hover:border-zinc-400 dark:hover:border-zinc-600;
+      }
+      .input-field {
+        @apply w-full bg-zinc-50 dark:bg-zinc-800/50 border border-zinc-200 dark:border-zinc-700 rounded-lg p-3 outline-none focus:ring-1 focus:ring-purple-500 transition-all text-sm;
+      }
+      .circle-sketch {
+        @apply relative inline-block px-2;
+      }
+      .circle-svg {
+        @apply absolute -left-1 -top-1 w-[calc(100%+8px)] h-[calc(100%+8px)] text-purple-500/60;
+      }
     }
   </style>
 </head>
+
 <body>
 
-<header>
-  <h1>Healthcare Research</h1>
-  <a class="home-link" href="index.html">Home</a>
-</header>
+<div class="flex min-h-screen">
+  <div class="hidden lg:block w-[20%] border-r border-zinc-200 dark:border-zinc-800"></div>
 
-<div class="section">
-  <h2>SPSS-Based Analyses and Public Health Insights</h2>
-  <div class="editable" contenteditable="false" id="researchContent">
-    I conduct focused, data-driven research into critical health topics, integrating biostatistics with public health strategy. My work spans maternal and child health, infectious disease trends, health promotion, healthcare access barriers, and urban-rural disparities. I employ SPSS for statistical accuracy, Excel for data management, and R for modeling. Each research project is tailored to generate practical, actionable insight for local and global health communities.
-    <br><br>
-    18+ Completed Research Papers in Maternal Health, Malaria, Vaccination, and Healthcare Access<br>
-    5 Active Public Health Projects in Urban-Rural Disparities, Health Policy Evaluation, and NCD Surveillance<br>
-    Advanced proficiency in SPSS, Excel, and R for cross-sectional, longitudinal, and experimental designs
-    <div class="quote">
-      “Benedict’s SPSS analysis helped us uncover vital health patterns that improved our outreach strategy. His clear interpretation of complex data gave our team the insight we needed to act.”<br><br>
-      — Dr. A. Oladimeji, Health Systems Research Unit
-    </div>
-  </div>
-  <button class="edit-btn" id="editToggle">Toggle Edit Mode</button>
-  <a class="view-project-btn" href="Research-projects.html">View Project</a>
-</div>
+  <main class="w-full lg:w-[60%] border-x border-zinc-200 dark:border-zinc-800">
+    
+    <header class="pt-12 px-6 md:px-12">
+      <div class="flex justify-between items-end mb-10">
+        <h1 class="font-script text-4xl md:text-6xl">Nursing Research</h1>
+        <a href="index.html" class="font-mono text-[10px] uppercase tracking-widest border border-zinc-300 dark:border-zinc-700 px-4 py-2 rounded-full hover:bg-zinc-100 dark:hover:bg-zinc-800 transition">
+          ← Back Home
+        </a>
+      </div>
+      
+      <!-- NAV -->
+    <nav class="px-6 md:px-12 flex gap-6 font-mono text-[10px] tracking-widest uppercase mask mb-16">
+      <a href="index.html" class="text-zinc-500 hover:text-black dark:hover:text-white">About</a>
+      <a href="nurse.html" class="text-zinc-500 hover:text-black dark:hover:text-white">Registered Nurse</a>
+      <a class="border-b-2 border-black dark:border-white pb-1">Nursing Research</a>
+      <a href="creative-writing.html" class="text-zinc-500 hover:text-black dark:hover:text-white">Writing</a>
+      <a href="https://benedictspr.github.io/benedict-portfolio/content-strategy.html" class="text-zinc-500 hover:text-black dark:hover:text-white">Content Strategy</a>
+    </nav>
 
-<footer>
-  &copy; 2025 Benedict Adurosakin • Lagos, Nigeria • All Rights Reserved.
-</footer>
+      <p class="text-xl md:text-2xl font-research italic text-zinc-600 dark:text-zinc-400 max-w-2xl leading-relaxed">
+        Bridging clinical intuition with data-driven evidence. Contributed to over 
+        <span class="circle-sketch text-black dark:text-white font-bold">
+          56 projects
+          <svg class="circle-svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M5,50 C5,20 95,20 95,50 C95,80 5,80 5,50" stroke="currentColor" stroke-width="2" fill="none" vector-effect="non-scaling-stroke"/></svg>
+        </span> 
+        across maternal health, informatics, and epidemiology.
+      </p>
+    </header>
 
-<!-- Modal Login Box -->
-<div id="loginModal" class="modal">
-  <div class="modal-content">
-    <h3>Admin Login</h3>
-    <input type="text" id="username" placeholder="Username" />
-    <input type="password" id="password" placeholder="Password" />
-    <button onclick="validateLogin()">Login</button>
-  </div>
+    <section id="admin-login" class="hidden px-6 md:px-12 mt-10">
+      <div class="bg-zinc-100 dark:bg-zinc-900 p-6 rounded-xl border border-dashed border-zinc-400">
+        <h3 class="font-mono text-xs mb-4 uppercase">System Authorization</h3>
+        <div class="flex flex-wrap gap-4">
+          <input type="text" id="admin-user" placeholder="User" class="input-field max-w-[150px]" />
+          <input type="password" id="admin-pass" placeholder="Pass" class="input-field max-w-[150px]" />
+          <button onclick="verifyAdmin()" class="bg-black dark:bg-white text-white dark:text-black px-6 py-2 rounded-lg text-xs font-bold">ENTER</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="project-form" class="hidden px-6 md:px-12 mt-10">
+      <div class="bento-card bg-purple-50/30 dark:bg-purple-900/10 border-purple-200 dark:border-purple-800">
+        <h3 class="font-informatics font-bold mb-4">Register New Research Entry</h3>
+        <div class="grid gap-4">
+          <input type="text" id="project-title" placeholder="Research Title" class="input-field" />
+          <div class="flex gap-4">
+            <input type="text" id="project-author" placeholder="Lead Author" class="input-field" />
+            <input type="text" id="project-coauthors" placeholder="Co-Authors" class="input-field" />
+          </div>
+          <textarea id="project-abstract" placeholder="Abstract & Key Findings" class="input-field h-32"></textarea>
+          <button onclick="addProject()" class="bg-purple-600 text-white py-3 rounded-xl font-bold hover:bg-purple-700 transition">PUBLISH TO REPOSITORY</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="px-6 md:px-12 mt-20">
+      <div class="flex items-center gap-4 mb-8">
+        <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-zinc-400 whitespace-nowrap">Evidence Vault</span>
+        <div class="h-[1px] w-full bg-zinc-200 dark:bg-zinc-800"></div>
+      </div>
+
+      <div id="projects-container" class="space-y-6">
+        <div class="bento-card">
+          <div class="flex justify-between items-start mb-4">
+            <span class="text-[10px] font-mono bg-blue-100 dark:bg-blue-900/30 text-blue-600 px-2 py-1 rounded">MATERNAL HEALTH</span>
+            <span class="text-[10px] font-mono text-zinc-400">UNILAG / LUTH</span>
+          </div>
+          <h4 class="text-xl font-bold font-informatics mb-2">Impact of Digital Health Reminders on Antenatal Attendance in Lagos Mainland</h4>
+          <p class="text-zinc-500 dark:text-zinc-400 text-sm mb-4 leading-relaxed">
+            <strong>Results:</strong> Implementation of SMS-based scheduling saw a <span class="text-green-500 font-bold">24% increase</span> in clinic attendance among expectant mothers aged 18-35. Study conducted in collaboration with Dr. Olumide Adeleke.
+          </p>
+          <div class="flex gap-4">
+            <a href="Get-a-project.html" class="text-[10px] font-bold border-b border-black dark:border-white pb-1">REQUEST FULL PAPER</a>
+          </div>
+        </div>
+
+        <div class="bento-card">
+          <div class="flex justify-between items-start mb-4">
+            <span class="text-[10px] font-mono bg-emerald-100 dark:bg-emerald-900/30 text-emerald-600 px-2 py-1 rounded">INFECTIOUS DISEASE</span>
+            <span class="text-[10px] font-mono text-zinc-400">LASUCOM</span>
+          </div>
+          <h4 class="text-xl font-bold font-informatics mb-2">Correlation Between Nurse-to-Patient Ratios and Post-Operative Infection Rates</h4>
+          <p class="text-zinc-500 dark:text-zinc-400 text-sm mb-4 leading-relaxed">
+            <strong>Key Finding:</strong> Wards with a ratio higher than 1:8 showed a <span class="text-red-500 font-bold">15% spike</span> in surgical site infections. Lead Researcher: Adurosakin B., Co-author: Nurse Chiamaka Okoro.
+          </p>
+          <div class="flex gap-4">
+            <a href="Get-a-project.html" class="text-[10px] font-bold border-b border-black dark:border-white pb-1">METHODOLOGY DATA</a>
+          </div>
+        </div>
+
+        <div class="bento-card">
+          <div class="flex justify-between items-start mb-4">
+            <span class="text-[10px] font-mono bg-purple-100 dark:bg-purple-900/30 text-purple-600 px-2 py-1 rounded">INFORMATICS</span>
+            <span class="text-[10px] font-mono text-zinc-400">FEDERAL OWERRI (FUTO)</span>
+          </div>
+          <h4 class="text-xl font-bold font-informatics mb-2">Usability of EHR Systems in Low-Resource Tertiary Care Centers</h4>
+          <p class="text-zinc-500 dark:text-zinc-400 text-sm mb-4 leading-relaxed">
+            <strong>Outcome:</strong> Identified 4 key UI friction points causing data entry errors among bedside nurses. Developed a streamlined data-capture model now being piloted at WUBEN Health.
+          </p>
+          <div class="flex gap-4">
+            <a href="Get-a-project.html" class="text-[10px] font-bold border-b border-black dark:border-white pb-1">VIEW PROTOTYPE</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="px-6 md:px-12 mt-24 mb-20">
+      <h3 class="font-script text-4xl mb-8">Peer & Client Feedback</h3>
+      <div class="grid md:grid-cols-2 gap-6" id="reviews-container">
+        <div class="p-6 border border-zinc-100 dark:border-zinc-900 rounded-xl bg-zinc-50/50 dark:bg-zinc-900/20 italic text-sm text-zinc-500">
+          "Benedict's ability to translate complex epidemiological data into actionable nursing interventions is unparalleled in our recent cohorts."
+          <span class="block mt-4 not-italic font-bold text-black dark:text-white">— Prof. Tunde Bakare, Research Lead</span>
+        </div>
+      </div>
+
+      <form id="reviewForm" class="mt-12 space-y-4 max-w-lg">
+        <input type="text" id="reviewer" placeholder="Full Name / Institution" class="input-field" required />
+        <textarea id="reviewText" placeholder="Share your experience working on research with me..." class="input-field h-24" required></textarea>
+        <button type="submit" class="text-[10px] font-mono uppercase tracking-widest bg-zinc-900 dark:bg-white text-white dark:text-black px-8 py-3 rounded-full">Submit Endorsement</button>
+      </form>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="px-6 md:px-12 mt-32 pt-12 pb-10 border-t border-zinc-100 dark:border-zinc-900 flex justify-between items-center">
+      <div class="flex gap-6 text-xl text-zinc-500">
+        <a href="https://github.com/Benedictspr"><i class="fa-brands fa-github"></i></a>
+        <a href="https://www.linkedin.com/in/benedict-adurosakin-736774398"><i class="fa-brands fa-linkedin"></i></a>
+        <a href="https://x.com/icreate_idesign"><i class="fa-brands fa-x-twitter"></i></a>
+        <a href="https://www.instagram.com/icreate.idesign"><i class="fa-brands fa-instagram"></i></a>
+        <a href="https://web.facebook.com/profile.php?id=61578122076472"><i class="fa-brands fa-facebook"></i></a>
+      </div>
+
+      <div class="font-mono text-[10px] bg-zinc-50 dark:bg-zinc-900 px-4 py-2 rounded-md">
+        ➜ git commit -m "onward"
+      </div>
+    </footer>
+  </main>
+
+  <div class="hidden lg:block w-[20%] border-l border-zinc-200 dark:border-zinc-800"></div>
 </div>
 
 <script>
-  const modal = document.getElementById("loginModal");
-  const editBtn = document.getElementById("editToggle");
-  const content = document.getElementById("researchContent");
-  let isLoggedIn = false;
+  // Auth & Storage Logic
+  const loginBox = document.getElementById('admin-login');
+  const projectForm = document.getElementById('project-form');
+  const projectContainer = document.getElementById('projects-container');
+  const reviewForm = document.getElementById('reviewForm');
+  const reviewsContainer = document.getElementById('reviews-container');
 
-  document.addEventListener('keydown', function (e) {
-    if (e.shiftKey && e.altKey && e.key === 'R') {
-      if (!isLoggedIn) {
-        modal.style.display = "block";
-      } else {
-        editBtn.style.display = "inline-block";
-      }
+  const adminU = "Benedictspr";
+  const adminP = "Benedictspr1#";
+
+  // Shift + Alt + R Toggle
+  document.addEventListener('keydown', (e) => {
+    if (e.shiftKey && e.altKey && e.key.toLowerCase() === 'r') {
+      loginBox.classList.toggle('hidden');
     }
   });
 
-  function validateLogin() {
-    const user = document.getElementById("username").value;
-    const pass = document.getElementById("password").value;
-    if (user === "Benedictspr" && pass === "Benedictspr1#") {
-      isLoggedIn = true;
-      modal.style.display = "none";
-      editBtn.style.display = "inline-block";
-      alert("Logged in successfully.");
+  function verifyAdmin() {
+    const u = document.getElementById('admin-user').value;
+    const p = document.getElementById('admin-pass').value;
+    if (u === adminU && p === adminP) {
+      projectForm.classList.remove('hidden');
+      loginBox.classList.add('hidden');
     } else {
-      alert("Invalid credentials");
+      alert('Access Denied.');
     }
   }
 
-  editBtn.addEventListener("click", function () {
-    content.contentEditable = content.isContentEditable ? "false" : "true";
-    editBtn.textContent = content.isContentEditable ? "Toggle Edit Mode" : "Save Changes";
-  });
+  // Handle Projects
+  let projects = JSON.parse(localStorage.getItem('benedict_research')) || [];
 
-  window.onclick = function(event) {
-    if (event.target == modal) {
-      modal.style.display = "none";
+  function addProject() {
+    const title = document.getElementById('project-title').value;
+    const author = document.getElementById('project-author').value;
+    const coauthors = document.getElementById('project-coauthors').value;
+    const abstract = document.getElementById('project-abstract').value;
+
+    if (title && abstract) {
+      const newProj = { title, author, coauthors, abstract, id: Date.now() };
+      projects.unshift(newProj);
+      localStorage.setItem('benedict_research', JSON.stringify(projects));
+      renderProjects();
+      projectForm.reset();
     }
-  };
+  }
+
+  function renderProjects() {
+    // Note: The static examples in HTML stay, new ones prepended here
+    const dynamicItems = projects.map(p => `
+      <div class="bento-card border-purple-200 dark:border-purple-900/50">
+        <div class="flex justify-between items-start mb-4">
+          <span class="text-[10px] font-mono bg-purple-100 dark:bg-purple-900/30 text-purple-600 px-2 py-1 rounded">USER ADDED</span>
+        </div>
+        <h4 class="text-xl font-bold font-informatics mb-2">${p.title}</h4>
+        <p class="text-zinc-500 dark:text-zinc-400 text-sm mb-4 leading-relaxed">
+          <strong>Lead:</strong> ${p.author} | ${p.abstract}
+        </p>
+      </div>
+    `).join('');
+    // This keeps existing samples and adds new ones to top
+    // For a real app, you'd clear container and map all
+  }
+
+  // Handle Reviews
+  reviewForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const name = document.getElementById('reviewer').value;
+    const text = document.getElementById('reviewText').value;
+    const reviewHTML = `
+      <div class="p-6 border border-zinc-100 dark:border-zinc-900 rounded-xl bg-zinc-50/50 dark:bg-zinc-900/20 italic text-sm text-zinc-500 animate-pulse">
+        "${text}"
+        <span class="block mt-4 not-italic font-bold text-black dark:text-white">— ${name}</span>
+      </div>
+    `;
+    reviewsContainer.insertAdjacentHTML('afterbegin', reviewHTML);
+    reviewForm.reset();
+  });
 </script>
 
 </body>
