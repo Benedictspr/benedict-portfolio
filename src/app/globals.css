@@ -1,0 +1,142 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&family=Geist:wght@300..900&family=JetBrains+Mono:wght@300..800&display=swap');
+
+@import "tailwindcss";
+
+@theme {
+  --font-sans: 'Geist', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  --font-script: 'Cormorant Garamond', serif;
+  --font-nurse: 'Geist', sans-serif;
+  --font-research: 'Cormorant Garamond', serif;
+  --font-informatics: 'Geist', sans-serif;
+  --font-author: 'Cormorant Garamond', serif;
+  --font-name: 'Cormorant Garamond', serif;
+  
+  --animate-marquee: marquee 26s linear infinite;
+  --animate-underline: underline 0.6s ease forwards;
+  --animate-fadeIn: fadeIn 0.3s ease;
+
+  @keyframes marquee {
+    0% { transform: translateX(0%); }
+    100% { transform: translateX(-100%); }
+  }
+  @keyframes underline {
+    0% { transform: scaleX(0); }
+    100% { transform: scaleX(1); }
+  }
+  @keyframes fadeIn {
+    0% { opacity: 0; transform: translateY(5px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+}
+
+:root {
+  --background: #ffffff;
+  --foreground: #09090b;
+  --border-color: #e4e4e7;
+}
+
+.dark {
+  --background: #09090b;
+  --foreground: #fafafa;
+  --border-color: #27272a;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+@utility bento {
+  border: 1px solid var(--border-color);
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  background-color: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(12px);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.dark .bento {
+  background-color: rgba(9, 9, 11, 0.6);
+  border-color: #27272a;
+}
+
+.bento:hover {
+  border-color: #a1a1aa;
+}
+
+.dark .bento:hover {
+  border-color: #52525b;
+}
+
+@utility glass {
+  background-color: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--border-color);
+  border-radius: 0.75rem;
+}
+
+.dark .glass {
+  background-color: rgba(9, 9, 11, 0.5);
+  border-color: #27272a;
+}
+
+@utility mask {
+  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+}
+
+.highlight-svg {
+  position: relative;
+  display: inline-block;
+  padding-left: 0.25rem;
+  padding-right: 0.25rem;
+}
+
+.svg-underline {
+  position: absolute;
+  left: 0;
+  bottom: -0.25rem;
+  width: 100%;
+  height: 10px;
+  color: #22d3ee; /* cyan-400 */
+}
+.dark .svg-underline {
+  color: #c084fc; /* purple-400 */
+}
+
+.circle-sketch {
+  position: relative;
+  display: inline-block;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+
+.circle-svg {
+  position: absolute;
+  left: -0.25rem;
+  top: -0.25rem;
+  width: calc(100% + 8px);
+  height: calc(100% + 8px);
+  color: rgba(6, 182, 212, 0.6); /* cyan-500/60 (nurse) */
+}
+.dark .circle-svg {
+  color: rgba(168, 85, 247, 0.6); /* purple-500/60 (nurse dark) */
+}
+
+/* Specific page circle overrides */
+.research-circle .circle-svg {
+  color: rgba(168, 85, 247, 0.7) !important; /* purple-500/70 */
+}
+.dark .research-circle .circle-svg {
+  color: rgba(192, 132, 252, 0.7) !important; /* purple-400/70 */
+}
+
+.writing-circle .circle-svg {
+  color: rgba(245, 158, 11, 0.6) !important; /* amber-500/60 */
+}
+.dark .writing-circle .circle-svg {
+  color: rgba(253, 230, 138, 0.4) !important; /* amber-200/40 */
+}
+
