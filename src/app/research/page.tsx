@@ -4,6 +4,8 @@ import { useState, useEffect } from 'react';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
 import ScrollReveal from '../../components/ScrollReveal';
+import { useAdmin } from '../../context/AdminContext';
+import Link from 'next/link';
 
 interface ResearchPaper {
   id: string;
@@ -13,7 +15,7 @@ interface ResearchPaper {
   authors: { main: string; coAuthor: string };
   date: string;
   snippet: string;
-  actionType: 'request' | 'data' | 'view';
+  actionType: string;
   introduction: string;
   methodology: string;
   results: string;
@@ -21,156 +23,359 @@ interface ResearchPaper {
   recommendations?: string;
 }
 
+const toTitleCase = (s: string) => {
+  return s.toLowerCase().split(/\s+/).map(w => {
+    if (w.startsWith("o'")) return "O'" + w.slice(2).charAt(0).toUpperCase() + w.slice(3);
+    return w.charAt(0).toUpperCase() + w.slice(1);
+  }).join(' ');
+};
+
+const toSentenceCase = (titleStr: string) => {
+  const properNouns = [
+    'Sagamu', 'Ogun', 'State', 'Ibadan', 'North', 'Oyo', 'Nigeria', 
+    'Lagos', 'Mainland', 'LUTH', 'UNILAG', 'LASUCOM', 'Hepatitis', 'B', 
+    'PCOS', 'WHO', 'Olabisi', 'Onabanjo', 'University', 'OOUTH', 'LAUTECH'
+  ];
+  
+  const words = titleStr.trim().split(/\s+/);
+  return words.map((word, index) => {
+    const cleanWord = word.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, "");
+    const cleanLower = cleanWord.toLowerCase();
+    const isProper = properNouns.some(noun => noun.toLowerCase() === cleanLower);
+    
+    if (index === 0) {
+      return word.charAt(0).toUpperCase() + word.slice(1);
+    }
+    if (isProper) {
+      const matchedNoun = properNouns.find(noun => noun.toLowerCase() === cleanLower);
+      const prefix = word.slice(0, word.indexOf(cleanWord));
+      const suffix = word.slice(word.indexOf(cleanWord) + cleanWord.length);
+      return prefix + matchedNoun + suffix;
+    }
+    return word.toLowerCase();
+  }).join(' ');
+};
+
 export default function ResearchPage() {
+  const { isAdmin, adminPass } = useAdmin();
+  const [papers, setPapers] = useState<ResearchPaper[]>([]);
+  const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
   const [activeCategory, setActiveCategory] = useState('All');
   const [selectedPaper, setSelectedPaper] = useState<ResearchPaper | null>(null);
   
-  // Interactive request states
-  const [requestEmail, setRequestEmail] = useState('');
-  const [isSubmittingRequest, setIsSubmittingRequest] = useState(false);
-  const [requestSuccess, setRequestSuccess] = useState(false);
+  // Interactive semantic filter state (e.g. Filter by a specific author or school)
+  const [activeFilter, setActiveFilter] = useState<{ type: 'author' | 'coAuthor' | 'institution'; value: string } | null>(null);
+
+  // Modern Library UI States
+  const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
+  const [citationFormat, setCitationFormat] = useState<'APA' | 'MLA' | 'Vancouver' | 'Harvard'>('APA');
+  const [copiedCitation, setCopiedCitation] = useState(false);
+
+  // Admin Form States
+  const [newTitle, setNewTitle] = useState('');
+  const [newCategory, setNewCategory] = useState('Maternal Health');
+  const [newInstitution, setNewInstitution] = useState('');
+  const [newMainAuthor, setNewMainAuthor] = useState('');
+  const [newCoAuthor, setNewCoAuthor] = useState('Benedict Adurosakin');
+  const [newDate, setNewDate] = useState('');
+  const [newSnippet, setNewSnippet] = useState('');
+  const [newIntroduction, setNewIntroduction] = useState('');
+  const [newMethodology, setNewMethodology] = useState('');
+  const [newResults, setNewResults] = useState('');
+  const [newConclusion, setNewConclusion] = useState('');
+  const [newRecommendations, setNewRecommendations] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const categories = ['All', 'Maternal Health', 'Infectious Disease', 'Public Health & Vaccines', 'Nursing Workforce'];
 
-  const papers: ResearchPaper[] = [
-    {
-      id: 'antenatal-reminders',
-      title: 'Impact of Digital Health Reminders on Antenatal Attendance in Lagos Mainland',
-      theme: 'Maternal Health',
-      institution: 'UNILAG / LUTH',
-      authors: { main: 'Benedict Adurosakin', coAuthor: 'Dr. Olumide Adeleke' },
-      date: '2024',
-      snippet: 'Implementation of SMS-based scheduling saw a 24% increase in clinic attendance among expectant mothers aged 18-35.',
-      actionType: 'request',
-      introduction: 'Digital health interventions offer a direct pathway to improve maternal outcomes by addressing clinic non-attendance. This study evaluates the utilization of automated text-based schedulers for expectant mothers in high-density urban areas of Lagos Mainland.',
-      methodology: 'A descriptive longitudinal study design was used to track 120 expectant mothers aged 18-35 attending prenatal clinics in Lagos Mainland. Automated SMS reminders were dispatched 48 hours and 24 hours prior to each scheduled clinic session over a 6-month period.',
-      results: 'Implementation of the SMS-based reminder system saw a significant increase in appointment compliance, showing a 24% boost in overall attendance. Clinic non-attendance rates dropped from 38% to 14% among the study cohort.',
-      conclusion: 'Mobile text reminders are an effective, scalable, and low-cost tool to improve adherence to prenatal care schedules in resource-constrained environments, directly contributing to maternal wellness.',
-      recommendations: 'It is recommended that municipal healthcare systems integrate automated digital dispatch directly into electronic medical records to facilitate maternal and pediatric compliance.'
-    },
-    {
-      id: 'nurse-ratios',
-      title: 'Correlation Between Nurse-to-Patient Ratios and Post-Operative Infection Rates',
-      theme: 'Infectious Disease',
-      institution: 'LASUCOM',
-      authors: { main: 'Nurse Chiamaka Okoro', coAuthor: 'Adurosakin B.' },
-      date: '2023',
-      snippet: 'Wards with a nurse-to-patient ratio higher than 1:8 showed a 15% spike in surgical site infections.',
-      actionType: 'data',
-      introduction: 'Adequate nurse staffing is critical to patient safety and post-operative clinical recovery. This study investigates the impact of staffing ratios on post-operative ward infections at LASUCOM.',
-      methodology: 'Retrospective audit of patient charts across major post-operative general surgery wards over a 12-month period, correlating daily nurse staffing schedules with hospital-acquired surgical site infection (SSI) records.',
-      results: 'A linear correlation was found between heavy patient workloads and clinical infection spikes. Wards with a nurse-to-patient ratio higher than 1:8 showed a 15% increase in surgical site infection rates, attributed to reduced hand-hygiene frequency and delayed dressing changes.',
-      conclusion: 'Optimizing bedside nursing ratios is not only a workforce concern but a direct driver of post-operative infection prevention and control.',
-      recommendations: 'Healthcare administrations should enforce strict nurse-to-patient limits of 1:6 in surgical wards and leverage ward flow automation to minimize documentation burdens.'
-    },
-    {
-      id: 'pneumococcal-vaccine',
-      title: 'Uptake of the Pneumococcal Vaccine among Mothers of Children under Five in Sagamu Local Government, Ogun State',
-      theme: 'Public Health & Vaccines',
-      institution: 'FACULTY OF BASIC MEDICAL SCIENCES, OLABISI ONABANJO UNIVERSITY, OGUN STATE',
-      authors: { main: 'ADEGOKE ADEBISI ADAM', coAuthor: 'Benedict Adurosakin' },
-      date: 'NOVEMBER, 2024',
-      snippet: '59.1% of mothers had a high level of awareness, yet 54.8% demonstrated poor uptake of the pneumococcal vaccine due to cost and convenience.',
-      actionType: 'request',
-      introduction: 'The pneumococcal vaccine, a vital component of child healthcare, plays a pivotal role in reducing the burden of pneumococcal diseases among children under five years old in Sagamu Local Government, Ogun State. Despite the known benefits of immunization, the uptake of the pneumococcal vaccine remains suboptimal among mothers in this region. This necessitates a comprehensive study to assess the factors influencing this dynamic.',
-      methodology: 'Descriptive survey design was employed for the study and the target population was the mothers of under five children in Sagamu, Ogun State. Ninety-three participants from Ajaka primary healthcare centre were used for the study. A validated self-developed questionnaire with Cronbach’s alpha coefficients of 0.85 was used to collect data with a 100% response rate. Data were analyzed using descriptive and inferential statistical tools.',
-      results: 'The findings indicated that 55(59.1%) of the mothers of under five children had high level of awareness while 51(54.8%) of the mothers had poor level of uptake of pneumococcal vaccine. The factors influencing the uptake of the pneumococcal vaccine among the mothers are recommendations from healthcare providers 53 (57.0%), concerns about their child\'s health 53(57.0%), Additionally, information from friends and family 73(78.5%), government policies 49(52.7%), convenience 57(61.3%) and the cost of the vaccine 57(61.3%) and belief in the necessity of vaccination 52(55.9%). Significant association exists between mothers\' awareness of the pneumococcal vaccine (df = 1, p < 0.05) and uptake of the vaccine among their children.',
-      conclusion: 'The study concludes that while awareness of the pneumococcal vaccine is high, its uptake remains low due to factors like cost, convenience, and healthcare provider recommendations.',
-      recommendations: 'It is recommended that healthcare facilities should ensure the availability and accessibility of the pneumococcal vaccine, making it convenient for mothers to have their children vaccinated.'
-    },
-    {
-      id: 'hepatitis-b-uptake',
-      title: 'Uptake of Hepatitis B Vaccination among Primary Healthcare Workers in Sagamu Local Government Area, Ogun State',
-      theme: 'Public Health & Vaccines',
-      institution: 'FACULTY OF BASIC MEDICAL SCIENCES, OLABISI ONABANJO UNIVERSITY, OGUN STATE',
-      authors: { main: 'OSOJA DORCAS EBUNOLUWA', coAuthor: 'Benedict Adurosakin' },
-      date: 'MARCH, 2023',
-      snippet: '81% of primary healthcare workers reported high virus awareness, with 55.2% demonstrating good vaccination compliance.',
-      actionType: 'request',
-      introduction: 'The Hepatitis B Virus (HBV) is the cause of hepatitis B, a potentially lethal liver illness. It can lead to persistent infection and greatly increases the risk of liver cirrhosis and liver carcinoma. It is a major problem of public health relevance with primary health care workers being especially at higher risk because they are the first line of contact with patient. It is important that primary health care workers are vaccinated against hepatitis B as recommended by the WHO. Previous studies have shown that health care workers especially primary healthcare providers do not get vaccinated according to WHO guideline.',
-      methodology: 'A descriptive research survey was conducted among primary healthcare workers in Sagamu, Ogun State. A total of 58 participants were selected through purposive sampling technique, and data were collected using a self-developed questionnaire and Guidelines for the prevention, care, and treatment of persons with chronic hepatitis B infection adopted from the WHO 2019. Descriptive statistics, including frequencies and percentages, were employed for data analysis.',
-      results: 'The findings indicated that (47, 81%) had high level of awareness while (32, 55.2%) had good level of uptake of hepatitis B vaccination. Regarding the factors influencing the uptake of the hepatitis B vaccination among the respondents are availability of the vaccine in the healthcare facility, needle pricks, distance hindering access to the vaccination center, attitude of vaccinators, time spent waiting at the vaccine center before being attended to, lack of awareness of hepatitis B vaccination, lack of motivation to visit the vaccination center, never thinking of getting vaccinated, not ready to be vaccinated, and lacked belief in vaccine effectiveness were mentioned. Significant association exist between level of awareness (df = 1, p < 0.05) and vaccine availability (p=0.045), distance to vaccination center (p=0.024), time spent at vaccination center (p=0.031), motivation to visit vaccination center (p=0.049), and belief in vaccine effectiveness (p=0.039) and uptake of Hepatitis B vaccination.',
-      conclusion: 'The primary healthcare workers in Sagamu, Ogun state have high level of awareness and good level of uptake of hepatitis B vaccination.',
-      recommendations: 'To enhance the situation and improve hepatitis B uptake, government bodies should develop and implement policies and guidelines that promote hepatitis B vaccination in healthcare settings as part of workplace safety.'
-    },
-    {
-      id: 'brain-drain-impact',
-      title: 'Impact of Brain Drain on Nursing Care at Olabisi Onabanjo University Teaching Hospital, Sagamu, Ogun State',
-      theme: 'Nursing Workforce',
-      institution: 'FACULTY OF BASIC MEDICAL SCIENCES, OLABISI ONABANJO UNIVERSITY, OGUN STATE',
-      authors: { main: 'LATEEF MONSURAT OLAJUMOKE', coAuthor: 'Benedict Adurosakin' },
-      date: 'NOVEMBER, 2023',
-      snippet: '88% of nurses experienced heavy brain drain effects, with 94.8% noting a severe reduction in nursing care quality.',
-      actionType: 'request',
-      introduction: 'Brain drain, the emigration of healthcare professionals for better opportunities abroad, significantly affects nursing care delivery. This study assesses the impact of brain drain on nursing care among 135 nurses at Olabisi Onabanjo University Teaching Hospital, Sagamu, Ogun State.',
-      methodology: 'Between September and October 2023, a descriptive research survey was conducted among nurses in OOUTH, Sagamu, Ogun State. A total of 135 participants were selected through multi-sampling sampling technique, and data were collected using a self-developed questionnaire and Social Support Questionnaire (SSQ) adapted from Ramkisson et al., (2017).',
-      results: 'The findings indicated that majority 119 (88%), reported experiencing a very large extent of brain drain, characterized by high emigration rates of healthcare professionals to seek better opportunities abroad. This migration led to a noticeable shortage of experienced nurses within the hospital. The impact on healthcare services was profound, with 128 (94.8%) of the respondents showing that brain drain had severely diminished the quality of care provided to patients. Nurses reported that this shortage resulted in increased workloads, reduced patient-nurse interaction time, and higher stress levels among the remaining staff. The emigration of skilled nurses also meant a loss of expertise, which negatively affected clinical outcomes and patient satisfaction. Factors such as better job opportunities abroad, higher salaries, poor working conditions, lack of career advancement, and inadequate government policies were all cited as primary contributors to the brain drain. Statistical analysis indicated significant associations between age (p=0.837), monthly income (p=0.000), and average monthly income (p=0.040) with the extent of brain drain.',
-      conclusion: 'Nurses at Olabisi Onabanjo University Teaching Hospital experienced significant brain drain, impacting healthcare services and patient outcomes.',
-      recommendations: 'To improve the situation, efforts should focus on enhancing professional growth opportunities, improving working conditions, and offering competitive compensation packages.'
-    },
-    {
-      id: 'midwife-pain-relief',
-      title: 'Midwives’ Perceptions and Practices of Pharmacological Pain Relief during Labor in Ibadan North, Oyo State, Nigeria',
-      theme: 'Maternal Health',
-      institution: 'LAUTECH OPEN AND DISTANCE LEARNING, LADOKE AKINTOLA UNIVERSITY OF TECHNOLOGY OGBOMOSHO, OYO STATE',
-      authors: { main: 'HABIBU MARY MAIRO', coAuthor: 'Benedict Adurosakin' },
-      date: 'JANUARY, 2025',
-      snippet: '75.3% of midwives had positive perceptions of pain relief, yet 57.6% demonstrated poor practice due to resource and training limitations.',
-      actionType: 'request',
-      introduction: 'Pain management during labor is a critical aspect of maternal care, yet practices among midwives remain inconsistent despite positive perceptions. This study assesses midwives’ perceptions and practices of pharmacological pain relief during labor in selected primary health centers in Ibadan North, Oyo State, Nigeria.',
-      methodology: 'A cross-sectional descriptive design was adopted, involving 85 midwives. Data were collected using a validated questionnaire with a reliability coefficient of 0.87 and a 100% return rate from the participants. Descriptive and inferential statistical tools were used for analysis, with results presented in tables.',
-      results: 'Findings revealed that (21, 24.7%) of the respondents had poor level of practice of pharmacological pain relief methods during labor, while (64, 75.3%) had good level of uptake. In addition, (49, 57.6%) of the respondents had poor level of practice of pharmacological pain relief methods during labor, while (36, 42.4%) demonstrated a good level of practice. Significant associations were found between midwives\' educational levels (df = 1, p < 0.05) and religious beliefs (df = 1, p < 0.05) with their practices. Barriers identified included resource limitations, lack of training, and cultural beliefs.',
-      conclusion: 'The study concludes that despite positive perceptions, the practice of pharmacological pain relief methods among midwives was suboptimal.',
-      recommendations: 'Continuous professional development, curriculum enhancement, standardized protocols, and government resource provision were suggested to address identified challenges.'
-    },
-    {
-      id: 'pcos-nursing-students',
-      title: 'Assessment of Knowledge and Perception of Polycystic Ovarian Syndrome among Female Nursing Students in Olabisi Onabanjo University, Ogun State',
-      theme: 'Maternal Health',
-      institution: 'LAUTECH OPEN AND DISTANCE LEARNING, LADOKE AKINTOLA UNIVERSITY OF TECHNOLOGY OGBOMOSHO, OYO STATE',
-      authors: { main: 'Olalekan Zainab Dasola', coAuthor: 'Benedict Adurosakin' },
-      date: 'JANUARY, 2025',
-      snippet: 'Nursing students showed high knowledge (73.8%) and perception (84.6%) of PCOS, suggesting strong correlation with healthcare training.',
-      actionType: 'view',
-      introduction: 'Polycystic ovary syndrome (PCOS) has become one of the most common endocrinopathies affecting women of reproductive age, showing multiple clinical manifestations and affecting fertility rates worldwide. This study evaluates the knowledge and perception of PCOS among female nursing students who represent critical future patient educators.',
-      methodology: 'The study made use of a quantitative design via a cross-sectional method among nursing students at Olabisi Onabanjo University, Ogun State. Data were obtained using a structured self-administered questionnaire and analyzed using descriptive statistics.',
-      results: 'The study revealed that 18 (9.2%) of the respondents had a low level of knowledge, 33 (16.9%) had an average level of knowledge, and 144 (73.8%) had a high level of knowledge regarding PCOS. In terms of perception, 30 (15.4%) had an average level of perception and 165 (84.6%) had a high level of perception. This showed a significant relationship between nursing student education and PCOS health literacy.',
-      conclusion: 'Although the knowledge of PCOS was high among respondents, nursing education programs should continue to prioritize the dissemination of accurate endocrinopathy details to students to sustain these high awareness levels.',
-      recommendations: 'Curricula should expand focus on PCOS clinical assessments, lifestyle counseling, and early endocrinopathy intervention strategies.'
-    }
-  ];
+  useEffect(() => {
+    fetchPapers();
+  }, []);
 
-  const handleRequestSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!requestEmail) return;
-    setIsSubmittingRequest(true);
-    setTimeout(() => {
-      setIsSubmittingRequest(false);
-      setRequestSuccess(true);
-      setTimeout(() => {
-        setRequestSuccess(false);
-        setRequestEmail('');
-      }, 4000);
-    }, 1500);
+  const fetchPapers = async () => {
+    setLoading(true);
+    try {
+      const res = await fetch('/api/research');
+      const data = await res.json();
+      if (data && data.research) {
+        setPapers(data.research);
+      }
+    } catch (err) {
+      console.error('Failed to fetch research papers:', err);
+    } finally {
+      setLoading(false);
+    }
   };
 
+  const handleAddResearch = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!newTitle || !newIntroduction) return;
+
+    setIsSubmitting(true);
+    try {
+      const res = await fetch('/api/research', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-admin-auth': adminPass || '',
+        },
+        body: JSON.stringify({
+          title: newTitle,
+          category: newCategory,
+          institution: newInstitution,
+          mainAuthor: newMainAuthor,
+          coAuthor: newCoAuthor,
+          date: newDate || new Date().toLocaleDateString('en-US', { month: 'long', year: 'numeric' }),
+          snippet: newSnippet || (newIntroduction.length > 150 ? newIntroduction.substring(0, 150) + '...' : newIntroduction),
+          introduction: newIntroduction,
+          methodology: newMethodology,
+          results: newResults,
+          conclusion: newConclusion,
+          recommendations: newRecommendations
+        }),
+      });
+      const data = await res.json();
+      if (data.success) {
+        setPapers((prev) => [data.project, ...prev]);
+        // Reset form
+        setNewTitle('');
+        setNewInstitution('');
+        setNewMainAuthor('');
+        setNewSnippet('');
+        setNewIntroduction('');
+        setNewMethodology('');
+        setNewResults('');
+        setNewConclusion('');
+        setNewRecommendations('');
+        alert('Research paper registered successfully in the vault.');
+      } else {
+        alert('Failed to register: ' + (data.message || 'Unauthorized'));
+      }
+    } catch (err) {
+      console.error(err);
+      alert('An error occurred during submission.');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const handleDeleteResearch = async (id: string) => {
+    if (!confirm('Are you sure you want to delete this research entry?')) return;
+    try {
+      const res = await fetch('/api/research', {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-admin-auth': adminPass || '',
+        },
+        body: JSON.stringify({ id }),
+      });
+      const data = await res.json();
+      if (data.success) {
+        setPapers((prev) => prev.filter((p) => p.id !== id));
+      } else {
+        alert('Failed to delete: ' + (data.message || 'Unauthorized'));
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const applyFilter = (type: 'author' | 'coAuthor' | 'institution', value: string) => {
+    setSelectedPaper(null); // Close modal if open
+    setActiveFilter({ type, value });
+    
+    // Smooth scroll to the library listing
+    const listElement = document.getElementById('library-catalog');
+    if (listElement) {
+      listElement.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  // Filter logic
   const filteredPapers = papers.filter((paper) => {
+    const title = paper.title || '';
+    const snippet = paper.snippet || '';
+    const institution = paper.institution || '';
+    const theme = paper.theme || '';
+    const mainAuthor = paper.authors?.main || '';
+    const coAuthor = paper.authors?.coAuthor || '';
+    const introduction = paper.introduction || '';
+
     const matchesSearch = 
-      paper.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      paper.snippet.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      paper.institution.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      paper.theme.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      paper.authors.main.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      paper.introduction.toLowerCase().includes(searchTerm.toLowerCase());
+      title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      snippet.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      institution.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      theme.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      mainAuthor.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      introduction.toLowerCase().includes(searchTerm.toLowerCase());
       
-    const matchesCategory = activeCategory === 'All' || paper.theme === activeCategory;
-    return matchesSearch && matchesCategory;
+    const matchesCategory = activeCategory === 'All' || theme.toLowerCase() === activeCategory.toLowerCase();
+    
+    let matchesActiveFilter = true;
+    if (activeFilter) {
+      if (activeFilter.type === 'author') {
+        matchesActiveFilter = mainAuthor.toLowerCase() === activeFilter.value.toLowerCase();
+      } else if (activeFilter.type === 'coAuthor') {
+        matchesActiveFilter = coAuthor.toLowerCase() === activeFilter.value.toLowerCase();
+      } else if (activeFilter.type === 'institution') {
+        matchesActiveFilter = institution.toLowerCase().includes(activeFilter.value.toLowerCase());
+      }
+    }
+
+    return matchesSearch && matchesCategory && matchesActiveFilter;
   });
+
+  // Related papers in modal: papers matching theme or location but not current paper
+  const getRelatedPapers = (currentPaper: ResearchPaper) => {
+    return papers
+      .filter((p) => p.id !== currentPaper.id && 
+        ((p.theme || '').toLowerCase() === (currentPaper.theme || '').toLowerCase() || 
+         (p.authors?.main || '').toLowerCase() === (currentPaper.authors?.main || '').toLowerCase() ||
+         (p.institution || '').toLowerCase().includes((currentPaper.institution || '').toLowerCase())
+        )
+      )
+      .slice(0, 2);
+  };
+
+  // Dynamic citation generator helper (returns JSX with proper italics for display)
+  const generateCitationNode = (paper: ResearchPaper, format: 'APA' | 'MLA' | 'Vancouver' | 'Harvard') => {
+    const main = paper.authors?.main || 'Anonymous';
+    const co = paper.authors?.coAuthor || 'Benedict Adurosakin';
+
+    const parseFullName = (nameStr: string) => {
+      const clean = nameStr.trim();
+      const parts = clean.split(/\s+/);
+      if (parts.length === 1) {
+        const formatted = toTitleCase(clean);
+        return { first: '', last: formatted, lastFirst: formatted, firstLast: formatted, initials: formatted };
+      }
+
+      const cleanParts = parts.filter(p => !['dr.', 'dr', 'nurse'].includes(p.toLowerCase()));
+      const lastName = cleanParts[cleanParts.length - 1];
+      const firstNames = cleanParts.slice(0, cleanParts.length - 1).join(' ');
+
+      const tFirst = toTitleCase(firstNames);
+      const tLast = toTitleCase(lastName);
+      
+      const initials = cleanParts.slice(0, cleanParts.length - 1).map(p => p[0] ? p[0].toUpperCase() + '.' : '').join(' ');
+
+      return {
+        first: tFirst,
+        last: tLast,
+        lastFirst: `${tLast}, ${tFirst}`,
+        firstLast: `${tFirst} ${tLast}`,
+        initials: `${tLast}, ${initials}`
+      };
+    };
+
+    const mainParsed = parseFullName(main);
+    const coParsed = parseFullName(co);
+    const year = (paper.date || '').match(/\d{4}/)?.[0] || 'n.d.';
+    const title = paper.title || 'Untitled';
+    const inst = toTitleCase(paper.institution || 'Independent');
+
+    switch (format) {
+      case 'APA':
+        // APA 7th uses initials: Surname, A. A., & Surname, B. B. (Year). *Title in sentence case*. Institution.
+        return (
+          <span>
+            {mainParsed.initials}, & {coParsed.initials} ({year}). <span className="italic">{toSentenceCase(title)}</span>. {inst}.
+          </span>
+        );
+      case 'MLA':
+        // MLA 9th uses full names: Surname, FirstNames, and FirstNames Surname. "Title." Institution, Year.
+        return (
+          <span>
+            {mainParsed.lastFirst}, and {coParsed.firstLast}. "{title}." {inst}, {year}.
+          </span>
+        );
+      case 'Harvard':
+        const mainHarvard = mainParsed.initials.replace(',', '');
+        const coHarvard = coParsed.initials.replace(',', '');
+        return (
+          <span>
+            {mainHarvard} and {coHarvard}, {year}. <span className="italic">{toSentenceCase(title)}</span>, {inst}.
+          </span>
+        );
+      case 'Vancouver':
+        const mainVan = mainParsed.initials.replace(/[,.]/g, '').trim();
+        const coVan = coParsed.initials.replace(/[,.]/g, '').trim();
+        return (
+          <span>
+            {mainVan}, {coVan}. {title}. {inst}; {year}.
+          </span>
+        );
+      default:
+        return null;
+    }
+  };
+
+  const generateCitationText = (paper: ResearchPaper, format: 'APA' | 'MLA' | 'Vancouver' | 'Harvard') => {
+    const main = paper.authors?.main || 'Anonymous';
+    const co = paper.authors?.coAuthor || 'Benedict Adurosakin';
+
+    const parseFullName = (nameStr: string) => {
+      const clean = nameStr.trim();
+      const parts = clean.split(/\s+/);
+      if (parts.length === 1) {
+        const formatted = toTitleCase(clean);
+        return { first: '', last: formatted, lastFirst: formatted, firstLast: formatted, initials: formatted };
+      }
+
+      const cleanParts = parts.filter(p => !['dr.', 'dr', 'nurse'].includes(p.toLowerCase()));
+      const lastName = cleanParts[cleanParts.length - 1];
+      const firstNames = cleanParts.slice(0, cleanParts.length - 1).join(' ');
+
+      const tFirst = toTitleCase(firstNames);
+      const tLast = toTitleCase(lastName);
+      
+      const initials = cleanParts.slice(0, cleanParts.length - 1).map(p => p[0] ? p[0].toUpperCase() + '.' : '').join(' ');
+
+      return {
+        first: tFirst,
+        last: tLast,
+        lastFirst: `${tLast}, ${tFirst}`,
+        firstLast: `${tFirst} ${tLast}`,
+        initials: `${tLast}, ${initials}`
+      };
+    };
+
+    const mainParsed = parseFullName(main);
+    const coParsed = parseFullName(co);
+    const year = (paper.date || '').match(/\d{4}/)?.[0] || 'n.d.';
+    const title = paper.title || 'Untitled';
+    const inst = toTitleCase(paper.institution || 'Independent');
+
+    switch (format) {
+      case 'APA':
+        return `${mainParsed.initials}, & ${coParsed.initials} (${year}). ${toSentenceCase(title)}. ${inst}.`;
+      case 'MLA':
+        return `${mainParsed.lastFirst}, and ${coParsed.firstLast}. "${title}." ${inst}, ${year}.`;
+      case 'Harvard':
+        const mainHarvard = mainParsed.initials.replace(',', '');
+        const coHarvard = coParsed.initials.replace(',', '');
+        return `${mainHarvard} and ${coHarvard}, ${year}. ${toSentenceCase(title)}, ${inst}.`;
+      case 'Vancouver':
+        const mainVan = mainParsed.initials.replace(/[,.]/g, '').trim();
+        const coVan = coParsed.initials.replace(/[,.]/g, '').trim();
+        return `${mainVan}, ${coVan}. ${title}. ${inst}; ${year}.`;
+      default:
+        return '';
+    }
+  };
+
+  const copyCitationToClipboard = (paper: ResearchPaper) => {
+    const text = generateCitationText(paper, citationFormat);
+    navigator.clipboard.writeText(text);
+    setCopiedCitation(true);
+    setTimeout(() => setCopiedCitation(false), 2000);
+  };
 
   return (
     <>
-      <header className="pt-12 px-6 md:px-12 w-full">
+      <header className="pt-12 px-6 md:px-12 w-full" id="search-section">
         <div className="flex justify-between items-end mb-10">
           <h1 className="font-name italic font-medium text-4xl md:text-5xl text-zinc-950 dark:text-zinc-50">
             Research
@@ -190,18 +395,203 @@ export default function ResearchPage() {
           </div>
         </ScrollReveal>
 
+        {/* ADMIN REGISTRATION PANEL */}
+        {isAdmin && (
+          <ScrollReveal className="w-full">
+            <div className="bento border-purple-500/30 mb-6 animate-fadeIn">
+              <h3 className="font-mono text-xs uppercase text-purple-500 font-bold mb-4">Register New Research Entry (Admin Mode)</h3>
+              <form onSubmit={handleAddResearch} className="grid gap-4">
+                <div className="grid md:grid-cols-2 gap-4">
+                  <div className="space-y-1">
+                    <label className="font-mono text-[9px] uppercase tracking-wider text-zinc-400">Research Title</label>
+                    <input
+                      type="text"
+                      value={newTitle}
+                      onChange={(e) => setNewTitle(e.target.value)}
+                      placeholder="e.g. Analysis of Maternal Outcomes..."
+                      className="w-full bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-lg p-3 outline-none focus:ring-1 focus:ring-purple-500 transition-all text-sm text-black dark:text-white"
+                      required
+                    />
+                  </div>
+                  <div className="space-y-1">
+                    <label className="font-mono text-[9px] uppercase tracking-wider text-zinc-400">Focus Theme</label>
+                    <select
+                      value={newCategory}
+                      onChange={(e) => setNewCategory(e.target.value)}
+                      className="w-full bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-lg p-3 outline-none focus:ring-1 focus:ring-purple-500 transition-all text-sm text-black dark:text-white"
+                    >
+                      <option value="Maternal Health">Maternal Health</option>
+                      <option value="Infectious Disease">Infectious Disease</option>
+                      <option value="Public Health & Vaccines">Public Health & Vaccines</option>
+                      <option value="Nursing Workforce">Nursing Workforce</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div className="grid md:grid-cols-3 gap-4">
+                  <div className="space-y-1">
+                    <label className="font-mono text-[9px] uppercase tracking-wider text-zinc-400">Main Author</label>
+                    <input
+                      type="text"
+                      value={newMainAuthor}
+                      onChange={(e) => setNewMainAuthor(e.target.value)}
+                      placeholder="e.g. ADEGOKE ADEBISI ADAM"
+                      className="w-full bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-lg p-3 outline-none focus:ring-1 focus:ring-purple-500 transition-all text-sm text-black dark:text-white"
+                      required
+                    />
+                  </div>
+                  <div className="space-y-1">
+                    <label className="font-mono text-[9px] uppercase tracking-wider text-zinc-400">Co-Author</label>
+                    <input
+                      type="text"
+                      value={newCoAuthor}
+                      onChange={(e) => setNewCoAuthor(e.target.value)}
+                      placeholder="Benedict Adurosakin"
+                      className="w-full bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-lg p-3 outline-none focus:ring-1 focus:ring-purple-500 transition-all text-sm text-black dark:text-white"
+                    />
+                  </div>
+                  <div className="space-y-1">
+                    <label className="font-mono text-[9px] uppercase tracking-wider text-zinc-400">Publication Date / Year</label>
+                    <input
+                      type="text"
+                      value={newDate}
+                      onChange={(e) => setNewDate(e.target.value)}
+                      placeholder="e.g. NOVEMBER, 2024"
+                      className="w-full bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-lg p-3 outline-none focus:ring-1 focus:ring-purple-500 transition-all text-sm text-black dark:text-white"
+                    />
+                  </div>
+                </div>
+
+                <div className="grid md:grid-cols-2 gap-4">
+                  <div className="space-y-1">
+                    <label className="font-mono text-[9px] uppercase tracking-wider text-zinc-400">Institution & School Location</label>
+                    <input
+                      type="text"
+                      value={newInstitution}
+                      onChange={(e) => setNewInstitution(e.target.value)}
+                      placeholder="e.g. Olabisi Onabanjo University, Ogun State"
+                      className="w-full bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-lg p-3 outline-none focus:ring-1 focus:ring-purple-500 transition-all text-sm text-black dark:text-white"
+                      required
+                    />
+                  </div>
+                  <div className="space-y-1">
+                    <label className="font-mono text-[9px] uppercase tracking-wider text-zinc-400">Short Snippet (Card Abstract Preview)</label>
+                    <input
+                      type="text"
+                      value={newSnippet}
+                      onChange={(e) => setNewSnippet(e.target.value)}
+                      placeholder="e.g. 59.1% of mothers had high awareness..."
+                      className="w-full bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-lg p-3 outline-none focus:ring-1 focus:ring-purple-500 transition-all text-sm text-black dark:text-white"
+                    />
+                  </div>
+                </div>
+
+                <div className="space-y-1">
+                  <label className="font-mono text-[9px] uppercase tracking-wider text-zinc-400">Introduction</label>
+                  <textarea
+                    value={newIntroduction}
+                    onChange={(e) => setNewIntroduction(e.target.value)}
+                    placeholder="Brief background and research objectives..."
+                    className="w-full bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-lg p-3 outline-none focus:ring-1 focus:ring-purple-500 transition-all text-sm h-24 text-black dark:text-white"
+                    required
+                  />
+                </div>
+
+                <div className="grid md:grid-cols-2 gap-4">
+                  <div className="space-y-1">
+                    <label className="font-mono text-[9px] uppercase tracking-wider text-zinc-400">Methodology / Methods</label>
+                    <textarea
+                      value={newMethodology}
+                      onChange={(e) => setNewMethodology(e.target.value)}
+                      placeholder="Research design, sample size, tools, sampling techniques..."
+                      className="w-full bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-lg p-3 outline-none focus:ring-1 focus:ring-purple-500 transition-all text-sm h-24 text-black dark:text-white"
+                    />
+                  </div>
+                  <div className="space-y-1">
+                    <label className="font-mono text-[9px] uppercase tracking-wider text-zinc-400">Results / Findings</label>
+                    <textarea
+                      value={newResults}
+                      onChange={(e) => setNewResults(e.target.value)}
+                      placeholder="Data analysis findings, percentages, correlations, significance..."
+                      className="w-full bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-850 rounded-lg p-3 outline-none focus:ring-1 focus:ring-purple-500 transition-all text-sm h-24 text-black dark:text-white"
+                    />
+                  </div>
+                </div>
+
+                <div className="grid md:grid-cols-2 gap-4">
+                  <div className="space-y-1">
+                    <label className="font-mono text-[9px] uppercase tracking-wider text-zinc-400">Conclusion</label>
+                    <textarea
+                      value={newConclusion}
+                      onChange={(e) => setNewConclusion(e.target.value)}
+                      placeholder="Core takeaways and summaries..."
+                      className="w-full bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-lg p-3 outline-none focus:ring-1 focus:ring-purple-500 transition-all text-sm h-20 text-black dark:text-white"
+                    />
+                  </div>
+                  <div className="space-y-1">
+                    <label className="font-mono text-[9px] uppercase tracking-wider text-zinc-400">Recommendations (Optional)</label>
+                    <textarea
+                      value={newRecommendations}
+                      onChange={(e) => setNewRecommendations(e.target.value)}
+                      placeholder="Proposed actions and adjustments..."
+                      className="w-full bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-lg p-3 outline-none focus:ring-1 focus:ring-purple-500 transition-all text-sm h-20 text-black dark:text-white"
+                    />
+                  </div>
+                </div>
+
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="bg-purple-600 hover:bg-purple-700 text-white font-mono text-[10px] uppercase tracking-wider px-6 py-2.5 rounded-lg transition font-bold w-max cursor-pointer disabled:opacity-50"
+                >
+                  {isSubmitting ? 'Registering...' : 'Publish to Repository'}
+                </button>
+              </form>
+            </div>
+          </ScrollReveal>
+        )}
+
         {/* SEARCH & FILTER BAR */}
         <ScrollReveal className="w-full" delay={100}>
           <div className="space-y-6">
-            <div className="relative max-w-lg">
-              <input
-                type="text"
-                placeholder="Search by title, author, key term, or disease..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl py-3.5 pl-11 pr-4 outline-none focus:ring-1 focus:ring-cyan-500 transition-all text-sm text-black dark:text-zinc-100"
-              />
-              <i className="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-zinc-400 text-sm"></i>
+            <div className="flex flex-col sm:flex-row gap-4 items-stretch sm:items-center justify-between">
+              <div className="relative flex-grow max-w-lg">
+                <input
+                  type="text"
+                  placeholder="Search by title, author, school, or disease..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className="w-full bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl py-3.5 pl-11 pr-4 outline-none focus:ring-1 focus:ring-cyan-500 transition-all text-sm text-black dark:text-zinc-100"
+                />
+                <i className="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-zinc-400 text-sm"></i>
+              </div>
+              
+              <div className="flex items-center gap-2 border border-zinc-200 dark:border-zinc-800/80 rounded-xl p-1 bg-zinc-50 dark:bg-zinc-900/40 shrink-0">
+                <button
+                  type="button"
+                  onClick={() => setViewMode('grid')}
+                  className={`px-3.5 py-2 rounded-lg text-[10px] font-mono tracking-wider uppercase transition cursor-pointer flex items-center gap-1.5 ${
+                    viewMode === 'grid'
+                      ? 'bg-zinc-900 text-white dark:bg-zinc-800 shadow-sm border border-zinc-250 dark:border-zinc-700/60 font-bold'
+                      : 'text-zinc-400 hover:text-zinc-655 dark:hover:text-zinc-300'
+                  }`}
+                >
+                  <i className="fa-solid fa-border-all"></i>
+                  <span>Grid</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setViewMode('list')}
+                  className={`px-3.5 py-2 rounded-lg text-[10px] font-mono tracking-wider uppercase transition cursor-pointer flex items-center gap-1.5 ${
+                    viewMode === 'list'
+                      ? 'bg-zinc-900 text-white dark:bg-zinc-800 shadow-sm border border-zinc-250 dark:border-zinc-700/60 font-bold'
+                      : 'text-zinc-400 hover:text-zinc-655 dark:hover:text-zinc-300'
+                  }`}
+                >
+                  <i className="fa-solid fa-list"></i>
+                  <span>List</span>
+                </button>
+              </div>
             </div>
 
             {/* Category Badges */}
@@ -209,11 +599,13 @@ export default function ResearchPage() {
               {categories.map((cat) => (
                 <button
                   key={cat}
-                  onClick={() => setActiveCategory(cat)}
+                  onClick={() => {
+                    setActiveCategory(cat);
+                  }}
                   className={`px-3.5 py-1.5 rounded-full text-[10px] font-mono tracking-wider uppercase transition border cursor-pointer ${
                     activeCategory === cat
                       ? 'bg-zinc-900 border-zinc-900 text-white dark:bg-white dark:border-white dark:text-black font-bold'
-                      : 'bg-zinc-50 border-zinc-200 dark:bg-zinc-900/40 dark:border-zinc-800 text-zinc-555 hover:border-zinc-400 dark:hover:border-zinc-600'
+                      : 'bg-zinc-50 border-zinc-200 dark:bg-zinc-900/40 dark:border-zinc-800 text-zinc-500 hover:border-zinc-300 dark:hover:border-zinc-700'
                   }`}
                 >
                   {cat}
@@ -223,186 +615,494 @@ export default function ResearchPage() {
           </div>
         </ScrollReveal>
 
+        {/* ACTIVE FILTER STATUS BANNER */}
+        {activeFilter && (
+          <ScrollReveal className="w-full">
+            <div className="flex items-center justify-between p-3.5 bg-cyan-550/10 border border-cyan-500/20 text-cyan-600 dark:text-cyan-400 rounded-xl text-xs font-mono animate-fadeIn mb-2">
+              <div className="flex items-center gap-2">
+                <i className="fa-solid fa-filter text-cyan-500"></i>
+                <span>
+                  Filtering by <strong>{activeFilter.type === 'author' ? 'Author' : activeFilter.type === 'coAuthor' ? 'Co-Author' : 'Institution'}</strong>: "{activeFilter.value}"
+                </span>
+              </div>
+              <button
+                onClick={() => setActiveFilter(null)}
+                className="hover:text-cyan-300 transition-colors uppercase font-bold text-[9px] tracking-wider cursor-pointer bg-zinc-150 dark:bg-zinc-900 px-2 py-1 rounded"
+              >
+                Clear [x]
+              </button>
+            </div>
+          </ScrollReveal>
+        )}
+
+        {/* PROFILE CARD FOR AUTHOR/INSTITUTION */}
+        {activeFilter && (
+          <ScrollReveal className="w-full">
+            {activeFilter.type === 'author' || activeFilter.type === 'coAuthor' ? (
+              <div className="bento border-cyan-500/20 bg-gradient-to-br from-cyan-500/5 to-transparent p-6 mb-6 rounded-xl animate-fadeIn">
+                <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                  <div className="flex items-start gap-4">
+                    <div className="w-12 h-12 rounded-full bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-500 shrink-0">
+                      <i className="fa-solid fa-user-doctor text-xl"></i>
+                    </div>
+                    <div className="space-y-1">
+                      <span className="font-mono text-[9px] uppercase tracking-wider text-cyan-500 font-bold">Academic Author Profile</span>
+                      <h3 className="text-xl font-bold font-name italic text-zinc-900 dark:text-zinc-50">{activeFilter.value}</h3>
+                      <p className="text-xs text-zinc-550 dark:text-zinc-400 font-light leading-relaxed">
+                        Showing all research papers co-authored or authored by <strong>{activeFilter.value}</strong> in the Nursing Evidence Vault.
+                      </p>
+                    </div>
+                  </div>
+                  <div className="bg-zinc-50 dark:bg-zinc-900/60 px-4 py-2 border border-zinc-200 dark:border-zinc-800 rounded-lg text-center shrink-0">
+                    <span className="font-mono text-[9px] uppercase tracking-wider text-zinc-450 block">Publications</span>
+                    <span className="text-lg font-bold text-black dark:text-white font-mono">{filteredPapers.length}</span>
+                  </div>
+                </div>
+              </div>
+            ) : activeFilter.type === 'institution' ? (
+              <div className="bento border-purple-500/20 bg-gradient-to-br from-purple-500/5 to-transparent p-6 mb-6 rounded-xl animate-fadeIn">
+                <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                  <div className="flex items-start gap-4">
+                    <div className="w-12 h-12 rounded-full bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-purple-500 shrink-0">
+                      <i className="fa-solid fa-graduation-cap text-xl"></i>
+                    </div>
+                    <div className="space-y-1">
+                      <span className="font-mono text-[9px] uppercase tracking-wider text-purple-500 font-bold">Academic Institution</span>
+                      <h3 className="text-xl font-bold font-name italic text-zinc-900 dark:text-zinc-50">{activeFilter.value}</h3>
+                      <p className="text-xs text-zinc-550 dark:text-zinc-400 font-light leading-relaxed">
+                        Displaying publications affiliated with <strong>{activeFilter.value}</strong> in this archive.
+                      </p>
+                    </div>
+                  </div>
+                  <div className="bg-zinc-50 dark:bg-zinc-900/60 px-4 py-2 border border-zinc-200 dark:border-zinc-800 rounded-lg text-center shrink-0">
+                    <span className="font-mono text-[9px] uppercase tracking-wider text-zinc-455 block">Publications</span>
+                    <span className="text-lg font-bold text-black dark:text-white font-mono">{filteredPapers.length}</span>
+                  </div>
+                </div>
+              </div>
+            ) : null}
+          </ScrollReveal>
+        )}
+
         {/* PAPERS LISTING */}
-        <ScrollReveal className="w-full" delay={200}>
-          <div className="grid md:grid-cols-2 gap-6">
-            {filteredPapers.length === 0 ? (
-              <div className="col-span-2 py-16 text-center border border-dashed border-zinc-200 dark:border-zinc-800 rounded-2xl">
+        <div id="library-catalog" className="w-full">
+          <ScrollReveal className="w-full" delay={200}>
+            {loading ? (
+              <div className="text-center py-16">
+                <i className="fa-solid fa-spinner fa-spin text-2xl text-zinc-400 mb-4 block"></i>
+                <p className="text-xs text-zinc-500 italic">Syncing paper index with clinical vaults...</p>
+              </div>
+            ) : filteredPapers.length === 0 ? (
+              <div className="py-16 text-center border border-dashed border-zinc-200 dark:border-zinc-800 rounded-2xl animate-fadeIn">
                 <i className="fa-regular fa-folder-open text-4xl text-zinc-400 mb-4 block"></i>
                 <p className="text-xs text-zinc-500 italic">No matching research studies found.</p>
               </div>
+            ) : viewMode === 'list' ? (
+              /* LIST VIEW */
+              <div className="flex flex-col divide-y divide-zinc-200 dark:divide-zinc-850 border border-zinc-200 dark:border-zinc-800 rounded-2xl bg-zinc-50/20 dark:bg-zinc-950/20 overflow-hidden shadow-sm">
+                {filteredPapers.map((paper) => (
+                  <div
+                    key={paper.id}
+                    onClick={() => setSelectedPaper(paper)}
+                    className="p-5 flex flex-col md:flex-row justify-between items-start md:items-center gap-4 hover:bg-zinc-100/40 dark:hover:bg-zinc-900/30 transition duration-200 cursor-pointer"
+                  >
+                    <div className="space-y-2 flex-grow max-w-4xl">
+                      <div className="flex items-center gap-3 flex-wrap">
+                        <span className="text-[9px] font-mono bg-cyan-50 dark:bg-cyan-950/40 text-cyan-600 dark:text-cyan-400 px-2 py-0.5 rounded uppercase tracking-wider">
+                          {paper.theme || 'General'}
+                        </span>
+                        <span className="text-[9px] font-mono text-zinc-400">
+                          {(paper.date || '').split(',').pop()?.trim() || paper.date || 'Recent'}
+                        </span>
+                        {paper.authors?.coAuthor?.includes('Benedict') || paper.authors?.main?.includes('Adurosakin') ? (
+                          <span className="text-[9px] font-mono text-zinc-450 uppercase tracking-widest bg-zinc-100 dark:bg-zinc-900 px-1.5 py-0.5 rounded font-bold">
+                            {paper.id === 'nurse-ratios' ? 'LEAD RESEARCHER' : 'CO-AUTHOR'}
+                          </span>
+                        ) : null}
+                      </div>
+                      
+                      <h3 className="font-name italic text-base font-bold text-zinc-900 dark:text-zinc-100 hover:text-cyan-500 transition-colors leading-snug">
+                        {paper.title || 'Untitled'}
+                      </h3>
+                      
+                      <div className="flex flex-wrap gap-x-4 gap-y-1 text-[10px] font-mono text-zinc-400">
+                        <div>
+                          Authors:{' '}
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              applyFilter('author', paper.authors?.main || '');
+                            }}
+                            className="text-zinc-700 dark:text-zinc-300 hover:text-cyan-555 dark:hover:text-cyan-455 hover:underline font-bold bg-transparent border-none p-0 inline-block cursor-pointer text-left"
+                          >
+                            {paper.authors?.main || 'Anonymous'}
+                          </button>
+                          ,{' '}
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              applyFilter('coAuthor', paper.authors?.coAuthor || '');
+                            }}
+                            className="underline text-zinc-550 dark:text-zinc-300 hover:text-cyan-555 dark:hover:text-cyan-455 bg-transparent border-none p-0 inline-block cursor-pointer text-left font-bold"
+                          >
+                            {paper.authors?.coAuthor || 'Benedict Adurosakin'}
+                          </button>
+                        </div>
+                        <div className="hidden sm:block text-zinc-500">|</div>
+                        <div>
+                          School:{' '}
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              applyFilter('institution', paper.institution || '');
+                            }}
+                            className="hover:text-cyan-555 dark:hover:text-cyan-455 hover:underline bg-transparent border-none p-0 text-left cursor-pointer truncate max-w-xs md:max-w-md inline-block"
+                          >
+                            {paper.institution || 'Independent'}
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div className="flex items-center gap-3 shrink-0 self-end md:self-center">
+                      {isAdmin && (
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleDeleteResearch(paper.id);
+                          }}
+                          className="text-[10px] font-mono text-red-500 hover:underline cursor-pointer bg-red-500/5 px-2.5 py-1.5 rounded-lg border border-red-500/10 hover:bg-red-500/10 transition-colors border-none"
+                        >
+                          Delete
+                        </button>
+                      )}
+                      <Link
+                        href={`/research/request?paperId=${paper.id}`}
+                        onClick={(e) => e.stopPropagation()}
+                        className="text-[10px] font-mono bg-zinc-950 hover:bg-zinc-850 dark:bg-zinc-800 dark:hover:bg-zinc-700 text-white px-3.5 py-2 rounded-lg transition font-bold shadow-sm"
+                      >
+                        {paper.actionType === 'data' ? 'Methodology Data ➜' : 'Request Paper ➜'}
+                      </Link>
+                    </div>
+                  </div>
+                ))}
+              </div>
             ) : (
-              filteredPapers.map((paper) => (
-                <div
-                  key={paper.id}
-                  onClick={() => setSelectedPaper(paper)}
-                  className="bento flex flex-col justify-between group hover:border-cyan-500/50 dark:hover:border-cyan-400/40 transition duration-300 cursor-pointer relative overflow-hidden"
-                >
-                  <div className="space-y-4">
-                    <div className="flex justify-between items-center">
-                      <span className="text-[9px] font-mono bg-cyan-50 dark:bg-cyan-950/40 text-cyan-600 dark:text-cyan-400 px-2 py-0.5 rounded uppercase tracking-wider">
-                        {paper.theme}
-                      </span>
-                      <span className="text-[9px] font-mono text-zinc-400">{paper.date.split(',')[1]?.trim() || paper.date}</span>
-                    </div>
-                    
-                    <h3 className="font-name italic text-lg font-bold text-zinc-900 dark:text-zinc-100 group-hover:text-cyan-500 transition-colors leading-snug">
-                      {paper.title}
-                    </h3>
-                    
-                    <div className="space-y-1">
-                      <p className="text-[10px] font-mono text-zinc-400">
-                        Authors: <span className="text-zinc-600 dark:text-zinc-300 font-bold">{paper.authors.main}</span>, <span className="underline">{paper.authors.coAuthor}</span>
-                      </p>
-                      <p className="text-[9px] font-mono text-zinc-400 max-w-[90%] truncate">
-                        Inst: {paper.institution}
+              /* GRID VIEW (DEFAULT) */
+              <div className="grid md:grid-cols-2 gap-6">
+                {filteredPapers.map((paper) => (
+                  <div
+                    key={paper.id}
+                    onClick={() => setSelectedPaper(paper)}
+                    className="bento flex flex-col justify-between group hover:border-cyan-500/40 dark:hover:border-cyan-400/30 hover:shadow-[0_8px_30px_rgb(0,0,0,0.04)] transition duration-300 cursor-pointer relative overflow-hidden"
+                  >
+                    <div className="space-y-4">
+                      <div className="flex justify-between items-center">
+                        <span className="text-[9px] font-mono bg-cyan-50 dark:bg-cyan-950/40 text-cyan-600 dark:text-cyan-400 px-2 py-0.5 rounded uppercase tracking-wider">
+                          {paper.theme || 'General'}
+                        </span>
+                        <span className="text-[9px] font-mono text-zinc-400">{(paper.date || '').split(',')[1]?.trim() || paper.date || 'Recent'}</span>
+                      </div>
+                      
+                      <h3 className="font-name italic text-lg font-bold text-zinc-900 dark:text-zinc-100 group-hover:text-cyan-500 transition-colors leading-snug">
+                        {paper.title || 'Untitled'}
+                      </h3>
+                      
+                      <div className="space-y-1.5 text-[10px] font-mono text-zinc-400">
+                        <div>
+                          Authors:{' '}
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              applyFilter('author', paper.authors?.main || '');
+                            }}
+                            className="text-zinc-700 dark:text-zinc-300 hover:text-cyan-555 dark:hover:text-cyan-455 hover:underline font-bold bg-transparent border-none p-0 inline-block cursor-pointer text-left"
+                          >
+                            {paper.authors?.main || 'Anonymous'}
+                          </button>
+                          ,{' '}
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              applyFilter('coAuthor', paper.authors?.coAuthor || '');
+                            }}
+                            className="underline text-zinc-555 dark:text-zinc-300 hover:text-cyan-555 dark:hover:text-cyan-455 bg-transparent border-none p-0 inline-block cursor-pointer text-left font-bold"
+                          >
+                            {paper.authors?.coAuthor || 'Benedict Adurosakin'}
+                          </button>
+                        </div>
+                        <div>
+                          Location:{' '}
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              applyFilter('institution', paper.institution || '');
+                            }}
+                            className="hover:text-cyan-555 dark:hover:text-cyan-455 hover:underline bg-transparent border-none p-0 text-left cursor-pointer max-w-full truncate inline-block"
+                          >
+                            {paper.institution || 'Independent'}
+                          </button>
+                        </div>
+                      </div>
+
+                      <p className="text-xs text-zinc-500 leading-relaxed font-light line-clamp-3">
+                        {paper.snippet}
                       </p>
                     </div>
 
-                    <p className="text-xs text-zinc-500 leading-relaxed font-light line-clamp-3">
-                      {paper.snippet}
-                    </p>
+                    <div className="mt-6 pt-4 border-t border-zinc-100 dark:border-zinc-900/60 flex justify-between items-center">
+                      <Link
+                        href={`/research/request?paperId=${paper.id}`}
+                        onClick={(e) => e.stopPropagation()}
+                        className="text-[10px] font-mono text-cyan-500 hover:underline font-bold"
+                      >
+                        {paper.actionType === 'data' ? 'Methodology Data ➜' : 'Request Full Paper ➜'}
+                      </Link>
+                      <div className="flex items-center gap-2">
+                        {isAdmin && (
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              handleDeleteResearch(paper.id);
+                            }}
+                            className="text-[10px] font-mono text-red-500 hover:underline cursor-pointer mr-2"
+                          >
+                            Delete
+                          </button>
+                        )}
+                        <span className="text-[9px] font-mono text-zinc-400 uppercase tracking-widest bg-zinc-50 dark:bg-zinc-900 px-2 py-0.5 rounded font-bold">
+                          {paper.id === 'nurse-ratios' ? 'LEAD RESEARCHER' : 'CO-AUTHOR'}
+                        </span>
+                      </div>
+                    </div>
                   </div>
-
-                  <div className="mt-6 pt-4 border-t border-zinc-100 dark:border-zinc-900/60 flex justify-between items-center">
-                    <span className="text-[10px] font-mono text-cyan-500 group-hover:underline">
-                      {paper.actionType === 'request' ? 'Request Full Paper ➜' : paper.actionType === 'data' ? 'Methodology Data ➜' : 'Read Abstract ➜'}
-                    </span>
-                    <span className="text-[10px] font-mono text-zinc-400 uppercase tracking-widest bg-zinc-100 dark:bg-zinc-900 px-2.5 py-1 rounded">
-                      CO-AUTHOR
-                    </span>
-                  </div>
-                </div>
-              ))
+                ))}
+              </div>
             )}
-          </div>
-        </ScrollReveal>
+          </ScrollReveal>
+        </div>
       </section>
 
-      {/* PAPER DETAIL MODAL DIALOG */}
+      {/* PAPER DETAIL MODAL DIALOG - HIGH FIDELITY READING PANEL */}
       {selectedPaper && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-fadeIn">
-          <div className="bg-white dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 rounded-2xl w-full max-w-3xl max-h-[90vh] overflow-y-auto p-6 md:p-8 space-y-6 shadow-2xl relative">
+          <div className="bg-white dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 rounded-2xl w-full max-w-5xl max-h-[90vh] overflow-hidden shadow-2xl relative flex flex-col">
             
-            {/* Close Button */}
-            <button
-              onClick={() => {
-                setSelectedPaper(null);
-                setRequestSuccess(false);
-              }}
-              className="absolute right-4 top-4 md:right-6 md:top-6 w-8 h-8 flex items-center justify-center rounded-full bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-900 dark:hover:bg-zinc-800 text-zinc-500 dark:text-zinc-400 hover:text-black dark:hover:text-white transition cursor-pointer"
-            >
-              <i className="fa-solid fa-xmark text-sm"></i>
-            </button>
-
-            {/* Modal Header */}
-            <div className="space-y-3 pr-8">
-              <span className="text-[9px] font-mono bg-cyan-50 dark:bg-cyan-950/40 text-cyan-600 dark:text-cyan-400 px-2.5 py-1 rounded uppercase tracking-wider inline-block">
+            {/* Sticky Modal Header Bar */}
+            <div className="p-4 md:p-6 border-b border-zinc-200 dark:border-zinc-850 flex items-center justify-between bg-white dark:bg-zinc-950 z-10 shrink-0">
+              <span className="text-[10px] font-mono bg-cyan-50 dark:bg-cyan-950/40 text-cyan-600 dark:text-cyan-400 px-2.5 py-1 rounded uppercase tracking-wider">
                 {selectedPaper.theme}
               </span>
-              <h2 className="font-name italic text-2xl md:text-3xl font-medium text-black dark:text-zinc-50 leading-tight">
-                {selectedPaper.title}
-              </h2>
-              <div className="space-y-1 text-xs text-zinc-500 font-mono">
-                <p>
-                  Lead/Main Author: <span className="text-black dark:text-white font-bold">{selectedPaper.authors.main}</span>
-                </p>
-                <p>
-                  Co-Author: <span className="text-black dark:text-white underline">Benedict Adurosakin</span> (with {selectedPaper.authors.coAuthor !== 'Benedict Adurosakin' ? selectedPaper.authors.coAuthor : 'Faculty/Collaborators'})
-                </p>
-                <p>Institution: {selectedPaper.institution}</p>
-                <p>Date Published: {selectedPaper.date}</p>
+              
+              <div className="flex items-center gap-2">
+                <Link
+                  href={`/research/request?paperId=${selectedPaper.id}`}
+                  className="bg-cyan-500 hover:bg-cyan-600 text-white font-mono text-[9px] uppercase tracking-wider px-3.5 py-2 rounded-lg transition-colors font-bold flex items-center gap-1.5 shadow-sm cursor-pointer"
+                >
+                  <i className="fa-solid fa-envelope"></i>
+                  <span>{selectedPaper.actionType === 'data' ? 'REQUEST DATA' : 'REQUEST PREPRINT'}</span>
+                </Link>
+                <button
+                  onClick={() => setSelectedPaper(null)}
+                  className="w-8 h-8 flex items-center justify-center rounded-full bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-900 dark:hover:bg-zinc-800 text-zinc-500 dark:text-zinc-400 hover:text-black dark:hover:text-white transition cursor-pointer"
+                >
+                  <i className="fa-solid fa-xmark text-sm"></i>
+                </button>
               </div>
             </div>
 
-            <div className="h-[1px] w-full bg-zinc-150 dark:bg-zinc-900"></div>
-
-            {/* Document Content Sections */}
-            <div className="space-y-6 text-sm text-zinc-650 dark:text-zinc-350 leading-relaxed font-light scroll-smooth">
-              <div className="space-y-2">
-                <h4 className="font-mono text-[10px] uppercase tracking-wider text-cyan-500 font-bold">Introduction</h4>
-                <p>{selectedPaper.introduction}</p>
-              </div>
-
-              <div className="space-y-2">
-                <h4 className="font-mono text-[10px] uppercase tracking-wider text-cyan-500 font-bold">Methodology</h4>
-                <p>{selectedPaper.methodology}</p>
-              </div>
-
-              <div className="space-y-2">
-                <h4 className="font-mono text-[10px] uppercase tracking-wider text-cyan-500 font-bold">Results</h4>
-                <p>{selectedPaper.results}</p>
-              </div>
-
-              <div className="space-y-2">
-                <h4 className="font-mono text-[10px] uppercase tracking-wider text-cyan-500 font-bold">Conclusion</h4>
-                <p>{selectedPaper.conclusion}</p>
-              </div>
-
-              {selectedPaper.recommendations && (
-                <div className="space-y-2">
-                  <h4 className="font-mono text-[10px] uppercase tracking-wider text-cyan-500 font-bold">Recommendations</h4>
-                  <p>{selectedPaper.recommendations}</p>
+            {/* Main Dual-Column Content */}
+            <div className="grid md:grid-cols-12 overflow-y-auto flex-grow divide-y md:divide-y-0 md:divide-x divide-zinc-200 dark:divide-zinc-850">
+              
+              {/* LEFT COLUMN: ARTICLE BODY */}
+              <div className="md:col-span-8 p-6 md:p-8 space-y-8 overflow-y-auto max-h-[calc(90vh-140px)]">
+                <div className="space-y-4">
+                  <h2 className="font-name italic text-2xl md:text-3xl font-medium text-black dark:text-zinc-50 leading-tight">
+                    {selectedPaper.title}
+                  </h2>
+                  
+                  {/* Dense Mobile Metadata View (hidden on desktop) */}
+                  <div className="block md:hidden space-y-1.5 text-xs text-zinc-450 font-mono border-y border-zinc-100 dark:border-zinc-905/70 py-3">
+                    <p>Main: <span className="text-zinc-800 dark:text-zinc-200 font-bold">{selectedPaper.authors?.main}</span></p>
+                    <p>Co: <span className="underline">{selectedPaper.authors?.coAuthor}</span></p>
+                    <p>School: <span className="text-zinc-850 dark:text-zinc-200">{selectedPaper.institution}</span></p>
+                  </div>
                 </div>
-              )}
-            </div>
 
-            <div className="h-[1px] w-full bg-zinc-150 dark:bg-zinc-900"></div>
+                {/* Document Sections */}
+                <div className="space-y-6 text-sm text-zinc-650 dark:text-zinc-350 leading-relaxed font-light scroll-smooth font-research">
+                  <div className="space-y-2 border-l-2 border-cyan-500/20 pl-4 animate-fadeIn">
+                    <h4 className="font-mono text-[10px] uppercase tracking-widest text-cyan-555 font-bold">Introduction</h4>
+                    <p className="indent-4 leading-relaxed text-zinc-800 dark:text-zinc-300 font-light">{selectedPaper.introduction}</p>
+                  </div>
 
-            {/* Full-Text Request Box */}
-            <div className="bg-zinc-50 dark:bg-zinc-900/40 border border-zinc-200/50 dark:border-zinc-800 rounded-xl p-5 space-y-4">
-              <div className="flex items-center gap-3">
-                <i className="fa-regular fa-file-pdf text-2xl text-cyan-500"></i>
-                <div>
-                  <h4 className="font-bold text-xs uppercase tracking-wider text-black dark:text-white">
-                    {selectedPaper.actionType === 'data' ? 'Request Methodology & Dataset' : 'Request Full Research Paper'}
-                  </h4>
-                  <p className="text-[11px] text-zinc-450">
-                    A copy of the pre-print manuscript and supporting spreadsheets will be sent to your inbox.
-                  </p>
+                  {selectedPaper.methodology && (
+                    <div className="space-y-2 border-l-2 border-cyan-500/20 pl-4 animate-fadeIn">
+                      <h4 className="font-mono text-[10px] uppercase tracking-widest text-cyan-555 font-bold">Methodology / Methods</h4>
+                      <p className="indent-4 leading-relaxed text-zinc-800 dark:text-zinc-300 font-light">{selectedPaper.methodology}</p>
+                    </div>
+                  )}
+
+                  {selectedPaper.results && (
+                    <div className="space-y-2 border-l-2 border-cyan-500/20 pl-4 animate-fadeIn">
+                      <h4 className="font-mono text-[10px] uppercase tracking-widest text-cyan-555 font-bold">Results / Findings</h4>
+                      <p className="indent-4 leading-relaxed text-zinc-800 dark:text-zinc-300 font-light">{selectedPaper.results}</p>
+                    </div>
+                  )}
+
+                  {selectedPaper.conclusion && (
+                    <div className="space-y-2 border-l-2 border-cyan-500/20 pl-4 animate-fadeIn">
+                      <h4 className="font-mono text-[10px] uppercase tracking-widest text-cyan-555 font-bold">Conclusion</h4>
+                      <p className="indent-4 leading-relaxed text-zinc-800 dark:text-zinc-300 font-light">{selectedPaper.conclusion}</p>
+                    </div>
+                  )}
+
+                  {selectedPaper.recommendations && (
+                    <div className="space-y-2 border-l-2 border-cyan-500/20 pl-4 animate-fadeIn">
+                      <h4 className="font-mono text-[10px] uppercase tracking-widest text-cyan-555 font-bold">Recommendations</h4>
+                      <p className="indent-4 leading-relaxed text-zinc-800 dark:text-zinc-300 font-light">{selectedPaper.recommendations}</p>
+                    </div>
+                  )}
                 </div>
               </div>
 
-              {requestSuccess ? (
-                <div className="p-3 bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 dark:text-emerald-400 rounded-lg text-xs font-mono flex items-center gap-2 animate-fadeIn">
-                  <i className="fa-solid fa-circle-check"></i>
-                  Request dispatched! Check your inbox shortly.
+              {/* RIGHT COLUMN: SIDEBAR METADATA & UTILITIES */}
+              <div className="md:col-span-4 p-6 bg-zinc-50/50 dark:bg-zinc-950/40 space-y-6 overflow-y-auto max-h-[calc(90vh-140px)]">
+                
+                {/* Academic Metadata Card */}
+                <div className="space-y-3">
+                  <h4 className="font-mono text-[10px] uppercase tracking-widest text-zinc-450 font-bold">Document Metadata</h4>
+                  <div className="space-y-3 text-xs font-mono">
+                    
+                    <div className="bg-white dark:bg-zinc-900 border border-zinc-200/60 dark:border-zinc-800/80 p-3.5 rounded-xl space-y-3 shadow-sm">
+                      <div>
+                        <span className="text-[9px] uppercase tracking-wider text-zinc-455 block mb-1">Lead Author</span>
+                        <button
+                          onClick={() => {
+                            applyFilter('author', selectedPaper.authors?.main || '');
+                            setSelectedPaper(null);
+                          }}
+                          className="text-left font-bold text-zinc-900 dark:text-zinc-100 hover:text-cyan-555 hover:underline cursor-pointer flex items-center gap-1.5 w-full text-xs font-mono border-none bg-transparent p-0"
+                        >
+                          <i className="fa-solid fa-user text-[10px] text-cyan-555"></i>
+                          <span className="truncate">{selectedPaper.authors?.main || 'Anonymous'}</span>
+                        </button>
+                      </div>
+                      
+                      <div className="border-t border-zinc-100 dark:border-zinc-850/80 pt-2.5">
+                        <span className="text-[9px] uppercase tracking-wider text-zinc-455 block mb-1">Co-Author</span>
+                        <button
+                          onClick={() => {
+                            applyFilter('coAuthor', selectedPaper.authors?.coAuthor || '');
+                            setSelectedPaper(null);
+                          }}
+                          className="text-left font-bold text-zinc-900 dark:text-zinc-100 hover:text-cyan-555 hover:underline cursor-pointer flex items-center gap-1.5 w-full text-xs font-mono border-none bg-transparent p-0"
+                        >
+                          <i className="fa-solid fa-user-doctor text-[10px] text-cyan-555"></i>
+                          <span className="truncate">{selectedPaper.authors?.coAuthor || 'Benedict Adurosakin'}</span>
+                        </button>
+                      </div>
+                      
+                      <div className="border-t border-zinc-100 dark:border-zinc-850/80 pt-2.5">
+                        <span className="text-[9px] uppercase tracking-wider text-zinc-455 block mb-1">Institution Location</span>
+                        <button
+                          onClick={() => {
+                            applyFilter('institution', selectedPaper.institution || '');
+                            setSelectedPaper(null);
+                          }}
+                          className="text-left font-bold text-zinc-900 dark:text-zinc-100 hover:text-cyan-555 hover:underline cursor-pointer flex items-start gap-1.5 w-full text-xs font-mono border-none bg-transparent p-0"
+                        >
+                          <i className="fa-solid fa-graduation-cap text-[10px] text-cyan-555 mt-0.5"></i>
+                          <span className="leading-snug">{selectedPaper.institution || 'Independent'}</span>
+                        </button>
+                      </div>
+
+                      <div className="border-t border-zinc-100 dark:border-zinc-850/80 pt-2.5">
+                        <span className="text-[9px] uppercase tracking-wider text-zinc-455 block">Published Date</span>
+                        <span className="font-bold text-zinc-900 dark:text-zinc-100 flex items-center gap-1.5 mt-1">
+                          <i className="fa-solid fa-calendar-days text-[10px] text-cyan-555"></i>
+                          <span>{selectedPaper.date || 'Recent'}</span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-              ) : (
-                <form onSubmit={handleRequestSubmit} className="flex gap-2">
-                  <input
-                    type="email"
-                    required
-                    placeholder="Enter your professional email address"
-                    value={requestEmail}
-                    onChange={(e) => setRequestEmail(e.target.value)}
-                    className="flex-grow bg-white dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 rounded-lg px-3 py-2 text-xs text-black dark:text-white outline-none focus:ring-1 focus:ring-cyan-500"
-                  />
-                  <button
-                    type="submit"
-                    disabled={isSubmittingRequest}
-                    className="bg-zinc-900 dark:bg-white text-white dark:text-black hover:bg-zinc-800 dark:hover:bg-zinc-100 font-mono text-[9px] uppercase tracking-wider px-4 py-2 rounded-lg transition-colors font-bold cursor-pointer disabled:opacity-50"
-                  >
-                    {isSubmittingRequest ? 'Sending...' : selectedPaper.actionType === 'data' ? 'GET DATA' : 'SEND REQUEST'}
-                  </button>
-                </form>
-              )}
-            </div>
 
-            <div className="flex justify-end pt-2">
-              <button
-                onClick={() => setSelectedPaper(null)}
-                className="px-5 py-2.5 bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-900 dark:hover:bg-zinc-800 text-zinc-650 dark:text-zinc-350 text-xs font-mono rounded-lg transition cursor-pointer"
-              >
-                Close Abstract
-              </button>
-            </div>
+                {/* Scholarly Citation Generator Widget */}
+                <div className="space-y-3">
+                  <h4 className="font-mono text-[10px] uppercase tracking-widest text-zinc-450 font-bold">How to Cite</h4>
+                  <div className="bg-white dark:bg-zinc-900 border border-zinc-200/60 dark:border-zinc-800/80 p-3.5 rounded-xl space-y-3.5 shadow-sm">
+                    {/* Citation selector */}
+                    <div className="flex gap-1.5 border-b border-zinc-100 dark:border-zinc-850 pb-2 flex-wrap">
+                      {(['APA', 'MLA', 'Harvard', 'Vancouver'] as const).map((fmt) => (
+                        <button
+                          key={fmt}
+                          onClick={() => setCitationFormat(fmt)}
+                          className={`text-[8px] font-mono px-2 py-0.5 rounded transition uppercase tracking-wider cursor-pointer ${
+                            citationFormat === fmt
+                              ? 'bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 font-bold'
+                              : 'text-zinc-400 hover:text-zinc-655 dark:hover:text-zinc-300'
+                          }`}
+                        >
+                          {fmt}
+                        </button>
+                      ))}
+                    </div>
+                    {/* Citations string */}
+                    <div className="text-[10px] font-mono text-zinc-550 dark:text-zinc-400 leading-relaxed break-words bg-zinc-50 dark:bg-zinc-955/60 p-2.5 rounded border border-zinc-150 dark:border-zinc-850">
+                      {generateCitationNode(selectedPaper, citationFormat)}
+                    </div>
+                    {/* Copy Button */}
+                    <button
+                      onClick={() => copyCitationToClipboard(selectedPaper)}
+                      className="w-full bg-zinc-900 hover:bg-zinc-850 dark:bg-zinc-800 dark:hover:bg-zinc-700 text-white font-mono text-[9px] uppercase tracking-wider py-2.5 rounded-lg transition-all font-bold flex items-center justify-center gap-1.5 cursor-pointer shadow-sm border-none"
+                    >
+                      {copiedCitation ? (
+                        <>
+                          <i className="fa-solid fa-check text-emerald-500"></i>
+                          <span>COPIED!</span>
+                        </>
+                      ) : (
+                        <>
+                          <i className="fa-solid fa-copy"></i>
+                          <span>COPY CITATION</span>
+                        </>
+                      )}
+                    </button>
+                  </div>
+                </div>
 
+                {/* Related Papers list inside modal */}
+                {getRelatedPapers(selectedPaper).length > 0 && (
+                  <div className="space-y-3">
+                    <h4 className="font-mono text-[10px] uppercase tracking-widest text-zinc-455 font-bold">Related Studies in Vault</h4>
+                    <div className="space-y-2">
+                      {getRelatedPapers(selectedPaper).map((rp) => (
+                        <div
+                          key={rp.id}
+                          onClick={() => setSelectedPaper(rp)}
+                          className="p-3 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 hover:border-cyan-500/40 dark:hover:border-cyan-500/30 hover:shadow-md rounded-xl cursor-pointer transition duration-300 flex flex-col gap-1.5"
+                        >
+                          <h5 className="text-[11px] font-bold text-zinc-900 dark:text-zinc-100 line-clamp-2 leading-snug">{rp.title || 'Untitled'}</h5>
+                          <div className="flex justify-between items-center text-[8px] text-zinc-400 font-mono mt-1 border-t border-zinc-100 dark:border-zinc-850/50 pt-1">
+                            <span>by {rp.authors?.main?.split(' ').pop() || rp.authors?.main || 'Anonymous'}</span>
+                            <span className="text-cyan-555 font-bold uppercase tracking-widest text-[7px] flex items-center gap-0.5">
+                              <span>Read</span>
+                              <i className="fa-solid fa-arrow-right text-[8px]"></i>
+                            </span>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
           </div>
         </div>
       )}
 
-      <Footer commitMessage="research-search-page-completed" />
+      <Footer commitMessage="academic-vault-refactored" />
     </>
   );
 }

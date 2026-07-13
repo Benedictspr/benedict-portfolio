@@ -13,11 +13,7 @@ const nextConfig: NextConfig = {
         destination: '/nursing',
         permanent: true,
       },
-      {
-        source: '/research',
-        destination: '/nursing',
-        permanent: true,
-      },
+
       {
         source: '/content-strategy',
         destination: '/writing',

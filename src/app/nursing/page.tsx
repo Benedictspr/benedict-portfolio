@@ -28,14 +28,7 @@ export default function NursingPage() {
   const [loadingProfile, setLoadingProfile] = useState(true);
   const profileRef = useRef<HTMLDivElement>(null);
 
-  const [projects, setProjects] = useState<ResearchProject[]>([]);
-  const [loadingProjects, setLoadingProjects] = useState(true);
 
-  // Form states for adding research
-  const [newTitle, setNewTitle] = useState('');
-  const [newTag, setNewTag] = useState('');
-  const [newInstitution, setNewInstitution] = useState('');
-  const [newFindings, setNewFindings] = useState('');
 
   useEffect(() => {
     // Fetch profile content
@@ -51,17 +44,7 @@ export default function NursingPage() {
         setLoadingProfile(false);
       });
 
-    // Fetch research projects
-    fetch('/api/research')
-      .then((res) => res.json())
-      .then((data) => {
-        setProjects(data.projects || []);
-        setLoadingProjects(false);
-      })
-      .catch((err) => {
-        console.error('Research fetch error:', err);
-        setLoadingProjects(false);
-      });
+
   }, []);
 
   const handleSaveProfile = async () => {
@@ -91,61 +74,7 @@ export default function NursingPage() {
     }
   };
 
-  const handleAddResearch = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!newTitle || !newFindings) return;
 
-    try {
-      const res = await fetch('/api/research', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'x-admin-auth': adminPass || '',
-        },
-        body: JSON.stringify({
-          title: newTitle,
-          tag: newTag || 'GENERAL',
-          institution: newInstitution || 'INDEPENDENT',
-          findings: newFindings,
-        }),
-      });
-      const data = await res.json();
-      if (data.success) {
-        setProjects((prev) => [data.project, ...prev]);
-        setNewTitle('');
-        setNewTag('');
-        setNewInstitution('');
-        setNewFindings('');
-        alert('Research project registered.');
-      } else {
-        alert('Failed to save research: ' + (data.message || 'Unauthorized'));
-      }
-    } catch (err) {
-      console.error(err);
-      alert('An error occurred while publishing.');
-    }
-  };
-
-  const handleDeleteResearch = async (id: number) => {
-    try {
-      const res = await fetch('/api/research', {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
-          'x-admin-auth': adminPass || '',
-        },
-        body: JSON.stringify({ id }),
-      });
-      const data = await res.json();
-      if (data.success) {
-        setProjects((prev) => prev.filter((p) => p.id !== id));
-      } else {
-        alert('Failed to delete: ' + (data.message || 'Unauthorized'));
-      }
-    } catch (err) {
-      console.error(err);
-    }
-  };
 
   const getDefaultProfile = () => {
     return `
@@ -361,87 +290,23 @@ export default function NursingPage() {
           </div>
         </div>
 
-        {/* NURSING EVIDENCE VAULT */}
+        {/* CLINICAL RESEARCH VAULT */}
         <div>
           <div className="flex items-center gap-4 mb-8">
-            <span className="font-mono text-[10px] uppercase tracking-widest text-zinc-400">Nursing Evidence Vault & Studies</span>
+            <span className="font-mono text-[10px] uppercase tracking-widest text-zinc-400">Clinical Research & Publications</span>
             <div className="h-[1px] w-full bg-zinc-200 dark:bg-zinc-900"></div>
           </div>
-
-          {isAdmin && (
-            <div className="bento border-purple-500/30 mb-8 animate-fadeIn">
-              <h3 className="font-mono text-xs uppercase text-purple-500 font-bold mb-4">Register New Research Entry</h3>
-              <form onSubmit={handleAddResearch} className="grid gap-4">
-                <input
-                  type="text"
-                  value={newTitle}
-                  onChange={(e) => setNewTitle(e.target.value)}
-                  placeholder="Research Title"
-                  className="w-full bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-lg p-3 outline-none focus:ring-1 focus:ring-purple-500 transition-all text-sm"
-                  required
-                />
-                <div className="grid md:grid-cols-2 gap-4">
-                  <input
-                    type="text"
-                    value={newTag}
-                    onChange={(e) => setNewTag(e.target.value)}
-                    placeholder="Focus Area (e.g. MATERNAL HEALTH)"
-                    className="w-full bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-lg p-3 outline-none focus:ring-1 focus:ring-purple-500 transition-all text-sm"
-                  />
-                  <input
-                    type="text"
-                    value={newInstitution}
-                    onChange={(e) => setNewInstitution(e.target.value)}
-                    placeholder="Collaborating Institution"
-                    className="w-full bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-lg p-3 outline-none focus:ring-1 focus:ring-purple-500 transition-all text-sm"
-                  />
-                </div>
-                <textarea
-                  value={newFindings}
-                  onChange={(e) => setNewFindings(e.target.value)}
-                  placeholder="Key Abstract Findings & Results..."
-                  className="w-full bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-lg p-3 outline-none focus:ring-1 focus:ring-purple-500 transition-all text-sm h-24"
-                  required
-                />
-                <button type="submit" className="bg-purple-600 text-white px-6 py-2.5 rounded-xl text-xs font-bold cursor-pointer hover:bg-purple-700 transition w-max">
-                  PUBLISH TO REPOSITORY
-                </button>
-              </form>
+          <div className="bento flex flex-col md:flex-row justify-between items-start md:items-center gap-6 group hover:border-cyan-500/30 transition-all duration-300">
+            <div className="space-y-2">
+              <h4 className="text-xl font-bold text-zinc-900 dark:text-zinc-100 font-name italic">Nursing Evidence Vault</h4>
+              <p className="text-xs md:text-sm text-zinc-500 dark:text-zinc-450 leading-relaxed font-light max-w-xl">
+                Explore clinical audits, maternal health studies, vaccine uptake research, and nursing workload audits where Benedict Adurosakin serves as co-author.
+              </p>
             </div>
-          )}
-
-          {loadingProjects ? (
-            <div className="text-zinc-500 italic text-xs">Loading studies...</div>
-          ) : (
-            <div className="space-y-6">
-              {projects.map((proj) => (
-                <div key={proj.id} className="bento border-l-4 border-l-purple-500 animate-fadeIn">
-                  <div className="flex justify-between items-start mb-4">
-                    <span className="text-[10px] font-mono bg-purple-100 dark:bg-purple-900/30 text-purple-600 px-2 py-1 rounded uppercase tracking-wider">
-                      {proj.tag || proj.category}
-                    </span>
-                    <span className="text-[10px] font-mono text-zinc-400">
-                      {proj.institution || proj.location}
-                    </span>
-                  </div>
-                  <h4 className="text-lg font-bold text-zinc-900 dark:text-zinc-100 mb-2">{proj.title}</h4>
-                  <p className="text-zinc-500 dark:text-zinc-400 text-sm mb-4 leading-relaxed font-light">
-                    {proj.findings || proj.abstract}
-                  </p>
-                  <div className="flex justify-between items-center text-xs font-mono">
-                    <Link href="/contact" className="text-[10px] font-bold border-b border-black dark:border-white pb-0.5 hover:text-cyan-500 hover:border-cyan-500 transition-colors">
-                      {proj.linkText || 'REQUEST FULL PAPER'}
-                    </Link>
-                    {isAdmin && (
-                      <button onClick={() => handleDeleteResearch(proj.id)} className="text-[10px] text-red-500 font-mono hover:underline cursor-pointer">
-                        DELETE ENTRY
-                      </button>
-                    )}
-                  </div>
-                </div>
-              ))}
-            </div>
-          )}
+            <Link href="/research" className="bg-zinc-900 dark:bg-white text-white dark:text-black font-mono text-[9px] uppercase tracking-wider px-5 py-3 rounded-lg hover:bg-zinc-800 dark:hover:bg-zinc-100 transition-colors font-bold whitespace-nowrap cursor-pointer">
+              Enter Research Library ➜
+            </Link>
+          </div>
         </div>
 
       </section>

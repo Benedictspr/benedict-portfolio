@@ -17,7 +17,7 @@ export default function Navbar() {
   ];
 
   return (
-    <nav className="flex gap-6 font-mono text-[10px] tracking-widest uppercase mb-16 overflow-x-auto whitespace-nowrap pb-2 w-full border-b border-zinc-100 dark:border-zinc-900/50">
+    <nav className="flex flex-wrap gap-x-6 gap-y-3 font-mono text-[10px] tracking-widest uppercase mb-16 pb-3 w-full border-b border-zinc-100 dark:border-zinc-900/50">
       {links.map((link) => {
         const isActive = pathname === link.path;
         return (
