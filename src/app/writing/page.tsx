@@ -3,8 +3,10 @@
 import { useState, useEffect } from 'react';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
+import BookReader from '../../components/BookReader';
 import { useAdmin } from '../../context/AdminContext';
 import Link from 'next/link';
+import ScrollReveal from '../../components/ScrollReveal';
 
 interface MediumPost {
   title: string;
@@ -252,90 +254,89 @@ export default function WritingPage() {
       <section className="px-6 md:px-12 pb-24 flex-grow w-full space-y-20">
         
         {/* PHILOSOPHY */}
-        <div>
-          <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-zinc-400 block mb-6">Philosophy</span>
-          <div className="font-author text-2xl md:text-3xl leading-relaxed italic text-zinc-700 dark:text-zinc-300">
-            "My writing explores the depth of the human condition... I aim to capture emotion, introspection, and layered meaning in every piece, anchoring the{' '}
-            <span className="circle-sketch not-italic font-bold text-black dark:text-white writing-circle">
-              voice of the voiceless
-              <svg className="circle-svg" viewBox="0 0 100 100" preserveAspectRatio="none">
-                <path d="M5,50 C5,20 95,20 95,50 C95,80 5,80 5,50" stroke="currentColor" strokeWidth="2" fill="none" vectorEffect="non-scaling-stroke" />
-              </svg>
-            </span>."
+        <ScrollReveal className="w-full">
+          <div>
+            <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-zinc-400 block mb-6">Philosophy</span>
+            <div className="font-author text-2xl md:text-3xl leading-relaxed italic text-zinc-700 dark:text-zinc-300">
+              "My writing explores the depth of the human condition... I aim to capture emotion, introspection, and layered meaning in every piece, anchoring the{' '}
+              <span className="circle-sketch not-italic font-bold text-black dark:text-white writing-circle">
+                voice of the voiceless
+                <svg className="circle-svg" viewBox="0 0 100 100" preserveAspectRatio="none">
+                  <path d="M5,50 C5,20 95,20 95,50 C95,80 5,80 5,50" stroke="currentColor" strokeWidth="2" fill="none" vectorEffect="non-scaling-stroke" />
+                </svg>
+              </span>."
+            </div>
+            <p className="mt-8 text-zinc-500 font-sans max-w-xl text-sm leading-relaxed">
+              Influenced by Rainer Maria Rilke, Kahlil Gibran, and James Baldwin, my work blends mystery, moral tension, and symbolism.
+            </p>
           </div>
-          <p className="mt-8 text-zinc-500 font-sans max-w-xl text-sm leading-relaxed">
-            Influenced by Rainer Maria Rilke, Kahlil Gibran, and James Baldwin, my work blends mystery, moral tension, and symbolism.
-          </p>
-        </div>
+        </ScrollReveal>
 
         {/* SELECTED BIBLIOGRAPHY */}
-        <div>
-          <div className="flex items-center gap-4 mb-8">
-            <span className="font-mono text-[10px] uppercase tracking-widest text-zinc-400">Selected Bibliography</span>
-            <div className="h-[1px] w-full bg-zinc-200 dark:bg-zinc-900"></div>
-          </div>
-          
-          <div className="grid gap-6">
-            <div className="bento group border-amber-200/50 dark:border-amber-900/25">
-              <div className="flex flex-wrap justify-between items-start gap-4 mb-6">
-                <h3 className="font-author text-2xl italic text-black dark:text-zinc-100">The XVII-th: Letters to the One Who Will Come</h3>
-                <span className="text-[10px] font-mono border border-amber-300 text-amber-600 px-2 py-1 rounded">PHILOSOPHICAL NOVEL</span>
-              </div>
-              <p className="text-zinc-500 dark:text-zinc-400 text-sm leading-relaxed mb-8">
-                The XVII-th is a 166-page philosophical letter-series, written by a vanished voice to the one fated to rise. It is not a guide. It is a mirror. It is a journey through silence, power, betrayal, and the burden of knowing too much, wrapped in metaphor and mystery. Each page seeks to awaken the still, sovereign self buried beneath life’s noise and injustice.
-              </p>
-              <div className="flex flex-wrap gap-6">
-                <button
-                  onClick={() => setShowPreview(!showPreview)}
-                  className="text-[10px] font-bold border-b border-black dark:border-white pb-1 hover:text-amber-650 hover:border-amber-650 transition cursor-pointer"
-                >
-                  {showPreview ? 'HIDE EXCERPTS' : 'READ EXCERPTS'}
-                </button>
-                <a href="https://selar.com/f8e09466jy" target="_blank" rel="noopener noreferrer" className="text-[10px] font-bold border-b border-black dark:border-white pb-1 hover:text-amber-655 hover:border-amber-655 transition">
-                  BUY NOVEL ↗
-                </a>
-              </div>
+        <ScrollReveal className="w-full" delay={150}>
+          <div>
+            <div className="flex items-center gap-4 mb-8">
+              <span className="font-mono text-[10px] uppercase tracking-widest text-zinc-400">Selected Bibliography</span>
+              <div className="h-[1px] w-full bg-zinc-200 dark:bg-zinc-900"></div>
             </div>
+            
+            <div className="grid gap-6">
+              <div className="bento group border-amber-200/50 dark:border-amber-900/25">
+                <div className="flex flex-wrap justify-between items-start gap-4 mb-6">
+                  <h3 className="font-author text-2xl italic text-black dark:text-zinc-100">The XVII-th: Letters to the One Who Will Come</h3>
+                  <span className="text-[10px] font-mono border border-amber-300 text-amber-600 px-2 py-1 rounded">PHILOSOPHICAL NOVEL</span>
+                </div>
+                <p className="text-zinc-500 dark:text-zinc-400 text-sm leading-relaxed mb-8">
+                  The XVII-th is a 166-page philosophical letter-series, written by a vanished voice to the one fated to rise. It is not a guide. It is a mirror. It is a journey through silence, power, betrayal, and the burden of knowing too much, wrapped in metaphor and mystery. Each page seeks to awaken the still, sovereign self buried beneath life’s noise and injustice.
+                </p>
+                <div className="flex flex-wrap gap-6">
+                  <button
+                    onClick={() => setShowPreview(!showPreview)}
+                    className="text-[10px] font-bold border-b border-black dark:border-white pb-1 hover:text-amber-650 hover:border-amber-650 transition cursor-pointer"
+                  >
+                    {showPreview ? 'HIDE EXCERPTS' : 'READ EXCERPTS'}
+                  </button>
+                  <a href="https://selar.com/f8e09466jy" target="_blank" rel="noopener noreferrer" className="text-[10px] font-bold border-b border-black dark:border-white pb-1 hover:text-amber-655 hover:border-amber-655 transition">
+                    BUY NOVEL ↗
+                  </a>
+                </div>
+              </div>
 
-            <div className="bento group">
-              <div className="flex flex-wrap justify-between items-start gap-4 mb-6">
-                <h3 className="font-author text-2xl italic text-black dark:text-zinc-100">Five Pieces of Sam</h3>
-                <span className="text-[10px] font-mono border border-zinc-300 text-zinc-500 px-2 py-1 rounded">CRIME THRILLER</span>
+              <div className="bento group">
+                <div className="flex flex-wrap justify-between items-start gap-4 mb-6">
+                  <h3 className="font-author text-2xl italic text-black dark:text-zinc-100">Five Pieces of Sam</h3>
+                  <span className="text-[10px] font-mono border border-zinc-300 text-zinc-500 px-2 py-1 rounded">CRIME THRILLER</span>
+                </div>
+                <p className="text-zinc-500 dark:text-zinc-400 text-sm leading-relaxed mb-8">
+                  A murder in Lagos. Five suspects. One chilling truth. Five Pieces of Sam by Adurosakin Benedict is the psychological thriller you won’t put down. Dive into a web of betrayal and secrets. Can you solve it before the last page?
+                </p>
+                <div className="flex gap-6">
+                  <a href="https://benedicta71.gumroad.com/l/gyeanz" target="_blank" rel="noopener noreferrer" className="text-[10px] font-bold border-b border-black dark:border-white pb-1 transition hover:text-cyan-500 hover:border-cyan-500">
+                    READ NOW ↗
+                  </a>
+                </div>
               </div>
-              <p className="text-zinc-500 dark:text-zinc-400 text-sm leading-relaxed mb-8">
-                A murder in Lagos. Five suspects. One chilling truth. Five Pieces of Sam by Adurosakin Benedict is the psychological thriller you won’t put down. Dive into a web of betrayal and secrets. Can you solve it before the last page?
-              </p>
-              <div className="flex gap-6">
-                <a href="https://benedicta71.gumroad.com/l/gyeanz" target="_blank" rel="noopener noreferrer" className="text-[10px] font-bold border-b border-black dark:border-white pb-1 transition hover:text-cyan-500 hover:border-cyan-500">
-                  READ NOW ↗
-                </a>
-              </div>
-            </div>
 
-            <div className="bento opacity-80 border-dashed">
-              <div className="flex flex-wrap justify-between items-start gap-4 mb-4">
-                <h3 className="font-author text-2xl italic text-zinc-400 dark:text-zinc-500">The Ivory Vultures</h3>
-                <span className="text-[10px] font-mono bg-zinc-100 dark:bg-zinc-800 px-2 py-1 rounded">IN PROGRESS</span>
+              <div className="bento opacity-80 border-dashed">
+                <div className="flex flex-wrap justify-between items-start gap-4 mb-4">
+                  <h3 className="font-author text-2xl italic text-zinc-400 dark:text-zinc-500">The Ivory Vultures</h3>
+                  <span className="text-[10px] font-mono bg-zinc-100 dark:bg-zinc-800 px-2 py-1 rounded">IN PROGRESS</span>
+                </div>
+                <p className="text-zinc-500 text-sm leading-relaxed">
+                  The Ivory Vultures is a political allegory exploring the decay of a fictional nation plagued by corruption, collapsing values, and the manipulation of foreign influence. Told through betrayal, alliances, and raw emotion, it draws readers into the heart of a country teetering on the edge. This upcoming novel builds on the legacy of The XVII-th and aims to spark critical reflection about our collective future.
+                </p>
               </div>
-              <p className="text-zinc-500 text-sm leading-relaxed">
-                The Ivory Vultures is a political allegory exploring the decay of a fictional nation plagued by corruption, collapsing values, and the manipulation of foreign influence. Told through betrayal, alliances, and raw emotion, it draws readers into the heart of a country teetering on the edge. This upcoming novel builds on the legacy of The XVII-th and aims to spark critical reflection about our collective future.
-              </p>
             </div>
           </div>
-        </div>
+        </ScrollReveal>
 
         {/* BOOK PREVIEW IF TOGGLED */}
         {showPreview && (
           <div className="mb-20 border-t border-zinc-100 dark:border-zinc-900/50 pt-16 animate-fadeIn space-y-12">
-            <h2 className="font-author text-3xl italic text-black dark:text-zinc-100">The XVII-th: Sample Pages</h2>
-            <div className="bento p-0 overflow-hidden h-[600px] border-zinc-200 dark:border-zinc-800 shadow-inner">
-              <iframe
-                src="/The XVII-th (Sample Pages).pdf#toolbar=0&navpanes=0&scrollbar=0"
-                className="w-full h-full grayscale-[0.5] dark:invert-[0.05]"
-              />
-            </div>
+            <h2 className="font-author text-3xl italic text-black dark:text-zinc-100">The XVII-th: Interactive Reader</h2>
+            <BookReader />
             <p className="text-center text-[10px] font-mono text-zinc-400 italic">
-              Preview Mode (Right-click & Printing disabled)
+              Interactive Preview Mode (Select pages, search text, or change layout themes)
             </p>
 
             <div className="max-w-xl mx-auto border-t border-zinc-100 dark:border-zinc-900/50 pt-12">
@@ -431,183 +432,189 @@ export default function WritingPage() {
         )}
 
         {/* MEDIUM ARTICLES FEED */}
-        <div>
-          <div className="flex items-center gap-4 mb-8">
-            <span className="font-mono text-[10px] uppercase tracking-widest text-zinc-400">Medium Articles Feed</span>
-            <div className="h-[1px] w-full bg-zinc-200 dark:bg-zinc-900"></div>
-          </div>
-          
-          {loadingMedium ? (
-            <div className="text-zinc-500 italic text-center py-10">Loading writing feed...</div>
-          ) : mediumPosts.length === 0 ? (
-            <div className="bento text-zinc-500 text-sm italic text-center">
-              No recent articles found. Check back later or read directly on{' '}
-              <a href="https://medium.com/@benedictadurosakin" target="_blank" rel="noopener noreferrer" className="underline font-bold text-black dark:text-white">Medium</a>.
+        <ScrollReveal className="w-full">
+          <div>
+            <div className="flex items-center gap-4 mb-8">
+              <span className="font-mono text-[10px] uppercase tracking-widest text-zinc-400">Medium Articles Feed</span>
+              <div className="h-[1px] w-full bg-zinc-200 dark:bg-zinc-900"></div>
             </div>
-          ) : (
-            <div className="grid md:grid-cols-2 gap-4 animate-fadeIn">
-              {mediumPosts.map((post, idx) => (
-                <div key={idx} className="bento flex flex-col justify-between h-full hover:border-zinc-400 dark:hover:border-zinc-700 transition">
-                  <div>
-                    <div className="flex justify-between items-center mb-2">
-                      <span className="text-[9px] font-mono text-zinc-400">{post.pubDate}</span>
-                      <span className="text-[9px] font-mono bg-zinc-100 dark:bg-zinc-800 px-2 py-1 rounded text-zinc-500">Medium</span>
+            
+            {loadingMedium ? (
+              <div className="text-zinc-500 italic text-center py-10">Loading writing feed...</div>
+            ) : mediumPosts.length === 0 ? (
+              <div className="bento text-zinc-500 text-sm italic text-center">
+                No recent articles found. Check back later or read directly on{' '}
+                <a href="https://medium.com/@benedictadurosakin" target="_blank" rel="noopener noreferrer" className="underline font-bold text-black dark:text-white">Medium</a>.
+              </div>
+            ) : (
+              <div className="grid md:grid-cols-2 gap-4 animate-fadeIn">
+                {mediumPosts.map((post, idx) => (
+                  <div key={idx} className="bento flex flex-col justify-between h-full hover:border-zinc-400 dark:hover:border-zinc-700 transition">
+                    <div>
+                      <div className="flex justify-between items-center mb-2">
+                        <span className="text-[9px] font-mono text-zinc-400">{post.pubDate}</span>
+                        <span className="text-[9px] font-mono bg-zinc-100 dark:bg-zinc-800 px-2 py-1 rounded text-zinc-500">Medium</span>
+                      </div>
+                      <h4 className="text-lg font-semibold text-black dark:text-zinc-100 mb-3">{post.title}</h4>
+                      <p className="text-xs text-zinc-500 dark:text-zinc-400 leading-relaxed mb-6">
+                        {post.snippet}
+                      </p>
                     </div>
-                    <h4 className="text-lg font-semibold text-black dark:text-zinc-100 mb-3">{post.title}</h4>
-                    <p className="text-xs text-zinc-500 dark:text-zinc-400 leading-relaxed mb-6">
-                      {post.snippet}
-                    </p>
+                    <a href={post.link} target="_blank" rel="noopener noreferrer" className="text-[10px] font-bold border-b border-black dark:border-white pb-1 inline-block self-start hover:text-amber-500 hover:border-amber-500 transition-colors">
+                      READ ARTICLE ↗
+                    </a>
                   </div>
-                  <a href={post.link} target="_blank" rel="noopener noreferrer" className="text-[10px] font-bold border-b border-black dark:border-white pb-1 inline-block self-start hover:text-amber-500 hover:border-amber-500 transition-colors">
-                    READ ARTICLE ↗
-                  </a>
-                </div>
-              ))}
-            </div>
-          )}
-        </div>
+                ))}
+              </div>
+            )}
+          </div>
+        </ScrollReveal>
 
         {/* MEDSAGEHQ CONTENT ARCHIVE */}
-        <div>
-          <div className="flex items-center gap-4 mb-8">
-            <span className="font-mono text-[10px] uppercase tracking-widest text-cyan-500 dark:text-cyan-400 font-bold">MedSageHQ Repository</span>
-            <div className="h-[1px] w-full bg-zinc-200 dark:bg-zinc-900"></div>
-          </div>
+        <ScrollReveal className="w-full">
+          <div>
+            <div className="flex items-center gap-4 mb-8">
+              <span className="font-mono text-[10px] uppercase tracking-widest text-cyan-500 dark:text-cyan-400 font-bold">MedSageHQ Repository</span>
+              <div className="h-[1px] w-full bg-zinc-200 dark:bg-zinc-900"></div>
+            </div>
 
-          {isAdmin && (
-            <div className="bento border-cyan-500/30 mb-8 animate-fadeIn">
-              <h3 className="font-mono text-xs uppercase text-cyan-500 font-bold mb-4">Publish MedSageHQ Update</h3>
-              <input
-                type="text"
-                value={medsageTitle}
-                onChange={(e) => setMedsageTitle(e.target.value)}
-                placeholder="Update Title"
-                className="w-full bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-lg p-3 outline-none focus:ring-1 focus:ring-cyan-500 transition-all text-sm mb-4 text-black dark:text-zinc-105"
-              />
-              <div className="grid md:grid-cols-2 gap-4 mb-4">
+            {isAdmin && (
+              <div className="bento border-cyan-500/30 mb-8 animate-fadeIn">
+                <h3 className="font-mono text-xs uppercase text-cyan-500 font-bold mb-4">Publish MedSageHQ Update</h3>
                 <input
                   type="text"
-                  value={medsageImage}
-                  onChange={(e) => setMedsageImage(e.target.value)}
-                  placeholder="Image URL"
-                  className="w-full bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-lg p-3 outline-none focus:ring-1 focus:ring-cyan-500 transition-all text-sm text-black dark:text-zinc-105"
+                  value={medsageTitle}
+                  onChange={(e) => setMedsageTitle(e.target.value)}
+                  placeholder="Update Title"
+                  className="w-full bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-lg p-3 outline-none focus:ring-1 focus:ring-cyan-500 transition-all text-sm mb-4 text-black dark:text-zinc-105"
                 />
-                <input
-                  type="file"
-                  onChange={async (e) => {
-                    if (e.target.files?.[0]) {
-                      const base64 = await handleImageUpload(e.target.files[0]);
-                      setMedsageImage(base64);
-                    }
-                  }}
-                  className="w-full bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-lg p-2 text-xs"
-                />
-              </div>
-              <textarea
-                value={medsageContent}
-                onChange={(e) => setMedsageContent(e.target.value)}
-                placeholder="Update body text (HTML supported)..."
-                className="w-full bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-lg p-3 outline-none focus:ring-1 focus:ring-cyan-500 transition-all text-sm h-32 mb-4 text-black dark:text-zinc-105"
-              />
-              <button onClick={() => handlePublish('medsage')} className="bg-cyan-600 text-white px-6 py-2 rounded-full text-xs font-bold cursor-pointer hover:bg-cyan-700 transition">
-                PUBLISH UPDATE
-              </button>
-            </div>
-          )}
-
-          {loadingCurated ? (
-            <div className="text-zinc-500 italic text-xs">Loading repository...</div>
-          ) : medsagePosts.length === 0 ? (
-            <p className="text-zinc-500 text-xs italic">No updates published yet.</p>
-          ) : (
-            <div className="space-y-6 animate-fadeIn">
-              {medsagePosts.map((post) => (
-                <div key={post.id} className="bento border-l-4 border-l-cyan-500">
-                  <h3 className="font-bold text-lg mb-2 text-black dark:text-zinc-100">{post.title}</h3>
-                  <span className="text-[9px] font-mono text-zinc-400 block mb-4">{new Date(post.timestamp).toLocaleDateString()}</span>
-                  {post.image && <img src={post.image} alt={post.title} className="rounded-lg mb-4 w-full h-48 object-cover border dark:border-zinc-800" />}
-                  <div className="text-sm text-zinc-500 leading-relaxed" dangerouslySetInnerHTML={{ __html: post.content }} />
-                  {isAdmin && (
-                    <button onClick={() => handleDeleteCurated('medsage', post.id)} className="mt-4 text-[10px] text-red-500 font-mono hover:underline cursor-pointer">
-                      DELETE ENTRY
-                    </button>
-                  )}
+                <div className="grid md:grid-cols-2 gap-4 mb-4">
+                  <input
+                    type="text"
+                    value={medsageImage}
+                    onChange={(e) => setMedsageImage(e.target.value)}
+                    placeholder="Image URL"
+                    className="w-full bg-zinc-50 dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 rounded-lg p-3 outline-none focus:ring-1 focus:ring-cyan-500 transition-all text-sm text-black dark:text-zinc-105"
+                  />
+                  <input
+                    type="file"
+                    onChange={async (e) => {
+                      if (e.target.files?.[0]) {
+                        const base64 = await handleImageUpload(e.target.files[0]);
+                        setMedsageImage(base64);
+                      }
+                    }}
+                    className="w-full bg-zinc-55 border border-zinc-200 dark:border-zinc-800 rounded-lg p-2 text-xs"
+                  />
                 </div>
-              ))}
-            </div>
-          )}
-        </div>
+                <textarea
+                  value={medsageContent}
+                  onChange={(e) => setMedsageContent(e.target.value)}
+                  placeholder="Update body text (HTML supported)..."
+                  className="w-full bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-lg p-3 outline-none focus:ring-1 focus:ring-cyan-500 transition-all text-sm h-32 mb-4 text-black dark:text-zinc-105"
+                />
+                <button onClick={() => handlePublish('medsage')} className="bg-cyan-600 text-white px-6 py-2 rounded-full text-xs font-bold cursor-pointer hover:bg-cyan-700 transition">
+                  PUBLISH UPDATE
+                </button>
+              </div>
+            )}
+
+            {loadingCurated ? (
+              <div className="text-zinc-500 italic text-xs">Loading repository...</div>
+            ) : medsagePosts.length === 0 ? (
+              <p className="text-zinc-500 text-xs italic">No updates published yet.</p>
+            ) : (
+              <div className="space-y-6 animate-fadeIn">
+                {medsagePosts.map((post) => (
+                  <div key={post.id} className="bento border-l-4 border-l-cyan-500">
+                    <h3 className="font-bold text-lg mb-2 text-black dark:text-zinc-100">{post.title}</h3>
+                    <span className="text-[9px] font-mono text-zinc-400 block mb-4">{new Date(post.timestamp).toLocaleDateString()}</span>
+                    {post.image && <img src={post.image} alt={post.title} className="rounded-lg mb-4 w-full h-48 object-cover border dark:border-zinc-800" />}
+                    <div className="text-sm text-zinc-500 leading-relaxed" dangerouslySetInnerHTML={{ __html: post.content }} />
+                    {isAdmin && (
+                      <button onClick={() => handleDeleteCurated('medsage', post.id)} className="mt-4 text-[10px] text-red-500 font-mono hover:underline cursor-pointer">
+                        DELETE ENTRY
+                      </button>
+                    )}
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        </ScrollReveal>
 
         {/* DRIVEVIRTUAL FEED */}
-        <div>
-          <div className="flex items-center gap-4 mb-8">
-            <span className="font-mono text-[10px] uppercase tracking-widest text-red-500 dark:text-red-400 font-bold">DriveVirtual Feed</span>
-            <div className="h-[1px] w-full bg-zinc-200 dark:bg-zinc-900"></div>
-          </div>
+        <ScrollReveal className="w-full">
+          <div>
+            <div className="flex items-center gap-4 mb-8">
+              <span className="font-mono text-[10px] uppercase tracking-widest text-red-500 dark:text-red-400 font-bold">DriveVirtual Feed</span>
+              <div className="h-[1px] w-full bg-zinc-200 dark:bg-zinc-900"></div>
+            </div>
 
-          {isAdmin && (
-            <div className="bento border-red-500/30 mb-8 animate-fadeIn">
-              <h3 className="font-mono text-xs uppercase text-red-500 font-bold mb-4">Publish DriveVirtual Update</h3>
-              <input
-                type="text"
-                value={driveTitle}
-                onChange={(e) => setDriveTitle(e.target.value)}
-                placeholder="Update Title"
-                className="w-full bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-lg p-3 outline-none focus:ring-1 focus:ring-red-500 transition-all text-sm mb-4 text-black dark:text-zinc-105"
-              />
-              <div className="grid md:grid-cols-2 gap-4 mb-4">
+            {isAdmin && (
+              <div className="bento border-red-500/30 mb-8 animate-fadeIn">
+                <h3 className="font-mono text-xs uppercase text-red-500 font-bold mb-4">Publish DriveVirtual Update</h3>
                 <input
                   type="text"
-                  value={driveImage}
-                  onChange={(e) => setDriveImage(e.target.value)}
-                  placeholder="Image URL"
-                  className="w-full bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-lg p-3 outline-none focus:ring-1 focus:ring-red-500 transition-all text-sm text-black dark:text-zinc-105"
+                  value={driveTitle}
+                  onChange={(e) => setDriveTitle(e.target.value)}
+                  placeholder="Update Title"
+                  className="w-full bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-lg p-3 outline-none focus:ring-1 focus:ring-red-500 transition-all text-sm mb-4 text-black dark:text-zinc-105"
                 />
-                <input
-                  type="file"
-                  onChange={async (e) => {
-                    if (e.target.files?.[0]) {
-                      const base64 = await handleImageUpload(e.target.files[0]);
-                      setDriveImage(base64);
-                    }
-                  }}
-                  className="w-full bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-lg p-2 text-xs"
-                />
-              </div>
-              <textarea
-                value={driveContent}
-                onChange={(e) => setDriveContent(e.target.value)}
-                placeholder="Update body text (HTML supported)..."
-                className="w-full bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-lg p-3 outline-none focus:ring-1 focus:ring-red-500 transition-all text-sm h-32 mb-4 text-black dark:text-zinc-105"
-              />
-              <button onClick={() => handlePublish('drive')} className="bg-red-600 text-white px-6 py-2 rounded-full text-xs font-bold cursor-pointer hover:bg-red-700 transition">
-                PUBLISH UPDATE
-              </button>
-            </div>
-          )}
-
-          {loadingCurated ? (
-            <div className="text-zinc-500 italic text-xs">Loading feed...</div>
-          ) : drivePosts.length === 0 ? (
-            <p className="text-zinc-500 text-xs italic">No updates published yet.</p>
-          ) : (
-            <div className="space-y-6 animate-fadeIn">
-              {drivePosts.map((post) => (
-                <div key={post.id} className="bento border-l-4 border-l-red-500">
-                  <h3 className="font-bold text-lg mb-2 text-black dark:text-zinc-100">{post.title}</h3>
-                  <span className="text-[9px] font-mono text-zinc-400 block mb-4">{new Date(post.timestamp).toLocaleDateString()}</span>
-                  {post.image && <img src={post.image} alt={post.title} className="rounded-lg mb-4 w-full h-48 object-cover border dark:border-zinc-800" />}
-                  <div className="text-sm text-zinc-500 leading-relaxed" dangerouslySetInnerHTML={{ __html: post.content }} />
-                  {isAdmin && (
-                    <button onClick={() => handleDeleteCurated('drive', post.id)} className="mt-4 text-[10px] text-red-500 font-mono hover:underline cursor-pointer">
-                      DELETE ENTRY
-                    </button>
-                  )}
+                <div className="grid md:grid-cols-2 gap-4 mb-4">
+                  <input
+                    type="text"
+                    value={driveImage}
+                    onChange={(e) => setDriveImage(e.target.value)}
+                    placeholder="Image URL"
+                    className="w-full bg-zinc-50 dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 rounded-lg p-3 outline-none focus:ring-1 focus:ring-red-500 transition-all text-sm text-black dark:text-zinc-105"
+                  />
+                  <input
+                    type="file"
+                    onChange={async (e) => {
+                      if (e.target.files?.[0]) {
+                        const base64 = await handleImageUpload(e.target.files[0]);
+                        setDriveImage(base64);
+                      }
+                    }}
+                    className="w-full bg-zinc-55 border border-zinc-200 dark:border-zinc-800 rounded-lg p-2 text-xs"
+                  />
                 </div>
-              ))}
-            </div>
-          )}
-        </div>
+                <textarea
+                  value={driveContent}
+                  onChange={(e) => setDriveContent(e.target.value)}
+                  placeholder="Update body text (HTML supported)..."
+                  className="w-full bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-lg p-3 outline-none focus:ring-1 focus:ring-red-500 transition-all text-sm h-32 mb-4 text-black dark:text-zinc-105"
+                />
+                <button onClick={() => handlePublish('drive')} className="bg-red-600 text-white px-6 py-2 rounded-full text-xs font-bold cursor-pointer hover:bg-red-700 transition">
+                  PUBLISH UPDATE
+                </button>
+              </div>
+            )}
+
+            {loadingCurated ? (
+              <div className="text-zinc-500 italic text-xs">Loading feed...</div>
+            ) : drivePosts.length === 0 ? (
+              <p className="text-zinc-555 text-xs italic">No updates published yet.</p>
+            ) : (
+              <div className="space-y-6 animate-fadeIn">
+                {drivePosts.map((post) => (
+                  <div key={post.id} className="bento border-l-4 border-l-red-500">
+                    <h3 className="font-bold text-lg mb-2 text-black dark:text-zinc-100">{post.title}</h3>
+                    <span className="text-[9px] font-mono text-zinc-400 block mb-4">{new Date(post.timestamp).toLocaleDateString()}</span>
+                    {post.image && <img src={post.image} alt={post.title} className="rounded-lg mb-4 w-full h-48 object-cover border dark:border-zinc-800" />}
+                    <div className="text-sm text-zinc-500 leading-relaxed" dangerouslySetInnerHTML={{ __html: post.content }} />
+                    {isAdmin && (
+                      <button onClick={() => handleDeleteCurated('drive', post.id)} className="mt-4 text-[10px] text-red-500 font-mono hover:underline cursor-pointer">
+                        DELETE ENTRY
+                      </button>
+                    )}
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        </ScrollReveal>
 
       </section>
 
