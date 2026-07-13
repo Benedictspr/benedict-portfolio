@@ -11,6 +11,7 @@ export default function Navbar() {
     { name: 'Nursing', path: '/nursing' },
     { name: 'Tech', path: '/tech' },
     { name: 'Writing', path: '/writing' },
+    { name: 'Research', path: '/research' },
     { name: 'Podcasts', path: '/podcasts' },
     { name: 'Contact', path: '/contact' },
   ];

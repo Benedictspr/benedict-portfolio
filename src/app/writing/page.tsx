@@ -24,14 +24,6 @@ interface Comment {
   timestamp: string;
 }
 
-interface CuratedPost {
-  id: number;
-  title: string;
-  content: string;
-  image?: string;
-  timestamp: string;
-}
-
 export default function WritingPage() {
   const { isAdmin, adminPass } = useAdmin();
   
@@ -47,20 +39,6 @@ export default function WritingPage() {
   const [currentPage, setCurrentPage] = useState(1);
   const commentsPerPage = 5;
 
-  // MedSageHQ states
-  const [medsagePosts, setMedsagePosts] = useState<CuratedPost[]>([]);
-  const [medsageTitle, setMedsageTitle] = useState('');
-  const [medsageContent, setMedsageContent] = useState('');
-  const [medsageImage, setMedsageImage] = useState('');
-
-  // DriveVirtual states
-  const [drivePosts, setDrivePosts] = useState<CuratedPost[]>([]);
-  const [driveTitle, setDriveTitle] = useState('');
-  const [driveContent, setDriveContent] = useState('');
-  const [driveImage, setDriveImage] = useState('');
-
-  const [loadingCurated, setLoadingCurated] = useState(true);
-
   useEffect(() => {
     // Medium RSS feed
     fetch('/api/medium')
@@ -75,7 +53,6 @@ export default function WritingPage() {
       });
 
     fetchComments();
-    fetchCuratedPosts();
   }, []);
 
   const fetchComments = () => {
@@ -90,24 +67,6 @@ export default function WritingPage() {
         console.error(err);
         setLoadingComments(false);
       });
-  };
-
-  const fetchCuratedPosts = async () => {
-    setLoadingCurated(true);
-    try {
-      const [resMedsage, resDrive] = await Promise.all([
-        fetch('/api/posts/medsage'),
-        fetch('/api/posts/drive'),
-      ]);
-      const dataMedsage = await resMedsage.json();
-      const dataDrive = await resDrive.json();
-      setMedsagePosts(dataMedsage.posts || []);
-      setDrivePosts(dataDrive.posts || []);
-      setLoadingCurated(false);
-    } catch (err) {
-      console.error(err);
-      setLoadingCurated(false);
-    }
   };
 
   const handleCommentSubmit = async (e: React.FormEvent) => {
@@ -156,82 +115,7 @@ export default function WritingPage() {
     }
   };
 
-  const handleImageUpload = (file: File): Promise<string> => {
-    return new Promise((resolve) => {
-      const reader = new FileReader();
-      reader.onload = () => resolve(reader.result as string);
-      reader.readAsDataURL(file);
-    });
-  };
 
-  const handlePublish = async (type: 'medsage' | 'drive') => {
-    let title = '';
-    let content = '';
-    let image = '';
-
-    if (type === 'medsage') {
-      title = medsageTitle;
-      content = medsageContent;
-      image = medsageImage;
-    } else if (type === 'drive') {
-      title = driveTitle;
-      content = driveContent;
-      image = driveImage;
-    }
-
-    if (!title || !content) return;
-
-    try {
-      const res = await fetch(`/api/posts/${type}`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'x-admin-auth': adminPass || '',
-        },
-        body: JSON.stringify({ title, content, image }),
-      });
-      const data = await res.json();
-      if (data.success) {
-        if (type === 'medsage') {
-          setMedsageTitle('');
-          setMedsageContent('');
-          setMedsageImage('');
-        } else if (type === 'drive') {
-          setDriveTitle('');
-          setDriveContent('');
-          setDriveImage('');
-        }
-        fetchCuratedPosts();
-        alert('Update published successfully.');
-      } else {
-        alert('Publish failed: ' + (data.message || 'Unauthorized'));
-      }
-    } catch (err) {
-      console.error(err);
-    }
-  };
-
-  const handleDeleteCurated = async (type: 'medsage' | 'drive', id: number) => {
-    if (!confirm('Are you sure you want to delete this entry?')) return;
-    try {
-      const res = await fetch(`/api/posts/${type}`, {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
-          'x-admin-auth': adminPass || '',
-        },
-        body: JSON.stringify({ id }),
-      });
-      const data = await res.json();
-      if (data.success) {
-        fetchCuratedPosts();
-      } else {
-        alert('Delete failed: ' + (data.message || 'Unauthorized'));
-      }
-    } catch (err) {
-      console.error(err);
-    }
-  };
 
   const indexOfLastComment = currentPage * commentsPerPage;
   const indexOfFirstComment = indexOfLastComment - commentsPerPage;
@@ -298,6 +182,9 @@ export default function WritingPage() {
                   </button>
                   <a href="https://selar.com/f8e09466jy" target="_blank" rel="noopener noreferrer" className="text-[10px] font-bold border-b border-black dark:border-white pb-1 hover:text-amber-655 hover:border-amber-655 transition">
                     BUY NOVEL ↗
+                  </a>
+                  <a href="https://youtube.com/playlist?list=PLfjcuWEuElwWW02WdOkezzBR9kErb8ZO-&si=RKIB10oQ71AZOrzF" target="_blank" rel="noopener noreferrer" className="text-[10px] font-bold border-b border-black dark:border-white pb-1 hover:text-amber-655 hover:border-amber-655 transition">
+                    THE XVII-TH: INSTRUMENTALS ↗
                   </a>
                 </div>
               </div>
@@ -470,151 +357,7 @@ export default function WritingPage() {
           </div>
         </ScrollReveal>
 
-        {/* MEDSAGEHQ CONTENT ARCHIVE */}
-        <ScrollReveal className="w-full">
-          <div>
-            <div className="flex items-center gap-4 mb-8">
-              <span className="font-mono text-[10px] uppercase tracking-widest text-cyan-500 dark:text-cyan-400 font-bold">MedSageHQ Repository</span>
-              <div className="h-[1px] w-full bg-zinc-200 dark:bg-zinc-900"></div>
-            </div>
 
-            {isAdmin && (
-              <div className="bento border-cyan-500/30 mb-8 animate-fadeIn">
-                <h3 className="font-mono text-xs uppercase text-cyan-500 font-bold mb-4">Publish MedSageHQ Update</h3>
-                <input
-                  type="text"
-                  value={medsageTitle}
-                  onChange={(e) => setMedsageTitle(e.target.value)}
-                  placeholder="Update Title"
-                  className="w-full bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-lg p-3 outline-none focus:ring-1 focus:ring-cyan-500 transition-all text-sm mb-4 text-black dark:text-zinc-105"
-                />
-                <div className="grid md:grid-cols-2 gap-4 mb-4">
-                  <input
-                    type="text"
-                    value={medsageImage}
-                    onChange={(e) => setMedsageImage(e.target.value)}
-                    placeholder="Image URL"
-                    className="w-full bg-zinc-50 dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 rounded-lg p-3 outline-none focus:ring-1 focus:ring-cyan-500 transition-all text-sm text-black dark:text-zinc-105"
-                  />
-                  <input
-                    type="file"
-                    onChange={async (e) => {
-                      if (e.target.files?.[0]) {
-                        const base64 = await handleImageUpload(e.target.files[0]);
-                        setMedsageImage(base64);
-                      }
-                    }}
-                    className="w-full bg-zinc-55 border border-zinc-200 dark:border-zinc-800 rounded-lg p-2 text-xs"
-                  />
-                </div>
-                <textarea
-                  value={medsageContent}
-                  onChange={(e) => setMedsageContent(e.target.value)}
-                  placeholder="Update body text (HTML supported)..."
-                  className="w-full bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-lg p-3 outline-none focus:ring-1 focus:ring-cyan-500 transition-all text-sm h-32 mb-4 text-black dark:text-zinc-105"
-                />
-                <button onClick={() => handlePublish('medsage')} className="bg-cyan-600 text-white px-6 py-2 rounded-full text-xs font-bold cursor-pointer hover:bg-cyan-700 transition">
-                  PUBLISH UPDATE
-                </button>
-              </div>
-            )}
-
-            {loadingCurated ? (
-              <div className="text-zinc-500 italic text-xs">Loading repository...</div>
-            ) : medsagePosts.length === 0 ? (
-              <p className="text-zinc-500 text-xs italic">No updates published yet.</p>
-            ) : (
-              <div className="space-y-6 animate-fadeIn">
-                {medsagePosts.map((post) => (
-                  <div key={post.id} className="bento border-l-4 border-l-cyan-500">
-                    <h3 className="font-bold text-lg mb-2 text-black dark:text-zinc-100">{post.title}</h3>
-                    <span className="text-[9px] font-mono text-zinc-400 block mb-4">{new Date(post.timestamp).toLocaleDateString()}</span>
-                    {post.image && <img src={post.image} alt={post.title} className="rounded-lg mb-4 w-full h-48 object-cover border dark:border-zinc-800" />}
-                    <div className="text-sm text-zinc-500 leading-relaxed" dangerouslySetInnerHTML={{ __html: post.content }} />
-                    {isAdmin && (
-                      <button onClick={() => handleDeleteCurated('medsage', post.id)} className="mt-4 text-[10px] text-red-500 font-mono hover:underline cursor-pointer">
-                        DELETE ENTRY
-                      </button>
-                    )}
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
-        </ScrollReveal>
-
-        {/* DRIVEVIRTUAL FEED */}
-        <ScrollReveal className="w-full">
-          <div>
-            <div className="flex items-center gap-4 mb-8">
-              <span className="font-mono text-[10px] uppercase tracking-widest text-red-500 dark:text-red-400 font-bold">DriveVirtual Feed</span>
-              <div className="h-[1px] w-full bg-zinc-200 dark:bg-zinc-900"></div>
-            </div>
-
-            {isAdmin && (
-              <div className="bento border-red-500/30 mb-8 animate-fadeIn">
-                <h3 className="font-mono text-xs uppercase text-red-500 font-bold mb-4">Publish DriveVirtual Update</h3>
-                <input
-                  type="text"
-                  value={driveTitle}
-                  onChange={(e) => setDriveTitle(e.target.value)}
-                  placeholder="Update Title"
-                  className="w-full bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-lg p-3 outline-none focus:ring-1 focus:ring-red-500 transition-all text-sm mb-4 text-black dark:text-zinc-105"
-                />
-                <div className="grid md:grid-cols-2 gap-4 mb-4">
-                  <input
-                    type="text"
-                    value={driveImage}
-                    onChange={(e) => setDriveImage(e.target.value)}
-                    placeholder="Image URL"
-                    className="w-full bg-zinc-50 dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 rounded-lg p-3 outline-none focus:ring-1 focus:ring-red-500 transition-all text-sm text-black dark:text-zinc-105"
-                  />
-                  <input
-                    type="file"
-                    onChange={async (e) => {
-                      if (e.target.files?.[0]) {
-                        const base64 = await handleImageUpload(e.target.files[0]);
-                        setDriveImage(base64);
-                      }
-                    }}
-                    className="w-full bg-zinc-55 border border-zinc-200 dark:border-zinc-800 rounded-lg p-2 text-xs"
-                  />
-                </div>
-                <textarea
-                  value={driveContent}
-                  onChange={(e) => setDriveContent(e.target.value)}
-                  placeholder="Update body text (HTML supported)..."
-                  className="w-full bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-lg p-3 outline-none focus:ring-1 focus:ring-red-500 transition-all text-sm h-32 mb-4 text-black dark:text-zinc-105"
-                />
-                <button onClick={() => handlePublish('drive')} className="bg-red-600 text-white px-6 py-2 rounded-full text-xs font-bold cursor-pointer hover:bg-red-700 transition">
-                  PUBLISH UPDATE
-                </button>
-              </div>
-            )}
-
-            {loadingCurated ? (
-              <div className="text-zinc-500 italic text-xs">Loading feed...</div>
-            ) : drivePosts.length === 0 ? (
-              <p className="text-zinc-555 text-xs italic">No updates published yet.</p>
-            ) : (
-              <div className="space-y-6 animate-fadeIn">
-                {drivePosts.map((post) => (
-                  <div key={post.id} className="bento border-l-4 border-l-red-500">
-                    <h3 className="font-bold text-lg mb-2 text-black dark:text-zinc-100">{post.title}</h3>
-                    <span className="text-[9px] font-mono text-zinc-400 block mb-4">{new Date(post.timestamp).toLocaleDateString()}</span>
-                    {post.image && <img src={post.image} alt={post.title} className="rounded-lg mb-4 w-full h-48 object-cover border dark:border-zinc-800" />}
-                    <div className="text-sm text-zinc-500 leading-relaxed" dangerouslySetInnerHTML={{ __html: post.content }} />
-                    {isAdmin && (
-                      <button onClick={() => handleDeleteCurated('drive', post.id)} className="mt-4 text-[10px] text-red-500 font-mono hover:underline cursor-pointer">
-                        DELETE ENTRY
-                      </button>
-                    )}
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
-        </ScrollReveal>
 
       </section>
 

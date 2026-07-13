@@ -71,7 +71,7 @@ export default function PodcastsPage() {
                 <div className="flex flex-wrap gap-4">
                   {/* YouTube Subscription Badge */}
                   <a
-                    href="https://www.youtube.com/@benedictadurosakin"
+                    href="https://youtube.com/playlist?list=PLfjcuWEuElwUhYY01bbyIt88lB3OClLKc&si=gAWX56-VxL5hpPwF"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center gap-3 px-5 py-3 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-900/40 hover:border-[#FF0000]/50 dark:hover:border-[#FF0000]/30 hover:bg-[#FF0000]/5 dark:hover:bg-[#FF0000]/5 transition-all duration-300 group cursor-pointer animate-fadeIn"
@@ -79,7 +79,7 @@ export default function PodcastsPage() {
                     <i className="fa-brands fa-youtube text-2xl text-[#FF0000] group-hover:scale-110 transition-transform"></i>
                     <div className="text-left">
                       <p className="text-[9px] font-mono text-zinc-400 uppercase tracking-tight leading-none">Watch on</p>
-                      <p className="text-xs font-bold text-black dark:text-zinc-100">YouTube Channel</p>
+                      <p className="text-xs font-bold text-black dark:text-zinc-100">YouTube Playlist</p>
                     </div>
                     <span className="text-xs text-zinc-400 ml-2 group-hover:translate-x-1 transition-transform">➜</span>
                   </a>
@@ -135,35 +135,38 @@ export default function PodcastsPage() {
               </div>
               
               {/* Player Switcher */}
-              <div className="flex bg-zinc-100 dark:bg-zinc-900/60 p-1 rounded-lg border border-zinc-200/50 dark:border-zinc-800/50 self-start">
+              <div className="flex bg-zinc-100 dark:bg-zinc-900/60 p-1 rounded-lg border border-zinc-200/50 dark:border-zinc-800/50 self-start items-center">
                 <button
                   onClick={() => setActivePlayer('youtube')}
-                  className={`px-4 py-2 rounded-md text-[10px] font-mono font-bold uppercase tracking-wider transition-all duration-300 cursor-pointer ${
+                  className={`px-4 py-2 rounded-md text-[10px] font-mono font-bold uppercase tracking-wider transition-all duration-300 cursor-pointer flex items-center gap-1.5 ${
                     activePlayer === 'youtube'
                       ? 'bg-white dark:bg-zinc-800 text-[#FF0000] shadow-sm'
                       : 'text-zinc-450 hover:text-black dark:hover:text-white'
                   }`}
                 >
+                  <i className="fa-brands fa-youtube text-xs"></i>
                   YouTube Player
                 </button>
                 <button
                   onClick={() => setActivePlayer('apple')}
-                  className={`px-4 py-2 rounded-md text-[10px] font-mono font-bold uppercase tracking-wider transition-all duration-300 cursor-pointer ${
+                  className={`px-4 py-2 rounded-md text-[10px] font-mono font-bold uppercase tracking-wider transition-all duration-300 cursor-pointer flex items-center gap-1.5 ${
                     activePlayer === 'apple'
                       ? 'bg-white dark:bg-zinc-800 text-[#FC3C44] shadow-sm'
                       : 'text-zinc-450 hover:text-black dark:hover:text-white'
                   }`}
                 >
+                  <i className="fa-solid fa-podcast text-xs"></i>
                   Apple Podcasts
                 </button>
                 <button
                   onClick={() => setActivePlayer('spotify')}
-                  className={`px-4 py-2 rounded-md text-[10px] font-mono font-bold uppercase tracking-wider transition-all duration-300 cursor-pointer ${
+                  className={`px-4 py-2 rounded-md text-[10px] font-mono font-bold uppercase tracking-wider transition-all duration-300 cursor-pointer flex items-center gap-1.5 ${
                     activePlayer === 'spotify'
                       ? 'bg-white dark:bg-zinc-800 text-[#1DB954] shadow-sm'
                       : 'text-zinc-450 hover:text-black dark:hover:text-white'
                   }`}
                 >
+                  <i className="fa-brands fa-spotify text-xs"></i>
                   Spotify Player
                 </button>
               </div>
@@ -174,7 +177,7 @@ export default function PodcastsPage() {
               {activePlayer === 'youtube' ? (
                 <div className="animate-fadeIn aspect-video w-full">
                   <iframe
-                    src="https://www.youtube.com/embed?listType=search&list=Hustle+Truth+Series+Benedict+Adurosakin"
+                    src="https://www.youtube.com/embed/videoseries?list=PLfjcuWEuElwUhYY01bbyIt88lB3OClLKc"
                     width="100%"
                     height="100%"
                     style={{ borderRadius: '8px', minHeight: '352px' }}
@@ -216,7 +219,7 @@ export default function PodcastsPage() {
             </div>
 
             <p className="text-[10px] font-mono text-zinc-400 italic">
-              Note: Interactive embeds are loaded from external video and audio platforms. YouTube searches and streams the latest episodes of "Hustle Truth Series".
+              Note: Interactive embeds are loaded from external video and audio platforms. YouTube embeds render the official "Hustle Truth Series" episodes playlist.
             </p>
           </div>
         </ScrollReveal>

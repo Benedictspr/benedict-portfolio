@@ -17,7 +17,17 @@
       "timestamp": "2026-07-09T01:32:00.000Z"
     }
   ],
-  "comments": {},
+  "comments": {
+    "the-xvii-th": [
+      {
+        "id": 1783910728627,
+        "name": "Telmi Jonas",
+        "text": "Beautifully wriiten",
+        "rating": 4,
+        "timestamp": "2026-07-13T02:45:28.627Z"
+      }
+    ]
+  },
   "content": {
     "nurse": "<p>I am a licensed and passionate Registered Nurse with a growing portfolio in both clinical care and public health. My approach to healthcare integrates scientific knowledge with <span class=\"circle-sketch\">compassion<svg class=\"circle-svg\" viewBox=\"0 0 100 100\" preserveAspectRatio=\"none\"><path d=\"M5,50 C5,20 95,20 95,50 C95,80 5,80 5,50\" stroke=\"currentColor\" stroke-width=\"2\" fill=\"none\" vector-effect=\"non-scaling-stroke\"/></path></svg></span>, ensuring that each patient interaction is grounded in both evidence and empathy.</p><p>Beyond the bedside, I have actively contributed to community health outreach, health promotion, and collaborative research initiatives. These experiences have deepened my commitment to improving health outcomes not only through direct clinical care but also through education and preventive healthcare.</p><div class=\"border-l-2 border-zinc-200 dark:border-zinc-800 pl-6 italic text-zinc-500\">\"I believe that advancing health literacy and empowering individuals to make informed decisions are essential components of sustainable healthcare systems.\"</div><p>Looking ahead, I aspire to collaborate with leading international health organizations such as the <strong>WHO</strong>, <strong>UNICEF</strong>, and the <strong>CDC</strong>. To expand my impact, I am preparing to pursue a Master’s degree in <span class=\"circle-sketch\">Global Nursing Leadership<svg class=\"circle-svg\" viewBox=\"0 0 100 100\" preserveAspectRatio=\"none\"><path d=\"M2,50 C2,10 98,10 98,50 C98,90 2,90 2,50\" stroke=\"currentColor\" stroke-width=\"1.5\" fill=\"none\" vector-effect=\"non-scaling-stroke\"/></path></svg></span> or Healthcare Policy.</p>"
   }
