@@ -38,11 +38,47 @@ const defaultProjects = [
   },
   {
     id: 3,
-    category: 'INFORMATICS',
-    location: 'FEDERAL OWERRI (FUTO)',
-    title: 'Usability of EHR Systems in Low-Resource Tertiary Care Centers',
-    abstract: 'Identified 4 key UI friction points causing data entry errors among bedside nurses. Developed a streamlined data-capture model now being piloted at WUBEN Health.',
-    linkText: 'VIEW PROTOTYPE',
+    category: 'PUBLIC HEALTH & VACCINES',
+    location: 'OOU / Ajaka PHC',
+    title: 'Uptake of the Pneumococcal Vaccine among Mothers of Children under Five in Sagamu Local Government, Ogun State',
+    abstract: '59.1% of mothers had high awareness, yet 54.8% had poor uptake of the pneumococcal vaccine due to cost, convenience, and provider recommendation factors. Main author: ADEGOKE ADEBISI ADAM, Co-author: Benedict Adurosakin.',
+    linkText: 'REQUEST FULL PAPER',
+    link: '/contact'
+  },
+  {
+    id: 4,
+    category: 'PUBLIC HEALTH & VACCINES',
+    location: 'OOU / Sagamu LGA',
+    title: 'Uptake of Hepatitis B Vaccination among Primary Healthcare Workers in Sagamu Local Government Area, Ogun State',
+    abstract: '81% of primary healthcare workers had high awareness, and 55.2% had good uptake. Vaccine availability, needle pricks, and travel distance significantly influenced uptake. Main author: OSOJA DORCAS EBUNOLUWA, Co-author: Benedict Adurosakin.',
+    linkText: 'REQUEST FULL PAPER',
+    link: '/contact'
+  },
+  {
+    id: 5,
+    category: 'NURSING WORKFORCE',
+    location: 'OOU / OOUTH',
+    title: 'Impact of Brain Drain on Nursing Care at Olabisi Onabanjo University Teaching Hospital, Sagamu, Ogun State',
+    abstract: '88% of nurses reported experiencing a very large extent of brain drain, and 94.8% agreed it severely compromised care quality. Main author: LATEEF MONSURAT OLAJUMOKE, Co-author: Benedict Adurosakin.',
+    linkText: 'REQUEST FULL PAPER',
+    link: '/contact'
+  },
+  {
+    id: 6,
+    category: 'MATERNAL HEALTH',
+    location: 'LAUTECH ODL / Ibadan',
+    title: 'Midwives’ Perceptions and Practices of Pharmacological Pain Relief during Labor in Selected Primary Health Centers in Ibadan North',
+    abstract: '75.3% of midwives had positive perceptions, but 57.6% demonstrated poor practice due to resource limits and lack of training. Main author: HABIBU MARY MAIRO, Co-author: Benedict Adurosakin.',
+    linkText: 'REQUEST FULL PAPER',
+    link: '/contact'
+  },
+  {
+    id: 7,
+    category: 'MATERNAL HEALTH',
+    location: 'LAUTECH ODL / OOU',
+    title: 'Assessment of Knowledge and Perception of Polycystic Ovarian Syndrome among Female Nursing Students in OOU',
+    abstract: '73.8% of female nursing students had high knowledge and 84.6% had high perception regarding PCOS. Main author: Olalekan Zainab Dasola, Co-author: Benedict Adurosakin.',
+    linkText: 'REQUEST FULL PAPER',
     link: '/contact'
   }
 ];
@@ -50,7 +86,8 @@ const defaultProjects = [
 export async function GET() {
   const data = readData();
   const dbResearch = data.research || [];
-  return NextResponse.json({ research: [...dbResearch, ...defaultProjects] });
+  const allResearch = [...dbResearch, ...defaultProjects];
+  return NextResponse.json({ research: allResearch, projects: allResearch });
 }
 
 export async function POST(request: Request) {

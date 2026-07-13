@@ -9,12 +9,16 @@ import Link from 'next/link';
 interface ResearchProject {
   id: number;
   title: string;
-  tag: string;
-  institution: string;
-  findings: string;
+  tag?: string;
+  category?: string;
+  institution?: string;
+  location?: string;
+  findings?: string;
+  abstract?: string;
   author?: string;
   coauthors?: string;
-  abstract?: string;
+  linkText?: string;
+  link?: string;
 }
 
 export default function NursingPage() {
@@ -410,51 +414,23 @@ export default function NursingPage() {
             <div className="text-zinc-500 italic text-xs">Loading studies...</div>
           ) : (
             <div className="space-y-6">
-              {/* Default static studies */}
-              <div className="bento border-l-4 border-l-purple-500">
-                <div className="flex justify-between items-start mb-4">
-                  <span className="text-[10px] font-mono bg-blue-100 dark:bg-blue-900/30 text-blue-600 px-2 py-1 rounded">MATERNAL HEALTH</span>
-                  <span className="text-[10px] font-mono text-zinc-400">UNILAG / LUTH</span>
-                </div>
-                <h4 className="text-lg font-bold text-zinc-900 dark:text-zinc-100 mb-2">Impact of Digital Health Reminders on Antenatal Attendance in Lagos Mainland</h4>
-                <p className="text-zinc-500 dark:text-zinc-400 text-sm mb-4 leading-relaxed">
-                  <strong>Results:</strong> Implementation of SMS-based scheduling saw a <span className="text-green-500 font-bold">24% increase</span> in clinic attendance among expectant mothers aged 18-35. Study conducted in collaboration with Dr. Olumide Adeleke.
-                </p>
-                <div className="flex gap-4">
-                  <Link href="/contact" className="text-[10px] font-bold border-b border-black dark:border-white pb-0.5 hover:text-cyan-500 hover:border-cyan-500 transition-colors">
-                    REQUEST FULL PAPER
-                  </Link>
-                </div>
-              </div>
-
-              <div className="bento border-l-4 border-l-purple-500">
-                <div className="flex justify-between items-start mb-4">
-                  <span className="text-[10px] font-mono bg-emerald-100 dark:bg-emerald-900/30 text-emerald-600 px-2 py-1 rounded">INFECTIOUS DISEASE</span>
-                  <span className="text-[10px] font-mono text-zinc-400">LASUCOM</span>
-                </div>
-                <h4 className="text-lg font-bold text-zinc-900 dark:text-zinc-100 mb-2">Correlation Between Nurse-to-Patient Ratios and Post-Operative Infection Rates</h4>
-                <p className="text-zinc-500 dark:text-zinc-400 text-sm mb-4 leading-relaxed">
-                  <strong>Key Finding:</strong> Wards with a ratio higher than 1:8 showed a <span className="text-red-500 font-bold">15% spike</span> in surgical site infections. Lead Researcher: Adurosakin B., Co-author: Nurse Chiamaka Okoro.
-                </p>
-                <div className="flex gap-4">
-                  <Link href="/contact" className="text-[10px] font-bold border-b border-black dark:border-white pb-0.5 hover:text-cyan-500 hover:border-cyan-500 transition-colors">
-                    METHODOLOGY DATA
-                  </Link>
-                </div>
-              </div>
-
-              {/* Dynamic studies */}
               {projects.map((proj) => (
                 <div key={proj.id} className="bento border-l-4 border-l-purple-500 animate-fadeIn">
                   <div className="flex justify-between items-start mb-4">
-                    <span className="text-[10px] font-mono bg-purple-100 dark:bg-purple-900/30 text-purple-600 px-2 py-1 rounded uppercase">{proj.tag}</span>
-                    <span className="text-[10px] font-mono text-zinc-400 uppercase">{proj.institution}</span>
+                    <span className="text-[10px] font-mono bg-purple-100 dark:bg-purple-900/30 text-purple-600 px-2 py-1 rounded uppercase tracking-wider">
+                      {proj.tag || proj.category}
+                    </span>
+                    <span className="text-[10px] font-mono text-zinc-400">
+                      {proj.institution || proj.location}
+                    </span>
                   </div>
                   <h4 className="text-lg font-bold text-zinc-900 dark:text-zinc-100 mb-2">{proj.title}</h4>
-                  <p className="text-zinc-500 dark:text-zinc-400 text-sm mb-4 leading-relaxed">{proj.findings}</p>
-                  <div className="flex justify-between items-center">
+                  <p className="text-zinc-500 dark:text-zinc-400 text-sm mb-4 leading-relaxed font-light">
+                    {proj.findings || proj.abstract}
+                  </p>
+                  <div className="flex justify-between items-center text-xs font-mono">
                     <Link href="/contact" className="text-[10px] font-bold border-b border-black dark:border-white pb-0.5 hover:text-cyan-500 hover:border-cyan-500 transition-colors">
-                      REQUEST FULL PAPER
+                      {proj.linkText || 'REQUEST FULL PAPER'}
                     </Link>
                     {isAdmin && (
                       <button onClick={() => handleDeleteResearch(proj.id)} className="text-[10px] text-red-500 font-mono hover:underline cursor-pointer">
