@@ -9,8 +9,16 @@ export async function POST(request: Request) {
       return NextResponse.json({ success: false, message: 'All fields are required' }, { status: 400 });
     }
 
-    const emailUser = process.env.EMAIL_USER || 'benedictadurosakin@gmail.com';
-    const emailPass = process.env.EMAIL_PASS || 'nuvgwflmkytutguf';
+    const emailUser = process.env.EMAIL_USER;
+    const emailPass = process.env.EMAIL_PASS;
+
+    if (!emailUser || !emailPass) {
+      console.error('SMTP configuration missing. Please check EMAIL_USER and EMAIL_PASS environment variables.');
+      return NextResponse.json({ 
+        success: false, 
+        message: 'Email service configuration error. Please contact the administrator.' 
+      }, { status: 500 });
+    }
 
     const transporter = nodemailer.createTransport({
       service: 'gmail',
@@ -21,8 +29,9 @@ export async function POST(request: Request) {
     });
 
     const mailOptions = {
-      from: `"${name}" <${email}>`,
+      from: `"${name}" <${emailUser}>`,
       to: emailUser,
+      replyTo: email,
       subject: `New Collaboration Message from ${name}`,
       text: message,
       html: `
