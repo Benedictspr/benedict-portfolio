@@ -62,19 +62,19 @@ export default function TechPage() {
   return (
     <>
       {/* Header Banner */}
-      <section className="pt-16 pb-12 px-4 sm:px-6 lg:px-8 border-b border-white/10 bg-gradient-to-b from-[#161B22]/80 to-transparent">
+      <section className="pt-16 pb-12 px-6 lg:px-8 border-b border-white/[0.08] bg-white/[0.01]">
         <div className="max-w-7xl mx-auto space-y-4">
-          <div className="hero-pill-tag">
-            <span className="hero-pill-dot"></span>
-            <span className="text-purple-400 font-bold uppercase tracking-wider text-[10px]">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/10 bg-white/[0.03] backdrop-blur-sm w-fit">
+            <span className="w-2 h-2 rounded-full bg-violet-400"></span>
+            <span className="text-violet-400 font-mono text-xs font-semibold uppercase tracking-wider">
               02 / Architecture &amp; Code
             </span>
             <span className="text-zinc-600">&bull;</span>
-            <span className="text-zinc-300 text-[11px]">Software Engineering &amp; Clinical Informatics</span>
+            <span className="text-zinc-300 text-xs font-mono">Software Engineering &amp; Clinical Informatics</span>
           </div>
 
-          <h1 className="font-serif italic font-bold text-4xl sm:text-6xl text-white tracking-tight">
-            Tech &amp; Clinical Informatics
+          <h1 className="font-display font-bold text-4xl sm:text-6xl text-white tracking-tight">
+            Tech &amp; <span className="text-gradient">Clinical Informatics</span>
           </h1>
           <p className="text-zinc-400 text-sm sm:text-base max-w-2xl leading-relaxed">
             Engineering high-reliability software, hospital triage automation, and resilient data pipelines engineered to survive the friction of high-pressure healthcare environments.
@@ -83,18 +83,18 @@ export default function TechPage() {
       </section>
 
       {/* Main Content Body */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 flex-grow w-full space-y-16">
+      <section className="max-w-7xl mx-auto px-6 lg:px-8 py-16 flex-grow w-full space-y-16">
         
         {/* TECH PROFILE */}
         <div className="space-y-6">
           <div className="flex items-center gap-4">
-            <span className="font-mono text-xs uppercase tracking-widest text-purple-400 font-semibold">
+            <span className="font-mono text-xs uppercase tracking-widest text-violet-400 font-semibold">
               Overview
             </span>
             <div className="h-[1px] flex-grow bg-white/10"></div>
             <span className="font-mono text-[11px] text-zinc-500 uppercase">Technical Profile</span>
           </div>
-          <div className="bento leading-relaxed text-zinc-300 space-y-4 text-sm sm:text-base border-l-4 border-l-purple-500">
+          <div className="bento leading-relaxed text-zinc-300 space-y-4 text-sm sm:text-base border-l-4 border-l-violet-500">
             <p>
               I am a Software Engineer and Clinical Informaticist specializing in health data analytics, digital workflow automation, and clinical systems design. I combine a deep understanding of bedside clinical processes with practical engineering skills in Python, TypeScript, and no-code automation platforms like n8n.
             </p>
@@ -107,7 +107,7 @@ export default function TechPage() {
         {/* CLINICAL INFORMATICS & HEALTH-TECH PROJECTS */}
         <div className="space-y-6">
           <div className="flex items-center gap-4">
-            <span className="font-mono text-xs uppercase tracking-widest text-cyan-400 font-semibold">
+            <span className="font-mono text-xs uppercase tracking-widest text-violet-400 font-semibold">
               Showcase
             </span>
             <div className="h-[1px] flex-grow bg-white/10"></div>
@@ -117,14 +117,14 @@ export default function TechPage() {
             {informaticsProjects.map((proj, idx) => (
               <div
                 key={idx}
-                className="bento border-l-4 border-l-purple-500 flex flex-col justify-between hover:border-purple-400/40 transition duration-300 space-y-5"
+                className="bento border-l-4 border-l-violet-500 flex flex-col justify-between card-hover space-y-5"
               >
                 <div>
                   <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
-                    <h3 className="font-serif italic font-bold text-xl sm:text-2xl text-white">
+                    <h3 className="font-display font-bold text-xl sm:text-2xl text-white">
                       {proj.title}
                     </h3>
-                    <span className="text-[10px] font-mono bg-purple-500/15 text-purple-300 border border-purple-500/30 px-2.5 py-1 rounded-full uppercase tracking-wider font-semibold">
+                    <span className="text-[10px] font-mono bg-violet-500/15 text-violet-300 border border-violet-500/30 px-3 py-1 rounded-full uppercase tracking-wider font-semibold">
                       {proj.tag}
                     </span>
                   </div>
@@ -140,10 +140,13 @@ export default function TechPage() {
                       href={proj.link} 
                       target="_blank" 
                       rel="noopener noreferrer" 
-                      className="btn-action btn-coral !py-1 !px-4 !text-xs font-semibold"
+                      className="btn-primary !py-2 !px-5 !text-xs font-semibold"
                     >
                       <span>Live App</span>
-                      <span className="text-xs">&rarr;</span>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M7 7h10v10"></path>
+                        <path d="M7 17 17 7"></path>
+                      </svg>
                     </a>
                   )}
                 </div>
@@ -155,7 +158,7 @@ export default function TechPage() {
         {/* TECHNICAL SKILLS MATRIX */}
         <div className="space-y-6">
           <div className="flex items-center gap-4">
-            <span className="font-mono text-xs uppercase tracking-widest text-amber-400 font-semibold">
+            <span className="font-mono text-xs uppercase tracking-widest text-violet-400 font-semibold">
               Capabilities
             </span>
             <div className="h-[1px] flex-grow bg-white/10"></div>
@@ -164,14 +167,14 @@ export default function TechPage() {
           <div className="grid sm:grid-cols-2 gap-6">
             {technicalSkills.map((skill, idx) => (
               <div key={idx} className="bento space-y-4">
-                <h4 className="font-mono text-xs uppercase tracking-wider text-purple-400 font-bold">
+                <h4 className="font-mono text-xs uppercase tracking-wider text-violet-400 font-bold">
                   {skill.category}
                 </h4>
                 <div className="flex flex-wrap gap-2">
                   {skill.items.map((item, itemIdx) => (
                     <span 
                       key={itemIdx} 
-                      className="text-xs font-mono bg-zinc-900/80 border border-white/10 text-zinc-300 px-3 py-1.5 rounded-lg hover:border-purple-400/40 hover:text-white transition"
+                      className="tech-chip"
                     >
                       {item}
                     </span>
@@ -193,9 +196,9 @@ export default function TechPage() {
           </div>
           <div className="grid md:grid-cols-3 gap-6">
             {techCredentials.map((cred, idx) => (
-              <div key={idx} className="bento flex flex-col justify-between hover:border-white/20 transition duration-200 space-y-4">
+              <div key={idx} className="bento flex flex-col justify-between card-hover space-y-4">
                 <div>
-                  <h4 className="font-serif italic font-bold text-white text-base mb-1">{cred.title}</h4>
+                  <h4 className="font-display font-bold text-white text-base mb-1">{cred.title}</h4>
                   <p className="text-xs text-zinc-400">{cred.institution}</p>
                 </div>
                 <div className="pt-3 border-t border-white/10 flex justify-between items-center text-xs font-mono text-zinc-500">
@@ -204,7 +207,7 @@ export default function TechPage() {
                     href="https://www.linkedin.com/in/benedict-adurosakin-736774398/details/certifications/" 
                     target="_blank" 
                     rel="noopener noreferrer" 
-                    className="text-cyan-400 uppercase hover:underline font-semibold flex items-center gap-1"
+                    className="text-violet-400 uppercase hover:underline font-semibold flex items-center gap-1"
                   >
                     <span>{cred.status}</span>
                     <span>↗</span>

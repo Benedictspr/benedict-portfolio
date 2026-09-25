@@ -151,19 +151,19 @@ export default function NursingPage() {
   return (
     <>
       {/* Header Banner */}
-      <section className="pt-16 pb-12 px-4 sm:px-6 lg:px-8 border-b border-white/10 bg-gradient-to-b from-[#161B22]/80 to-transparent">
+      <section className="pt-16 pb-12 px-6 lg:px-8 border-b border-white/[0.08] bg-white/[0.01]">
         <div className="max-w-7xl mx-auto space-y-4">
-          <div className="hero-pill-tag">
-            <span className="hero-pill-dot"></span>
-            <span className="text-cyan-400 font-bold uppercase tracking-wider text-[10px]">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/10 bg-white/[0.03] backdrop-blur-sm w-fit">
+            <span className="w-2 h-2 rounded-full bg-violet-400"></span>
+            <span className="text-violet-400 font-mono text-xs font-semibold uppercase tracking-wider">
               01 / Bedside Care &amp; Clinical Practice
             </span>
             <span className="text-zinc-600">&bull;</span>
-            <span className="text-zinc-300 text-[11px]">ICU, Obstetric &amp; Surgical Care</span>
+            <span className="text-zinc-300 text-xs font-mono">ICU, Obstetric &amp; Surgical Care</span>
           </div>
 
-          <h1 className="font-serif italic font-bold text-4xl sm:text-6xl text-white tracking-tight">
-            Nursing &amp; Clinical Care
+          <h1 className="font-display font-bold text-4xl sm:text-6xl text-white tracking-tight">
+            Nursing &amp; <span className="text-gradient">Clinical Care</span>
           </h1>
           <p className="text-zinc-400 text-sm sm:text-base max-w-2xl leading-relaxed">
             Delivering evidence-based clinical nursing care with technical precision, empathetic communication, and deep commitment to patient advocacy across ward and ICU environments.
@@ -172,12 +172,12 @@ export default function NursingPage() {
       </section>
 
       {/* Main Content Body */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 flex-grow w-full space-y-16">
+      <section className="max-w-7xl mx-auto px-6 lg:px-8 py-16 flex-grow w-full space-y-16">
         
         {/* PROFILE BLOCK */}
         <div className="space-y-6">
           <div className="flex items-center gap-4">
-            <span className="font-mono text-xs uppercase tracking-widest text-cyan-400 font-semibold">
+            <span className="font-mono text-xs uppercase tracking-widest text-violet-400 font-semibold">
               Overview
             </span>
             <div className="h-[1px] flex-grow bg-white/10"></div>
@@ -194,8 +194,8 @@ export default function NursingPage() {
                 ref={profileRef}
                 contentEditable={isEditingProfile}
                 suppressContentEditableWarning
-                className={`bento leading-relaxed text-zinc-300 space-y-6 outline-none border-l-4 border-l-cyan-500 ${
-                  isEditingProfile ? 'ring-2 ring-cyan-400' : ''
+                className={`bento leading-relaxed text-zinc-300 space-y-6 outline-none border-l-4 border-l-violet-500 ${
+                  isEditingProfile ? 'ring-2 ring-violet-400' : ''
                 }`}
                 dangerouslySetInnerHTML={{ __html: profileText }}
               />
@@ -245,7 +245,7 @@ export default function NursingPage() {
           <div className="bento grid sm:grid-cols-2 gap-4">
             {clinicalCompetencies.map((comp, idx) => (
               <div key={idx} className="flex items-start gap-3 text-sm text-zinc-300">
-                <span className="text-cyan-400 font-bold font-mono mt-0.5">&bull;</span>
+                <span className="text-violet-400 font-bold font-mono mt-0.5">&bull;</span>
                 <span className="leading-snug">{comp}</span>
               </div>
             ))}
@@ -263,14 +263,14 @@ export default function NursingPage() {
           </div>
           <div className="grid md:grid-cols-3 gap-6">
             {educationList.map((edu, idx) => (
-              <div key={idx} className="bento flex flex-col justify-between hover:border-white/20 transition duration-200 space-y-4">
+              <div key={idx} className="bento flex flex-col justify-between card-hover space-y-4">
                 <div>
-                  <h4 className="font-serif italic font-bold text-white text-base mb-1">{edu.degree}</h4>
+                  <h4 className="font-display font-bold text-white text-base mb-1">{edu.degree}</h4>
                   <p className="text-xs text-zinc-400">{edu.school}</p>
                 </div>
                 <div className="pt-3 border-t border-white/10 flex justify-between items-center text-xs font-mono text-zinc-500">
                   <span>{edu.timeline}</span>
-                  <span className="text-cyan-400 uppercase font-semibold">{edu.status}</span>
+                  <span className="text-violet-400 uppercase font-semibold">{edu.status}</span>
                 </div>
               </div>
             ))}
@@ -280,7 +280,7 @@ export default function NursingPage() {
         {/* CLINICAL EXPERIENCE */}
         <div className="space-y-6">
           <div className="flex items-center gap-4">
-            <span className="font-mono text-xs uppercase tracking-widest text-cyan-400 font-semibold">
+            <span className="font-mono text-xs uppercase tracking-widest text-violet-400 font-semibold">
               History
             </span>
             <div className="h-[1px] flex-grow bg-white/10"></div>
@@ -288,13 +288,13 @@ export default function NursingPage() {
           </div>
           <div className="space-y-6">
             {clinicalExperience.map((exp, idx) => (
-              <div key={idx} className="bento border-l-4 border-l-cyan-500 space-y-4">
+              <div key={idx} className="bento border-l-4 border-l-violet-500 space-y-4">
                 <div className="flex flex-wrap justify-between items-start gap-2">
                   <div>
-                    <h3 className="font-serif italic font-bold text-xl sm:text-2xl text-white">
+                    <h3 className="font-display font-bold text-xl sm:text-2xl text-white">
                       {exp.hospital}
                     </h3>
-                    <p className="text-xs sm:text-sm font-mono text-cyan-400 mt-1 font-semibold">
+                    <p className="text-xs sm:text-sm font-mono text-violet-400 mt-1 font-semibold">
                       {exp.role}
                     </p>
                   </div>
@@ -321,9 +321,9 @@ export default function NursingPage() {
             <div className="h-[1px] flex-grow bg-white/10"></div>
             <span className="font-mono text-[11px] text-zinc-500 uppercase">Clinical Research &amp; Publications</span>
           </div>
-          <div className="bento flex flex-col md:flex-row justify-between items-start md:items-center gap-6 group hover:border-cyan-500/40 transition duration-300">
+          <div className="bento flex flex-col md:flex-row justify-between items-start md:items-center gap-6 group card-hover">
             <div className="space-y-2">
-              <h4 className="text-2xl font-bold text-white font-serif italic">
+              <h4 className="text-2xl font-bold text-white font-display">
                 Nursing Evidence Vault
               </h4>
               <p className="text-xs sm:text-sm text-zinc-400 leading-relaxed font-light max-w-xl">
@@ -332,7 +332,7 @@ export default function NursingPage() {
             </div>
             <Link
               href="/research"
-              className="btn-action btn-solid-dark !text-xs !py-2.5 !px-5 whitespace-nowrap"
+              className="btn-primary !text-xs !py-3 !px-6 whitespace-nowrap"
             >
               <span>Enter Research Library</span>
               <span>&rarr;</span>

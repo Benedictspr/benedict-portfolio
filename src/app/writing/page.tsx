@@ -124,19 +124,19 @@ export default function WritingPage() {
   return (
     <>
       {/* Header Banner */}
-      <section className="pt-16 pb-12 px-4 sm:px-6 lg:px-8 border-b border-white/10 bg-gradient-to-b from-[#161B22]/80 to-transparent">
+      <section className="pt-16 pb-12 px-6 lg:px-8 border-b border-white/[0.08] bg-white/[0.01]">
         <div className="max-w-7xl mx-auto space-y-4">
-          <div className="hero-pill-tag">
-            <span className="hero-pill-dot"></span>
-            <span className="text-amber-400 font-bold uppercase tracking-wider text-[10px]">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/10 bg-white/[0.03] backdrop-blur-sm w-fit">
+            <span className="w-2 h-2 rounded-full bg-amber-400"></span>
+            <span className="text-amber-400 font-mono text-xs font-semibold uppercase tracking-wider">
               03 / Literature &amp; Storytelling
             </span>
             <span className="text-zinc-600">&bull;</span>
-            <span className="text-zinc-300 text-[11px]">Novels, Essays &amp; Philosophical Inquiries</span>
+            <span className="text-zinc-300 text-xs font-mono">Novels, Essays &amp; Philosophical Inquiries</span>
           </div>
 
-          <h1 className="font-serif italic font-bold text-4xl sm:text-6xl text-white tracking-tight">
-            Writing &amp; Philosophical Literature
+          <h1 className="font-display font-bold text-4xl sm:text-6xl text-white tracking-tight">
+            Writing &amp; <span className="text-gradient">Literature</span>
           </h1>
           <p className="text-zinc-400 text-sm sm:text-base max-w-2xl leading-relaxed">
             Exploring the emotional landscapes of truth, power, silence, and human endurance through narrative fiction and clinical education.
@@ -145,7 +145,7 @@ export default function WritingPage() {
       </section>
 
       {/* Main Content */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 flex-grow w-full space-y-16">
+      <section className="max-w-7xl mx-auto px-6 lg:px-8 py-16 flex-grow w-full space-y-16">
         
         {/* PHILOSOPHY */}
         <ScrollReveal className="w-full">
@@ -153,9 +153,9 @@ export default function WritingPage() {
             <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-amber-400 block font-bold">
               Creative Philosophy
             </span>
-            <div className="font-serif text-2xl sm:text-3xl leading-relaxed italic text-zinc-200">
+            <div className="font-display text-2xl sm:text-3xl leading-relaxed italic text-zinc-200">
               &ldquo;My writing explores the depth of the human condition... I aim to capture emotion, introspection, and layered meaning in every piece, anchoring the{' '}
-              <span className="text-amber-300 not-italic font-bold font-serif underline decoration-amber-500 underline-offset-4">
+              <span className="text-gradient-amber not-italic font-bold underline decoration-amber-500 underline-offset-4">
                 voice of the voiceless
               </span>.&rdquo;
             </div>
@@ -178,9 +178,9 @@ export default function WritingPage() {
             
             <div className="grid gap-6">
               {/* THE XVII-TH */}
-              <div className="bento group border-l-4 border-l-amber-500 hover:border-amber-400/40 transition duration-300 space-y-6">
+              <div className="bento group border-l-4 border-l-amber-500 card-hover space-y-6">
                 <div className="flex flex-wrap justify-between items-start gap-4">
-                  <h3 className="font-serif italic font-bold text-2xl sm:text-3xl text-white">
+                  <h3 className="font-display font-bold text-2xl sm:text-3xl text-white">
                     The XVII-th: Letters to the One Who Will Come
                   </h3>
                   <span className="text-[10px] font-mono border border-amber-400/40 bg-amber-400/10 text-amber-300 px-3 py-1 rounded-full uppercase tracking-wider font-semibold">
@@ -193,7 +193,7 @@ export default function WritingPage() {
                 <div className="flex flex-wrap gap-4 pt-2">
                   <button
                     onClick={() => setShowPreview(!showPreview)}
-                    className="btn-action btn-solid-dark !py-2 !px-4 !text-xs font-semibold"
+                    className="btn-primary !py-2.5 !px-5 !text-xs font-semibold cursor-pointer"
                   >
                     <span>{showPreview ? 'Hide Interactive Reader' : 'Read Excerpts'}</span>
                     <span>{showPreview ? '↑' : '↓'}</span>
@@ -202,7 +202,7 @@ export default function WritingPage() {
                     href="https://selar.com/f8e09466jy"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="btn-action btn-coral !py-2 !px-4 !text-xs font-semibold"
+                    className="btn-outline !py-2.5 !px-5 !text-xs font-semibold"
                   >
                     <span>Purchase Novel</span>
                     <span>↗</span>
@@ -211,7 +211,7 @@ export default function WritingPage() {
                     href="https://youtube.com/playlist?list=PLfjcuWEuElwWW02WdOkezzBR9kErb8ZO-&si=RKIB10oQ71AZOrzF"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="btn-action btn-ghost-border !py-2 !px-4 !text-xs"
+                    className="btn-outline !py-2.5 !px-5 !text-xs"
                   >
                     <span>Original Soundtrack</span>
                     <span>↗</span>
@@ -220,9 +220,9 @@ export default function WritingPage() {
               </div>
 
               {/* FIVE PIECES OF SAM */}
-              <div className="bento group hover:border-white/20 transition space-y-4">
+              <div className="bento group card-hover space-y-4">
                 <div className="flex flex-wrap justify-between items-start gap-4">
-                  <h3 className="font-serif italic font-bold text-2xl text-white">
+                  <h3 className="font-display font-bold text-2xl text-white">
                     Five Pieces of Sam
                   </h3>
                   <span className="text-[10px] font-mono border border-zinc-700 bg-white/5 text-zinc-400 px-3 py-1 rounded-full uppercase tracking-wider font-semibold">
@@ -237,7 +237,7 @@ export default function WritingPage() {
                     href="https://benedicta71.gumroad.com/l/gyeanz"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="btn-action btn-ghost-border !py-1.5 !px-4 !text-xs text-cyan-300 hover:border-cyan-400"
+                    className="btn-outline !py-2 !px-4 !text-xs text-violet-300 hover:border-violet-400"
                   >
                     <span>Read on Gumroad</span>
                     <span>↗</span>
@@ -248,7 +248,7 @@ export default function WritingPage() {
               {/* THE IVORY VULTURES */}
               <div className="bento opacity-85 border-dashed border-white/20 space-y-4">
                 <div className="flex flex-wrap justify-between items-start gap-4">
-                  <h3 className="font-serif italic text-2xl text-zinc-400">
+                  <h3 className="font-display font-bold text-2xl text-zinc-400">
                     The Ivory Vultures
                   </h3>
                   <span className="text-[10px] font-mono bg-zinc-800 text-zinc-400 px-3 py-1 rounded-full uppercase tracking-wider font-semibold">
@@ -267,7 +267,7 @@ export default function WritingPage() {
         {showPreview && (
           <div className="border-t border-white/10 pt-16 animate-fadeIn space-y-12">
             <div className="text-center space-y-2">
-              <h2 className="font-serif italic text-3xl sm:text-4xl text-white">
+              <h2 className="font-display font-bold text-3xl sm:text-4xl text-white">
                 The XVII-th: Interactive Reader
               </h2>
               <p className="text-xs font-mono text-zinc-400">
@@ -275,14 +275,14 @@ export default function WritingPage() {
               </p>
             </div>
 
-            <div className="p-4 sm:p-8 rounded-2xl bg-zinc-900/80 border border-white/10 shadow-2xl">
+            <div className="p-4 sm:p-8 rounded-2xl bg-[#12121a] border border-white/10 shadow-2xl">
               <BookReader />
             </div>
 
             {/* Reader Reflections */}
             <div className="max-w-2xl mx-auto border-t border-white/10 pt-12 space-y-8">
               <div className="flex items-center justify-between">
-                <h3 className="font-serif italic text-2xl text-white">Reader Reflections</h3>
+                <h3 className="font-display font-bold text-2xl text-white">Reader Reflections</h3>
                 <div className="flex items-center gap-3 text-xs font-mono text-zinc-400">
                   <span>{comments.length} REVIEWS</span>
                   <span>&bull;</span>
@@ -298,12 +298,12 @@ export default function WritingPage() {
                     value={reviewerName}
                     onChange={(e) => setReviewerName(e.target.value)}
                     placeholder="Reader Name"
-                    className="w-full bg-zinc-900 border border-white/10 rounded-lg p-3 outline-none focus:ring-1 focus:ring-amber-400 text-xs font-mono text-white"
+                    className="w-full bg-[#0a0a0f] border border-white/10 rounded-xl p-3 outline-none focus:ring-1 focus:ring-amber-400 text-xs font-mono text-white"
                   />
                   <select
                     value={rating}
                     onChange={(e) => setRating(Number(e.target.value))}
-                    className="w-full bg-zinc-900 border border-white/10 rounded-lg p-3 outline-none focus:ring-1 focus:ring-amber-400 text-xs font-mono text-zinc-300 cursor-pointer"
+                    className="w-full bg-[#0a0a0f] border border-white/10 rounded-xl p-3 outline-none focus:ring-1 focus:ring-amber-400 text-xs font-mono text-zinc-300 cursor-pointer"
                     required
                   >
                     <option value="5">Score: 5 / 5 (Transcendental)</option>
@@ -318,12 +318,12 @@ export default function WritingPage() {
                   onChange={(e) => setReflectionText(e.target.value)}
                   rows={4}
                   placeholder="Your reflections on the text..."
-                  className="w-full bg-zinc-900 border border-white/10 rounded-lg p-3 outline-none focus:ring-1 focus:ring-amber-400 text-xs font-mono text-white"
+                  className="w-full bg-[#0a0a0f] border border-white/10 rounded-xl p-3 outline-none focus:ring-1 focus:ring-amber-400 text-xs font-mono text-white"
                   required
                 />
                 <button
                   type="submit"
-                  className="w-full py-3.5 bg-white text-black hover:bg-zinc-200 font-mono font-bold text-xs uppercase tracking-widest rounded-lg cursor-pointer transition"
+                  className="btn-primary w-full !py-3.5 font-mono text-xs uppercase tracking-widest cursor-pointer"
                 >
                   Submit Reflection
                 </button>
@@ -346,7 +346,7 @@ export default function WritingPage() {
                           Rating: {comment.rating} / 5
                         </div>
                       </div>
-                      <p className="text-sm text-zinc-300 italic font-serif">
+                      <p className="text-sm text-zinc-300 italic">
                         &ldquo;{comment.text}&rdquo;
                       </p>
                       {isAdmin && (
@@ -371,7 +371,7 @@ export default function WritingPage() {
                       onClick={() => setCurrentPage(idx + 1)}
                       className={`w-8 h-8 rounded text-xs font-mono transition cursor-pointer ${
                         currentPage === idx + 1
-                          ? 'bg-white text-black font-bold'
+                          ? 'bg-violet-600 text-white font-bold'
                           : 'bg-zinc-800 text-zinc-400 hover:text-white'
                       }`}
                     >
@@ -388,7 +388,7 @@ export default function WritingPage() {
         <ScrollReveal className="w-full">
           <div className="space-y-6">
             <div className="flex items-center gap-4">
-              <span className="font-mono text-xs uppercase tracking-widest text-cyan-400 font-semibold">
+              <span className="font-mono text-xs uppercase tracking-widest text-violet-400 font-semibold">
                 Publications
               </span>
               <div className="h-[1px] flex-grow bg-white/10"></div>
@@ -406,7 +406,7 @@ export default function WritingPage() {
                   href="https://medium.com/@benedictadurosakin"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="underline font-bold text-white hover:text-cyan-400"
+                  className="underline font-bold text-white hover:text-violet-400"
                 >
                   Medium
                 </a>.
@@ -414,15 +414,15 @@ export default function WritingPage() {
             ) : (
               <div className="grid md:grid-cols-2 gap-6 animate-fadeIn">
                 {mediumPosts.map((post, idx) => (
-                  <div key={idx} className="bento flex flex-col justify-between hover:border-amber-400/40 transition duration-300 space-y-4">
+                  <div key={idx} className="bento flex flex-col justify-between card-hover space-y-4">
                     <div>
                       <div className="flex justify-between items-center mb-2">
                         <span className="text-[10px] font-mono text-zinc-500">{post.pubDate}</span>
-                        <span className="text-[10px] font-mono bg-white/5 border border-white/10 px-2 py-0.5 rounded text-amber-400">
+                        <span className="text-[10px] font-mono bg-white/5 border border-white/10 px-2.5 py-0.5 rounded-full text-amber-400">
                           Medium
                         </span>
                       </div>
-                      <h4 className="text-lg font-serif italic font-bold text-white mb-2">
+                      <h4 className="text-lg font-display font-bold text-white mb-2">
                         {post.title}
                       </h4>
                       <p className="text-xs text-zinc-400 leading-relaxed font-light">
@@ -434,7 +434,7 @@ export default function WritingPage() {
                         href={post.link}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-xs font-mono text-amber-400 hover:text-amber-300 font-bold flex items-center gap-1.5"
+                        className="text-xs font-mono text-violet-400 hover:text-violet-300 font-bold flex items-center gap-1.5"
                       >
                         <span>Read Full Article</span>
                         <span>↗</span>

@@ -376,21 +376,21 @@ export default function ResearchPage() {
   return (
     <>
       {/* Header Banner */}
-      <section className="pt-16 pb-12 px-4 sm:px-6 lg:px-8 border-b border-white/10 bg-gradient-to-b from-[#161B22]/80 to-transparent" id="search-section">
+      <section className="pt-20 pb-12 px-4 sm:px-6 lg:px-8 border-b border-white/10 relative overflow-hidden" id="search-section">
         <div className="max-w-7xl mx-auto space-y-4">
-          <div className="hero-pill-tag">
-            <span className="hero-pill-dot"></span>
-            <span className="text-cyan-400 font-bold uppercase tracking-wider text-[10px]">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-violet-500/10 border border-violet-500/20 text-xs font-mono text-zinc-300">
+            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+            <span className="text-violet-400 font-bold uppercase tracking-wider text-[11px]">
               05 / Evidence &amp; Inquiries
             </span>
             <span className="text-zinc-600">&bull;</span>
-            <span className="text-zinc-300 text-[11px]">Clinical Research &amp; Biostatistics Vault</span>
+            <span className="text-zinc-300 text-xs">Clinical Research &amp; Biostatistics Vault</span>
           </div>
 
-          <h1 className="font-serif italic font-bold text-4xl sm:text-6xl text-white tracking-tight">
-            Research &amp; Clinical Studies
+          <h1 className="font-display font-bold text-4xl sm:text-6xl text-white tracking-tight">
+            Research &amp; <span className="text-gradient">Clinical Studies</span>
           </h1>
-          <p className="text-zinc-400 text-sm sm:text-base max-w-2xl leading-relaxed">
+          <p className="text-zinc-400 text-base max-w-2xl leading-relaxed">
             Browse structured clinical research, epidemiological data, and nursing practice audits. Benedict Adurosakin serves as co-author on all published research in this database.
           </p>
         </div>
@@ -399,7 +399,7 @@ export default function ResearchPage() {
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 flex-grow w-full space-y-12">
         <ScrollReveal className="w-full">
           <div className="space-y-4">
-            <span className="font-mono text-xs uppercase tracking-widest text-cyan-400 font-semibold">Clinical Studies &amp; Evidence Vault</span>
+            <span className="font-mono text-xs uppercase tracking-widest text-violet-400 font-semibold">Clinical Studies &amp; Evidence Vault</span>
             <p className="text-sm text-zinc-400 max-w-2xl font-light leading-relaxed">
               Explore methodological frameworks, cross-sectional surveys, and biostatistical models across Maternal Health, Infectious Diseases, and Workforce Well-being.
             </p>

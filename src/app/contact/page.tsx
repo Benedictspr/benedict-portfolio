@@ -44,21 +44,21 @@ export default function ContactPage() {
   return (
     <>
       {/* Header Banner */}
-      <section className="pt-16 pb-12 px-4 sm:px-6 lg:px-8 border-b border-white/10 bg-gradient-to-b from-[#161B22]/80 to-transparent">
+      <section className="pt-20 pb-12 px-4 sm:px-6 lg:px-8 border-b border-white/10 relative overflow-hidden">
         <div className="max-w-7xl mx-auto space-y-4">
-          <div className="hero-pill-tag">
-            <span className="hero-pill-dot"></span>
-            <span className="text-cyan-400 font-bold uppercase tracking-wider text-[10px]">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-violet-500/10 border border-violet-500/20 text-xs font-mono text-zinc-300">
+            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+            <span className="text-violet-400 font-bold uppercase tracking-wider text-[11px]">
               06 / Direct Channel
             </span>
             <span className="text-zinc-600">&bull;</span>
-            <span className="text-zinc-300 text-[11px]">Consulting, Engineering &amp; Collaborations</span>
+            <span className="text-zinc-300 text-xs">Consulting, Engineering &amp; Collaborations</span>
           </div>
 
-          <h1 className="font-serif italic font-bold text-4xl sm:text-6xl text-white tracking-tight">
-            Collaboration &amp; Inquiries
+          <h1 className="font-display font-bold text-4xl sm:text-6xl text-white tracking-tight">
+            Collaboration &amp; <span className="text-gradient">Inquiries</span>
           </h1>
-          <p className="text-zinc-400 text-sm sm:text-base max-w-2xl leading-relaxed">
+          <p className="text-zinc-400 text-base max-w-2xl leading-relaxed">
             Have a project in mind, a clinical informatics consultation, or a health-tech platform to build? Let&apos;s start the conversation.
           </p>
         </div>
@@ -66,22 +66,22 @@ export default function ContactPage() {
 
       {/* Main Content Form */}
       <section className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16 flex-grow w-full">
-        <div className="bento border-white/15 p-6 sm:p-10 space-y-8 animate-fadeIn shadow-2xl">
+        <div className="bg-[#12121a]/85 backdrop-blur-xl border border-white/10 rounded-3xl p-6 sm:p-10 space-y-8 animate-fadeIn shadow-2xl">
           <div className="space-y-2">
-            <span className="font-mono text-xs uppercase tracking-widest text-cyan-400 font-bold">
+            <span className="font-mono text-xs uppercase tracking-widest text-violet-400 font-bold">
               Project Brief
             </span>
-            <h2 className="text-2xl sm:text-3xl font-serif italic text-white font-bold">
+            <h2 className="text-2xl sm:text-3xl font-display text-white font-bold tracking-tight">
               Have a project in mind? Let&apos;s talk.
             </h2>
-            <p className="text-xs text-zinc-400">
+            <p className="text-sm text-zinc-400">
               Fill in your details below and I will respond promptly with feasibility and technical notes.
             </p>
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="space-y-2">
-              <label className="font-mono text-[10px] uppercase tracking-widest text-zinc-400 font-semibold block">
+              <label className="font-mono text-xs uppercase tracking-wider text-zinc-400 font-medium block">
                 Your Full Name
               </label>
               <input
@@ -89,14 +89,14 @@ export default function ContactPage() {
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 placeholder="Benedict Adurosakin"
-                className="w-full bg-zinc-900/90 border border-white/10 rounded-xl p-4 outline-none focus:ring-1 focus:ring-cyan-400 text-sm text-white font-sans transition"
+                className="w-full bg-white/[0.03] border border-white/10 rounded-2xl p-4 outline-none focus:border-violet-500/60 focus:bg-white/[0.05] text-sm text-white font-sans transition-all"
                 required
                 disabled={loading}
               />
             </div>
 
             <div className="space-y-2">
-              <label className="font-mono text-[10px] uppercase tracking-widest text-zinc-400 font-semibold block">
+              <label className="font-mono text-xs uppercase tracking-wider text-zinc-400 font-medium block">
                 Email Address
               </label>
               <input
@@ -104,14 +104,14 @@ export default function ContactPage() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="benedict@example.com"
-                className="w-full bg-zinc-900/90 border border-white/10 rounded-xl p-4 outline-none focus:ring-1 focus:ring-cyan-400 text-sm text-white font-sans transition"
+                className="w-full bg-white/[0.03] border border-white/10 rounded-2xl p-4 outline-none focus:border-violet-500/60 focus:bg-white/[0.05] text-sm text-white font-sans transition-all"
                 required
                 disabled={loading}
               />
             </div>
 
             <div className="space-y-2">
-              <label className="font-mono text-[10px] uppercase tracking-widest text-zinc-400 font-semibold block">
+              <label className="font-mono text-xs uppercase tracking-wider text-zinc-400 font-medium block">
                 Project Scope &amp; Requirements
               </label>
               <textarea
@@ -119,14 +119,14 @@ export default function ContactPage() {
                 onChange={(e) => setMessage(e.target.value)}
                 rows={6}
                 placeholder="Describe your goals, requirements, timeline, and how we can collaborate..."
-                className="w-full bg-zinc-900/90 border border-white/10 rounded-xl p-4 outline-none focus:ring-1 focus:ring-cyan-400 text-sm text-white font-sans transition"
+                className="w-full bg-white/[0.03] border border-white/10 rounded-2xl p-4 outline-none focus:border-violet-500/60 focus:bg-white/[0.05] text-sm text-white font-sans transition-all"
                 required
                 disabled={loading}
               />
             </div>
 
             {error && (
-              <p className="text-xs text-red-400 font-mono bg-red-950/40 p-3 rounded-lg border border-red-800">
+              <p className="text-xs text-red-400 font-mono bg-red-950/40 p-3 rounded-xl border border-red-800">
                 {error}
               </p>
             )}
@@ -134,7 +134,7 @@ export default function ContactPage() {
             <button
               type="submit"
               disabled={loading}
-              className="btn-action btn-coral w-full !py-4 font-mono font-bold text-xs uppercase tracking-widest cursor-pointer disabled:opacity-50"
+              className="btn-primary w-full !py-4 font-semibold text-sm cursor-pointer disabled:opacity-50 justify-center shadow-lg shadow-violet-500/20"
             >
               <span>{loading ? 'SENDING INQUIRY...' : 'Submit Project Proposal'}</span>
               <span>&rarr;</span>
@@ -143,7 +143,7 @@ export default function ContactPage() {
 
           <div className="pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-zinc-400">
             <div>
-              Direct Email: <a href="mailto:benedictadurosakin@gmail.com" className="text-white hover:text-cyan-400 transition font-bold">benedictadurosakin@gmail.com</a>
+              Direct Email: <a href="mailto:benedictadurosakin@gmail.com" className="text-white hover:text-violet-400 transition font-medium">benedictadurosakin@gmail.com</a>
             </div>
             <div>
               Response time: <span className="text-emerald-400 font-semibold">&lt; 24 Hours</span>

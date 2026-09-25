@@ -1,227 +1,226 @@
-@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Geist:wght@300..900&family=JetBrains+Mono:wght@300..800&family=Manrope:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
 
 @import "tailwindcss";
 
 @theme {
-  --font-sans: 'Manrope', 'Geist', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-display: 'Bricolage Grotesque', sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
-  --font-serif: 'EB Garamond', 'Cormorant Garamond', Georgia, serif;
-  --font-display: 'Cinzel', serif;
-  --font-script: 'Cormorant Garamond', serif;
-  --font-nurse: 'Manrope', sans-serif;
-  --font-research: 'EB Garamond', serif;
-  --font-informatics: 'Manrope', sans-serif;
-  --font-author: 'EB Garamond', serif;
-  --font-name: 'EB Garamond', serif;
-  
-  --animate-marquee: marquee 26s linear infinite;
-  --animate-ticker: ticker 32s linear infinite;
-  --animate-underline: underline 0.6s ease forwards;
-  --animate-fadeIn: fadeIn 0.3s ease;
-  --animate-pulseSlow: pulseSlow 3s ease-in-out infinite;
+  --font-serif: 'Bricolage Grotesque', sans-serif;
+  --font-script: 'Bricolage Grotesque', sans-serif;
+  --font-nurse: 'Inter', sans-serif;
+  --font-research: 'Bricolage Grotesque', sans-serif;
+  --font-informatics: 'Inter', sans-serif;
+  --font-author: 'Bricolage Grotesque', sans-serif;
+  --font-name: 'Bricolage Grotesque', sans-serif;
 
-  @keyframes marquee {
-    0% { transform: translateX(0%); }
-    100% { transform: translateX(-100%); }
+  --color-primary: #8b5cf6;
+  --color-primary-hover: #7c3aed;
+  --color-accent: #a855f7;
+  --color-bg-dark: #0a0a0f;
+  --color-card-dark: rgba(18, 18, 26, 0.75);
+  --color-border-dark: rgba(255, 255, 255, 0.08);
+
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-glowPulse: glowPulse 3s ease-in-out infinite;
+  --animate-spinSlow: spinSlow 18s linear infinite;
+  --animate-blink: blink 1s step-end infinite;
+  --animate-bounceSlow: bounceSlow 2s ease-in-out infinite;
+  --animate-fadeIn: fadeIn 0.3s ease;
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
   }
-  @keyframes ticker {
-    0% { transform: translateX(0%); }
-    100% { transform: translateX(-50%); }
+  @keyframes glowPulse {
+    0%, 100% { opacity: 0.25; transform: scale(1); }
+    50% { opacity: 0.55; transform: scale(1.08); }
   }
-  @keyframes underline {
-    0% { transform: scaleX(0); }
-    100% { transform: scaleX(1); }
+  @keyframes spinSlow {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+  }
+  @keyframes bounceSlow {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(6px); }
   }
   @keyframes fadeIn {
     0% { opacity: 0; transform: translateY(6px); }
     100% { opacity: 1; transform: translateY(0); }
   }
-  @keyframes pulseSlow {
-    0%, 100% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.5; transform: scale(0.92); }
-  }
 }
 
 :root {
-  --background: #0D1117;
-  --foreground: #F6F4F1;
-  --card-bg: rgba(22, 27, 34, 0.75);
-  --border-color: rgba(255, 255, 255, 0.1);
-  --border-hover: rgba(255, 255, 255, 0.25);
-  --accent: #7C3AED;
-  --accent-cyan: #06B6D4;
-  --accent-coral: #FF4A2B;
-  --accent-emerald: #10B981;
-  --accent-amber: #F59E0B;
+  --background: #0a0a0f;
+  --foreground: #f8fafc;
+  --card: rgba(18, 18, 26, 0.75);
+  --border: rgba(255, 255, 255, 0.08);
+  --border-hover: rgba(139, 92, 246, 0.4);
+  --primary: #8b5cf6;
+  --primary-foreground: #ffffff;
+  --muted: rgba(255, 255, 255, 0.05);
+  --muted-foreground: #94a3b8;
+  --accent: #7c3aed;
 }
 
 body {
-  background-color: #0D1117;
-  color: #F6F4F1;
+  background-color: #0a0a0f;
+  color: #f8fafc;
   font-family: var(--font-sans);
   overflow-x: hidden;
-  line-height: 1.7;
+  line-height: 1.65;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Kairogram / Aiby Inspired Bento Cards */
-@utility bento {
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 1rem;
-  padding: 1.75rem;
-  background: rgba(22, 27, 34, 0.65);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  position: relative;
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.35);
+/* Jack Mkimbo Background Grid Texture */
+.bg-grid-texture {
+  background-image: linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+  background-size: 60px 60px;
 }
 
+/* Jack Mkimbo Signature Typography & Gradients */
+.font-display {
+  font-family: var(--font-display);
+}
+
+.text-gradient {
+  background: linear-gradient(135deg, #a78bfa 0%, #c084fc 45%, #60a5fa 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-gradient-amber {
+  background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 50%, #d97706 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Jack Mkimbo Card & Hover Effects */
+.card-hover {
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.card-hover:hover {
+  transform: translateY(-3px);
+  border-color: rgba(139, 92, 246, 0.45);
+  box-shadow: 0 16px 36px -8px rgba(139, 92, 246, 0.15);
+}
+
+@utility bento {
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 1.5rem;
+  padding: 1.75rem;
+  background: rgba(18, 18, 26, 0.7);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
 .bento:hover {
-  border-color: rgba(255, 255, 255, 0.24);
-  transform: translateY(-2px);
-  box-shadow: 0 12px 30px -4px rgba(0, 0, 0, 0.5);
+  border-color: rgba(139, 92, 246, 0.45);
+  transform: translateY(-3px);
+  box-shadow: 0 16px 36px -8px rgba(139, 92, 246, 0.15);
 }
 
 @utility glass {
-  background: rgba(22, 27, 34, 0.7);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 1rem;
+  background: rgba(18, 18, 26, 0.75);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-/* Hero Pill Badge */
-.hero-pill-tag {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.65rem;
-  padding: 0.45rem 1rem;
-  border-radius: 9999px;
-  background: rgba(22, 27, 34, 0.85);
-  border: 1px solid rgba(255, 255, 255, 0.14);
+.glow-violet {
+  box-shadow: 0 0 60px -10px rgba(139, 92, 246, 0.35);
+}
+
+/* Jack Mkimbo Chip Components */
+.tech-chip {
   font-family: var(--font-mono);
   font-size: 0.75rem;
-  letter-spacing: 0.05em;
-  color: #F6F4F1;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-  backdrop-filter: blur(10px);
+  padding: 0.25rem 0.65rem;
+  border-radius: 0.5rem;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: #94a3b8;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  transition: all 0.2s ease;
+}
+.tech-chip:hover {
+  border-color: rgba(139, 92, 246, 0.4);
+  color: #f8fafc;
+  background: rgba(139, 92, 246, 0.1);
 }
 
-.hero-pill-dot {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: #10B981;
-  box-shadow: 0 0 10px #10B981;
-  animation: pulseSlow 2s infinite ease-in-out;
-}
-
-/* Kairogram High-End Action Buttons */
-.btn-action {
+/* Jack Mkimbo Action Buttons */
+.btn-primary {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  padding: 0.75rem 1.4rem;
+  padding: 0.75rem 1.6rem;
   border-radius: 9999px;
+  background: #8b5cf6;
+  color: #ffffff;
   font-weight: 600;
   font-size: 0.875rem;
-  letter-spacing: 0.02em;
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  letter-spacing: -0.01em;
+  transition: all 0.25s ease;
   cursor: pointer;
   text-decoration: none;
 }
-
-.btn-coral {
-  background: #FF4A2B;
-  color: #FFFFFF;
-  border: 1px solid #FF4A2B;
-  box-shadow: 0 4px 14px rgba(255, 74, 43, 0.3);
-}
-.btn-coral:hover {
-  background: #E03B1E;
-  border-color: #E03B1E;
-  transform: translateY(-1px);
-  box-shadow: 0 6px 20px rgba(255, 74, 43, 0.45);
+.btn-primary:hover {
+  background: #7c3aed;
+  box-shadow: 0 8px 24px -4px rgba(139, 92, 246, 0.5);
+  transform: translateY(-2px);
 }
 
-.btn-solid-dark {
-  background: #F6F4F1;
-  color: #0D1117;
-  border: 1px solid #F6F4F1;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
-}
-.btn-solid-dark:hover {
-  background: #FFFFFF;
-  transform: translateY(-1px);
-  box-shadow: 0 6px 20px rgba(255, 255, 255, 0.2);
-}
-
-.btn-ghost-border {
-  background: rgba(255, 255, 255, 0.05);
-  color: #F6F4F1;
-  border: 1px solid rgba(255, 255, 255, 0.16);
+.btn-outline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.6rem;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.03);
+  color: #f8fafc;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  font-weight: 600;
+  font-size: 0.875rem;
+  letter-spacing: -0.01em;
+  transition: all 0.25s ease;
+  cursor: pointer;
+  text-decoration: none;
   backdrop-filter: blur(10px);
 }
-.btn-ghost-border:hover {
-  background: rgba(255, 255, 255, 0.1);
-  border-color: rgba(255, 255, 255, 0.3);
-  transform: translateY(-1px);
+.btn-outline:hover {
+  border-color: rgba(139, 92, 246, 0.4);
+  background: rgba(255, 255, 255, 0.08);
+  transform: translateY(-2px);
 }
 
-/* Underline Highlight Effects */
-.highlight-svg {
-  position: relative;
-  display: inline-block;
-  padding-left: 0.25rem;
-  padding-right: 0.25rem;
-}
-
-.svg-underline {
-  position: absolute;
-  left: 0;
-  bottom: -0.25rem;
-  width: 100%;
-  height: 10px;
-  color: #06B6D4;
-}
-
-.circle-sketch {
-  position: relative;
-  display: inline-block;
-  padding-left: 0.5rem;
-  padding-right: 0.5rem;
-}
-
-.circle-svg {
-  position: absolute;
-  left: -0.25rem;
-  top: -0.25rem;
-  width: calc(100% + 8px);
-  height: calc(100% + 8px);
-  color: rgba(6, 182, 212, 0.7);
-}
-
-/* Custom Scrollbar Styles */
+/* Custom Scrollbar */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #0D1117;
+  background: #0a0a0f;
 }
 ::-webkit-scrollbar-thumb {
-  background: #21262D;
+  background: rgba(255, 255, 255, 0.12);
   border-radius: 9999px;
-  border: 1px solid rgba(255, 255, 255, 0.05);
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #06B6D4;
+  background: #8b5cf6;
 }
 
 * {
   scrollbar-width: thin;
-  scrollbar-color: #21262D #0D1117;
+  scrollbar-color: rgba(255, 255, 255, 0.12) #0a0a0f;
 }
