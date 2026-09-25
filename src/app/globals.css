@@ -1,92 +1,177 @@
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&family=Geist:wght@300..900&family=JetBrains+Mono:wght@300..800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Geist:wght@300..900&family=JetBrains+Mono:wght@300..800&family=Manrope:wght@400;500;600;700;800&display=swap');
 
 @import "tailwindcss";
 
 @theme {
-  --font-sans: 'Geist', sans-serif;
+  --font-sans: 'Manrope', 'Geist', -apple-system, BlinkMacSystemFont, sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
+  --font-serif: 'EB Garamond', 'Cormorant Garamond', Georgia, serif;
+  --font-display: 'Cinzel', serif;
   --font-script: 'Cormorant Garamond', serif;
-  --font-nurse: 'Geist', sans-serif;
-  --font-research: 'Cormorant Garamond', serif;
-  --font-informatics: 'Geist', sans-serif;
-  --font-author: 'Cormorant Garamond', serif;
-  --font-name: 'Cormorant Garamond', serif;
+  --font-nurse: 'Manrope', sans-serif;
+  --font-research: 'EB Garamond', serif;
+  --font-informatics: 'Manrope', sans-serif;
+  --font-author: 'EB Garamond', serif;
+  --font-name: 'EB Garamond', serif;
   
   --animate-marquee: marquee 26s linear infinite;
+  --animate-ticker: ticker 32s linear infinite;
   --animate-underline: underline 0.6s ease forwards;
   --animate-fadeIn: fadeIn 0.3s ease;
+  --animate-pulseSlow: pulseSlow 3s ease-in-out infinite;
 
   @keyframes marquee {
     0% { transform: translateX(0%); }
     100% { transform: translateX(-100%); }
+  }
+  @keyframes ticker {
+    0% { transform: translateX(0%); }
+    100% { transform: translateX(-50%); }
   }
   @keyframes underline {
     0% { transform: scaleX(0); }
     100% { transform: scaleX(1); }
   }
   @keyframes fadeIn {
-    0% { opacity: 0; transform: translateY(5px); }
+    0% { opacity: 0; transform: translateY(6px); }
     100% { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes pulseSlow {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.92); }
   }
 }
 
 :root {
-  --background: #ffffff;
-  --foreground: #09090b;
-  --border-color: #e4e4e7;
-}
-
-.dark {
-  --background: #09090b;
-  --foreground: #fafafa;
-  --border-color: #27272a;
+  --background: #0D1117;
+  --foreground: #F6F4F1;
+  --card-bg: rgba(22, 27, 34, 0.75);
+  --border-color: rgba(255, 255, 255, 0.1);
+  --border-hover: rgba(255, 255, 255, 0.25);
+  --accent: #7C3AED;
+  --accent-cyan: #06B6D4;
+  --accent-coral: #FF4A2B;
+  --accent-emerald: #10B981;
+  --accent-amber: #F59E0B;
 }
 
 body {
-  background-color: var(--background);
-  color: var(--foreground);
+  background-color: #0D1117;
+  color: #F6F4F1;
   font-family: var(--font-sans);
-  transition: background-color 0.3s ease, color 0.3s ease;
+  overflow-x: hidden;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
+/* Kairogram / Aiby Inspired Bento Cards */
 @utility bento {
-  border: 1px solid var(--border-color);
-  border-radius: 0.75rem;
-  padding: 1.5rem;
-  background-color: rgba(255, 255, 255, 0.7);
-  backdrop-filter: blur(12px);
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
-}
-
-.dark .bento {
-  background-color: rgba(9, 9, 11, 0.6);
-  border-color: #27272a;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 1rem;
+  padding: 1.75rem;
+  background: rgba(22, 27, 34, 0.65);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  position: relative;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.35);
 }
 
 .bento:hover {
-  border-color: #a1a1aa;
-}
-
-.dark .bento:hover {
-  border-color: #52525b;
+  border-color: rgba(255, 255, 255, 0.24);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px -4px rgba(0, 0, 0, 0.5);
 }
 
 @utility glass {
-  background-color: rgba(255, 255, 255, 0.6);
-  backdrop-filter: blur(20px);
-  border: 1px solid var(--border-color);
-  border-radius: 0.75rem;
+  background: rgba(22, 27, 34, 0.7);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 1rem;
 }
 
-.dark .glass {
-  background-color: rgba(9, 9, 11, 0.5);
-  border-color: #27272a;
+/* Hero Pill Badge */
+.hero-pill-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.45rem 1rem;
+  border-radius: 9999px;
+  background: rgba(22, 27, 34, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+  color: #F6F4F1;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(10px);
 }
 
-@utility mask {
-  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+.hero-pill-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #10B981;
+  box-shadow: 0 0 10px #10B981;
+  animation: pulseSlow 2s infinite ease-in-out;
 }
 
+/* Kairogram High-End Action Buttons */
+.btn-action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.4rem;
+  border-radius: 9999px;
+  font-weight: 600;
+  font-size: 0.875rem;
+  letter-spacing: 0.02em;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.btn-coral {
+  background: #FF4A2B;
+  color: #FFFFFF;
+  border: 1px solid #FF4A2B;
+  box-shadow: 0 4px 14px rgba(255, 74, 43, 0.3);
+}
+.btn-coral:hover {
+  background: #E03B1E;
+  border-color: #E03B1E;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(255, 74, 43, 0.45);
+}
+
+.btn-solid-dark {
+  background: #F6F4F1;
+  color: #0D1117;
+  border: 1px solid #F6F4F1;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
+}
+.btn-solid-dark:hover {
+  background: #FFFFFF;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(255, 255, 255, 0.2);
+}
+
+.btn-ghost-border {
+  background: rgba(255, 255, 255, 0.05);
+  color: #F6F4F1;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  backdrop-filter: blur(10px);
+}
+.btn-ghost-border:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.3);
+  transform: translateY(-1px);
+}
+
+/* Underline Highlight Effects */
 .highlight-svg {
   position: relative;
   display: inline-block;
@@ -100,10 +185,7 @@ body {
   bottom: -0.25rem;
   width: 100%;
   height: 10px;
-  color: #22d3ee; /* cyan-400 */
-}
-.dark .svg-underline {
-  color: #c084fc; /* purple-400 */
+  color: #06B6D4;
 }
 
 .circle-sketch {
@@ -119,68 +201,27 @@ body {
   top: -0.25rem;
   width: calc(100% + 8px);
   height: calc(100% + 8px);
-  color: rgba(6, 182, 212, 0.6); /* cyan-500/60 (nurse) */
-}
-.dark .circle-svg {
-  color: rgba(168, 85, 247, 0.6); /* purple-500/60 (nurse dark) */
-}
-
-/* Specific page circle overrides */
-.research-circle .circle-svg {
-  color: rgba(168, 85, 247, 0.7) !important; /* purple-500/70 */
-}
-.dark .research-circle .circle-svg {
-  color: rgba(192, 132, 252, 0.7) !important; /* purple-400/70 */
-}
-
-.writing-circle .circle-svg {
-  color: rgba(245, 158, 11, 0.6) !important; /* amber-500/60 */
-}
-.dark .writing-circle .circle-svg {
-  color: rgba(253, 230, 138, 0.4) !important; /* amber-200/40 */
+  color: rgba(6, 182, 212, 0.7);
 }
 
 /* Custom Scrollbar Styles */
 ::-webkit-scrollbar {
-  width: 5px;
-  height: 5px;
+  width: 6px;
+  height: 6px;
 }
-
 ::-webkit-scrollbar-track {
-  background: transparent;
+  background: #0D1117;
 }
-
 ::-webkit-scrollbar-thumb {
-  background: #d4d4d8; /* zinc-300 */
-  border-radius: 10px;
-  transition: background 0.2s ease;
+  background: #21262D;
+  border-radius: 9999px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
 }
-
-.dark ::-webkit-scrollbar-thumb {
-  background: #27272a; /* zinc-800 */
-}
-
 ::-webkit-scrollbar-thumb:hover {
-  background: #06b6d4; /* accent: cyan-500 */
+  background: #06B6D4;
 }
 
-.dark ::-webkit-scrollbar-thumb:hover {
-  background: #06b6d4; /* accent: cyan-500 */
-}
-
-/* Hide scrollbar buttons (arrows) */
-::-webkit-scrollbar-button {
-  display: none;
-}
-
-/* Firefox compatibility */
 * {
   scrollbar-width: thin;
-  scrollbar-color: #d4d4d8 transparent;
+  scrollbar-color: #21262D #0D1117;
 }
-
-.dark * {
-  scrollbar-color: #27272a transparent;
-}
-
-

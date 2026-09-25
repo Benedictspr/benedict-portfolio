@@ -1,10 +1,13 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { AdminProvider } from "../context/AdminContext";
+import Ticker from "../components/Ticker";
+import Navbar from "../components/Navbar";
 
 export const metadata: Metadata = {
-  title: "Benedict Adurosakin",
-  description: "Licensed Registered Nurse, Software Engineer & Clinical Informaticist bridging clinical care, data systems, and software development.",
+  title: "Benedict Adurosakin — Registered Nurse, Software Engineer & Informaticist",
+  description: "Licensed Registered Nurse, Software Engineer & Clinical Informaticist bridging clinical bedside care, healthcare data architectures, and software engineering.",
+  keywords: ["Benedict Adurosakin", "Clinical Informatics", "Registered Nurse", "Software Engineer", "Kairos", "FHIR", "Python", "Next.js"],
 };
 
 export default function RootLayout({
@@ -18,13 +21,13 @@ export default function RootLayout({
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" />
       </head>
-      <body className="bg-white dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 antialiased font-sans flex min-h-screen">
+      <body className="bg-[#0D1117] text-[#F6F4F1] antialiased font-sans min-h-screen flex flex-col selection:bg-cyan-500/30 selection:text-cyan-200">
         <AdminProvider>
-          <div className="hidden lg:block w-[20%] border-r border-zinc-200 dark:border-zinc-800"></div>
-          <main className="w-full lg:w-[60%] border-x border-zinc-200 dark:border-zinc-800 flex flex-col min-h-screen">
+          <Ticker />
+          <Navbar />
+          <div className="flex-grow w-full flex flex-col">
             {children}
-          </main>
-          <div className="hidden lg:block w-[20%] border-l border-zinc-200 dark:border-zinc-800"></div>
+          </div>
         </AdminProvider>
       </body>
     </html>

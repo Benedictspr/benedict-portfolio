@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
 
 export default function ContactPage() {
@@ -44,74 +43,111 @@ export default function ContactPage() {
 
   return (
     <>
-      <header className="pt-12 px-6 md:px-12 w-full">
-        <div className="flex justify-between items-end mb-10">
-          <h1 className="font-script text-4xl md:text-5xl leading-none">Collaboration</h1>
-        </div>
-        <Navbar />
-      </header>
+      {/* Header Banner */}
+      <section className="pt-16 pb-12 px-4 sm:px-6 lg:px-8 border-b border-white/10 bg-gradient-to-b from-[#161B22]/80 to-transparent">
+        <div className="max-w-7xl mx-auto space-y-4">
+          <div className="hero-pill-tag">
+            <span className="hero-pill-dot"></span>
+            <span className="text-cyan-400 font-bold uppercase tracking-wider text-[10px]">
+              06 / Direct Channel
+            </span>
+            <span className="text-zinc-600">&bull;</span>
+            <span className="text-zinc-300 text-[11px]">Consulting, Engineering &amp; Collaborations</span>
+          </div>
 
-      <section className="px-6 md:px-12 pb-20 flex-grow w-full max-w-xl mx-auto">
-        <div className="animate-fadeIn">
-          <h2 className="text-2xl md:text-3xl font-light mb-8 leading-tight">
-            Have a project in mind? <br />
-            <span className="font-bold border-b-2 border-zinc-900 dark:border-white">Let’s talk.</span>
-          </h2>
+          <h1 className="font-serif italic font-bold text-4xl sm:text-6xl text-white tracking-tight">
+            Collaboration &amp; Inquiries
+          </h1>
+          <p className="text-zinc-400 text-sm sm:text-base max-w-2xl leading-relaxed">
+            Have a project in mind, a clinical informatics consultation, or a health-tech platform to build? Let&apos;s start the conversation.
+          </p>
+        </div>
+      </section>
+
+      {/* Main Content Form */}
+      <section className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16 flex-grow w-full">
+        <div className="bento border-white/15 p-6 sm:p-10 space-y-8 animate-fadeIn shadow-2xl">
+          <div className="space-y-2">
+            <span className="font-mono text-xs uppercase tracking-widest text-cyan-400 font-bold">
+              Project Brief
+            </span>
+            <h2 className="text-2xl sm:text-3xl font-serif italic text-white font-bold">
+              Have a project in mind? Let&apos;s talk.
+            </h2>
+            <p className="text-xs text-zinc-400">
+              Fill in your details below and I will respond promptly with feasibility and technical notes.
+            </p>
+          </div>
 
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="space-y-2">
-              <label className="font-mono text-[10px] uppercase tracking-widest text-zinc-400">Your Name</label>
+              <label className="font-mono text-[10px] uppercase tracking-widest text-zinc-400 font-semibold block">
+                Your Full Name
+              </label>
               <input
                 type="text"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 placeholder="Benedict Adurosakin"
-                className="w-full bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-lg p-4 outline-none focus:ring-1 focus:ring-zinc-400 dark:focus:ring-zinc-600 transition-all text-sm text-black dark:text-zinc-100"
+                className="w-full bg-zinc-900/90 border border-white/10 rounded-xl p-4 outline-none focus:ring-1 focus:ring-cyan-400 text-sm text-white font-sans transition"
                 required
                 disabled={loading}
               />
             </div>
 
             <div className="space-y-2">
-              <label className="font-mono text-[10px] uppercase tracking-widest text-zinc-400">Email Address</label>
+              <label className="font-mono text-[10px] uppercase tracking-widest text-zinc-400 font-semibold block">
+                Email Address
+              </label>
               <input
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="benedict@example.com"
-                className="w-full bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-lg p-4 outline-none focus:ring-1 focus:ring-zinc-400 dark:focus:ring-zinc-600 transition-all text-sm text-black dark:text-zinc-100"
+                className="w-full bg-zinc-900/90 border border-white/10 rounded-xl p-4 outline-none focus:ring-1 focus:ring-cyan-400 text-sm text-white font-sans transition"
                 required
                 disabled={loading}
               />
             </div>
 
             <div className="space-y-2">
-              <label className="font-mono text-[10px] uppercase tracking-widest text-zinc-400">Project Details</label>
+              <label className="font-mono text-[10px] uppercase tracking-widest text-zinc-400 font-semibold block">
+                Project Scope &amp; Requirements
+              </label>
               <textarea
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
                 rows={6}
-                placeholder="Describe the problem we are solving..."
-                className="w-full bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-lg p-4 outline-none focus:ring-1 focus:ring-zinc-400 dark:focus:ring-zinc-600 transition-all text-sm text-black dark:text-zinc-100"
+                placeholder="Describe your goals, requirements, timeline, and how we can collaborate..."
+                className="w-full bg-zinc-900/90 border border-white/10 rounded-xl p-4 outline-none focus:ring-1 focus:ring-cyan-400 text-sm text-white font-sans transition"
                 required
                 disabled={loading}
               />
             </div>
 
-            {error && <p className="text-xs text-red-500 font-mono">{error}</p>}
+            {error && (
+              <p className="text-xs text-red-400 font-mono bg-red-950/40 p-3 rounded-lg border border-red-800">
+                {error}
+              </p>
+            )}
 
             <button
               type="submit"
               disabled={loading}
-              className="w-full py-4 bg-black dark:bg-white text-white dark:text-black font-bold text-[10px] uppercase tracking-[0.2em] rounded-lg hover:opacity-90 transition-opacity disabled:opacity-50 cursor-pointer"
+              className="btn-action btn-coral w-full !py-4 font-mono font-bold text-xs uppercase tracking-widest cursor-pointer disabled:opacity-50"
             >
-              {loading ? 'SENDING PROPOSAL...' : 'Submit Project Proposal'}
+              <span>{loading ? 'SENDING INQUIRY...' : 'Submit Project Proposal'}</span>
+              <span>&rarr;</span>
             </button>
           </form>
 
-          <div className="mt-12 text-center">
-            <p className="text-[10px] font-mono text-zinc-400 uppercase tracking-widest">Or Reach out directly</p>
-            <p className="text-sm mt-2 text-zinc-600 dark:text-zinc-300">benedictadurosakin@gmail.com</p>
+          <div className="pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-zinc-400">
+            <div>
+              Direct Email: <a href="mailto:benedictadurosakin@gmail.com" className="text-white hover:text-cyan-400 transition font-bold">benedictadurosakin@gmail.com</a>
+            </div>
+            <div>
+              Response time: <span className="text-emerald-400 font-semibold">&lt; 24 Hours</span>
+            </div>
           </div>
         </div>
       </section>

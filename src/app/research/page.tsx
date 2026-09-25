@@ -375,22 +375,33 @@ export default function ResearchPage() {
 
   return (
     <>
-      <header className="pt-12 px-6 md:px-12 w-full" id="search-section">
-        <div className="flex justify-between items-end mb-10">
-          <h1 className="font-name italic font-medium text-4xl md:text-5xl text-zinc-950 dark:text-zinc-50">
-            Research
-          </h1>
-        </div>
-        <Navbar />
-      </header>
+      {/* Header Banner */}
+      <section className="pt-16 pb-12 px-4 sm:px-6 lg:px-8 border-b border-white/10 bg-gradient-to-b from-[#161B22]/80 to-transparent" id="search-section">
+        <div className="max-w-7xl mx-auto space-y-4">
+          <div className="hero-pill-tag">
+            <span className="hero-pill-dot"></span>
+            <span className="text-cyan-400 font-bold uppercase tracking-wider text-[10px]">
+              05 / Evidence &amp; Inquiries
+            </span>
+            <span className="text-zinc-600">&bull;</span>
+            <span className="text-zinc-300 text-[11px]">Clinical Research &amp; Biostatistics Vault</span>
+          </div>
 
-      <section className="px-6 md:px-12 pb-24 flex-grow w-full space-y-12">
+          <h1 className="font-serif italic font-bold text-4xl sm:text-6xl text-white tracking-tight">
+            Research &amp; Clinical Studies
+          </h1>
+          <p className="text-zinc-400 text-sm sm:text-base max-w-2xl leading-relaxed">
+            Browse structured clinical research, epidemiological data, and nursing practice audits. Benedict Adurosakin serves as co-author on all published research in this database.
+          </p>
+        </div>
+      </section>
+
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 flex-grow w-full space-y-12">
         <ScrollReveal className="w-full">
           <div className="space-y-4">
-            <span className="font-mono text-[10px] uppercase tracking-widest text-zinc-400">Clinical Studies & Evidence Vault</span>
-            <p className="text-sm text-zinc-500 max-w-2xl font-light leading-relaxed">
-              Browse structured clinical research, occupational health data, and nursing practice audits. 
-              Benedict Adurosakin serves as co-author on all published research listed in this database.
+            <span className="font-mono text-xs uppercase tracking-widest text-cyan-400 font-semibold">Clinical Studies &amp; Evidence Vault</span>
+            <p className="text-sm text-zinc-400 max-w-2xl font-light leading-relaxed">
+              Explore methodological frameworks, cross-sectional surveys, and biostatistical models across Maternal Health, Infectious Diseases, and Workforce Well-being.
             </p>
           </div>
         </ScrollReveal>
