@@ -9,23 +9,22 @@ export default function PodcastsPage() {
 
   return (
     <>
-      {/* Header Banner */}
-      <section className="pt-16 pb-12 px-6 lg:px-8 border-b border-white/[0.08] bg-white/[0.01]">
-        <div className="max-w-7xl mx-auto space-y-4">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/10 bg-white/[0.03] backdrop-blur-sm w-fit">
-            <span className="w-2 h-2 rounded-full bg-rose-400"></span>
-            <span className="text-rose-400 font-mono text-xs font-semibold uppercase tracking-wider">
-              04 / Media &amp; Podcasts
-            </span>
-            <span className="text-zinc-600">&bull;</span>
-            <span className="text-zinc-300 text-xs font-mono">Unfiltered Self-Improvement &amp; Discipline</span>
-          </div>
+      {/* ── Page Header Block ── */}
+      <section className="pagehead border-b border-[var(--line)] bg-[var(--paper-2)]/50">
+        <div className="shell">
+          <nav className="crumbs" aria-label="Breadcrumb">
+            <a href="/">Home</a>
+            <span>/</span>
+            <span className="text-[var(--ink)]">Podcasts</span>
+          </nav>
 
-          <h1 className="font-display font-bold text-4xl sm:text-6xl text-white tracking-tight">
-            Hustle Truth <span className="text-gradient">Series</span>
+          <p className="micro red">Media &bull; Hustle Truth Series</p>
+          <h1 className="mt-3">
+            Hustle Truth <em>Series.</em>
           </h1>
-          <p className="text-zinc-400 text-sm sm:text-base max-w-2xl leading-relaxed">
-            Raw, unfiltered daily conversations on discipline, resilience, and navigating demanding high-pressure careers from the ground up.
+          <p className="lede">
+            Raw, unfiltered daily conversations on discipline, resilience, and navigating demanding
+            high-pressure careers from the ground up.
           </p>
         </div>
       </section>
@@ -59,45 +58,51 @@ export default function PodcastsPage() {
             {/* Podcast Info Column */}
             <div className="md:col-span-8 space-y-6">
               <div>
-                <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-violet-400 font-bold block mb-2">
+                <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-violet-700 font-bold block mb-2">
                   Featured Show
                 </span>
-                <h2 className="font-display text-3xl sm:text-4xl font-bold text-white leading-tight">
+                <h2 className="font-display text-3xl sm:text-4xl font-extrabold text-[var(--ink)] leading-tight">
                   Hustle Truth Series
                 </h2>
-                <div className="h-[2px] w-20 bg-violet-500 mt-3 rounded-full"></div>
+                <div className="h-[2px] w-20 bg-violet-600 mt-3 rounded-full"></div>
               </div>
 
-              <p className="text-zinc-300 text-sm leading-relaxed max-w-2xl font-light">
+              <p className="text-[var(--ink)] text-sm sm:text-base leading-relaxed max-w-2xl font-normal">
                 The <strong>Hustle Truth Series</strong> is a daily self-improvement and motivational podcast hosted by Benedict Adurosakin. 
                 It provides raw, unfiltered conversations about discipline, consistency, and the realities of building goals from scratch.
               </p>
 
-              <p className="text-zinc-400 text-xs sm:text-sm leading-relaxed max-w-2xl font-light">
+              <p className="text-[var(--mute)] text-xs sm:text-sm leading-relaxed max-w-2xl font-normal">
                 Drawing from experiences across high-pressure clinical ICU corridors, nursing shifts, software engineering sprints, 
                 and the daily grind of building from the ground up, this series serves as a critical mirror. Moving beyond surface-level motivation, 
                 we discuss the honest mindset shifts, habits, and discipline required to protect your humanity while striving for lasting legacy.
               </p>
 
               {/* Platform Badges */}
-              <div className="pt-4">
-                <h4 className="font-mono text-[10px] uppercase tracking-wider text-zinc-400 mb-3 font-semibold">
+              <div className="pt-4 space-y-3">
+                <span className="font-mono text-[10px] uppercase tracking-wider text-[var(--ink)] font-bold block">
                   Subscribe &amp; Stream On
-                </h4>
-                <div className="flex flex-wrap gap-4">
+                </span>
+                <div className="flex flex-wrap gap-3">
                   {/* YouTube */}
                   <a
                     href="https://youtube.com/playlist?list=PLfjcuWEuElwUhYY01bbyIt88lB3OClLKc&si=gAWX56-VxL5hpPwF"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-3 px-5 py-3 rounded-2xl border border-white/10 bg-[#12121a] hover:border-[#FF0000]/50 hover:bg-[#FF0000]/10 transition-all duration-300 group"
+                    className="inline-flex items-center gap-3 px-4 py-3 rounded-xl border border-[var(--line)] bg-white hover:border-[var(--ink)] hover:shadow-md transition-all duration-200 group no-underline"
                   >
-                    <i className="fa-brands fa-youtube text-2xl text-[#FF0000] group-hover:scale-110 transition-transform"></i>
-                    <div className="text-left">
-                      <p className="text-[9px] font-mono text-zinc-400 uppercase tracking-tight leading-none">Watch on</p>
-                      <p className="text-xs font-bold text-white">YouTube Playlist</p>
+                    <div className="w-8 h-8 rounded-lg bg-red-50 flex items-center justify-center shrink-0">
+                      <i className="fa-brands fa-youtube text-base text-[#FF0000]"></i>
                     </div>
-                    <span className="text-xs text-zinc-400 ml-2 group-hover:translate-x-1 transition-transform">➜</span>
+                    <div className="text-left">
+                      <span className="block text-[9px] font-mono text-[var(--mute)] uppercase tracking-wider font-bold leading-none mb-1">
+                        Watch on
+                      </span>
+                      <span className="block text-xs font-bold text-[var(--ink)] leading-none whitespace-nowrap">
+                        YouTube Playlist
+                      </span>
+                    </div>
+                    <span className="text-xs text-[var(--mute)] group-hover:text-[var(--ink)] group-hover:translate-x-0.5 transition-transform font-bold ml-1">&rarr;</span>
                   </a>
 
                   {/* Apple Podcasts */}
@@ -105,14 +110,20 @@ export default function PodcastsPage() {
                     href="https://podcasts.apple.com/za/podcast/hustle-truth-series/id1840736646"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-3 px-5 py-3 rounded-2xl border border-white/10 bg-[#12121a] hover:border-[#FC3C44]/50 hover:bg-[#FC3C44]/10 transition-all duration-300 group"
+                    className="inline-flex items-center gap-3 px-4 py-3 rounded-xl border border-[var(--line)] bg-white hover:border-[var(--ink)] hover:shadow-md transition-all duration-200 group no-underline"
                   >
-                    <i className="fa-solid fa-podcast text-2xl text-[#FC3C44] group-hover:scale-110 transition-transform"></i>
-                    <div className="text-left">
-                      <p className="text-[9px] font-mono text-zinc-400 uppercase tracking-tight leading-none">Listen on</p>
-                      <p className="text-xs font-bold text-white">Apple Podcasts</p>
+                    <div className="w-8 h-8 rounded-lg bg-red-50 flex items-center justify-center shrink-0">
+                      <i className="fa-solid fa-podcast text-base text-[#FC3C44]"></i>
                     </div>
-                    <span className="text-xs text-zinc-400 ml-2 group-hover:translate-x-1 transition-transform">➜</span>
+                    <div className="text-left">
+                      <span className="block text-[9px] font-mono text-[var(--mute)] uppercase tracking-wider font-bold leading-none mb-1">
+                        Listen on
+                      </span>
+                      <span className="block text-xs font-bold text-[var(--ink)] leading-none whitespace-nowrap">
+                        Apple Podcasts
+                      </span>
+                    </div>
+                    <span className="text-xs text-[var(--mute)] group-hover:text-[var(--ink)] group-hover:translate-x-0.5 transition-transform font-bold ml-1">&rarr;</span>
                   </a>
 
                   {/* Spotify */}
@@ -120,14 +131,20 @@ export default function PodcastsPage() {
                     href="https://open.spotify.com/show/34NgEjL5Q7kmSXbEc0iVct"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-3 px-5 py-3 rounded-2xl border border-white/10 bg-[#12121a] hover:border-[#1DB954]/50 hover:bg-[#1DB954]/10 transition-all duration-300 group"
+                    className="inline-flex items-center gap-3 px-4 py-3 rounded-xl border border-[var(--line)] bg-white hover:border-[var(--ink)] hover:shadow-md transition-all duration-200 group no-underline"
                   >
-                    <i className="fa-brands fa-spotify text-2xl text-[#1DB954] group-hover:scale-110 transition-transform"></i>
-                    <div className="text-left">
-                      <p className="text-[9px] font-mono text-zinc-400 uppercase tracking-tight leading-none">Listen on</p>
-                      <p className="text-xs font-bold text-white">Spotify</p>
+                    <div className="w-8 h-8 rounded-lg bg-emerald-50 flex items-center justify-center shrink-0">
+                      <i className="fa-brands fa-spotify text-base text-[#1DB954]"></i>
                     </div>
-                    <span className="text-xs text-zinc-400 ml-2 group-hover:translate-x-1 transition-transform">➜</span>
+                    <div className="text-left">
+                      <span className="block text-[9px] font-mono text-[var(--mute)] uppercase tracking-wider font-bold leading-none mb-1">
+                        Listen on
+                      </span>
+                      <span className="block text-xs font-bold text-[var(--ink)] leading-none whitespace-nowrap">
+                        Spotify
+                      </span>
+                    </div>
+                    <span className="text-xs text-[var(--mute)] group-hover:text-[var(--ink)] group-hover:translate-x-0.5 transition-transform font-bold ml-1">&rarr;</span>
                   </a>
                 </div>
               </div>
@@ -139,25 +156,25 @@ export default function PodcastsPage() {
 
         {/* EMBEDDED PLAYBACK SECTION */}
         <ScrollReveal className="w-full" delay={150}>
-          <div className="border-t border-white/10 pt-12 space-y-6">
+          <div className="border-t border-[var(--line)] pt-12 space-y-6">
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
               <div>
-                <h3 className="font-display text-2xl font-bold text-white">
+                <h3 className="font-display text-2xl font-bold text-[var(--ink)]">
                   Play or Watch Episodes
                 </h3>
-                <p className="text-xs text-zinc-400">
+                <p className="text-xs text-[var(--mute)] font-medium">
                   Stream latest video episodes or podcast audio directly.
                 </p>
               </div>
               
               {/* Player Switcher */}
-              <div className="flex bg-[#12121a] p-1 rounded-full border border-white/10 self-start items-center gap-1">
+              <div className="flex bg-white p-1 rounded-full border border-[var(--line)] self-start items-center gap-1 shadow-xs">
                 <button
                   onClick={() => setActivePlayer('youtube')}
                   className={`px-4 py-1.5 rounded-full text-[10px] font-mono font-bold uppercase tracking-wider transition-all duration-300 cursor-pointer flex items-center gap-1.5 ${
                     activePlayer === 'youtube'
-                      ? 'bg-white/10 text-[#FF0000] border border-white/15'
-                      : 'text-zinc-400 hover:text-white'
+                      ? 'bg-[var(--paper-2)] text-[#FF0000] border border-[var(--line)]'
+                      : 'text-[var(--mute)] hover:text-[var(--ink)]'
                   }`}
                 >
                   <i className="fa-brands fa-youtube text-xs"></i>
@@ -167,8 +184,8 @@ export default function PodcastsPage() {
                   onClick={() => setActivePlayer('apple')}
                   className={`px-4 py-1.5 rounded-full text-[10px] font-mono font-bold uppercase tracking-wider transition-all duration-300 cursor-pointer flex items-center gap-1.5 ${
                     activePlayer === 'apple'
-                      ? 'bg-white/10 text-[#FC3C44] border border-white/15'
-                      : 'text-zinc-400 hover:text-white'
+                      ? 'bg-[var(--paper-2)] text-[#FC3C44] border border-[var(--line)]'
+                      : 'text-[var(--mute)] hover:text-[var(--ink)]'
                   }`}
                 >
                   <i className="fa-solid fa-podcast text-xs"></i>
@@ -178,8 +195,8 @@ export default function PodcastsPage() {
                   onClick={() => setActivePlayer('spotify')}
                   className={`px-4 py-1.5 rounded-full text-[10px] font-mono font-bold uppercase tracking-wider transition-all duration-300 cursor-pointer flex items-center gap-1.5 ${
                     activePlayer === 'spotify'
-                      ? 'bg-white/10 text-[#1DB954] border border-white/15'
-                      : 'text-zinc-400 hover:text-white'
+                      ? 'bg-[var(--paper-2)] text-[#1DB954] border border-[var(--line)]'
+                      : 'text-[var(--mute)] hover:text-[var(--ink)]'
                   }`}
                 >
                   <i className="fa-brands fa-spotify text-xs"></i>
@@ -189,7 +206,7 @@ export default function PodcastsPage() {
             </div>
 
             {/* Player Container */}
-            <div className="bento p-2 border-white/10 bg-[#0a0a0f] overflow-hidden shadow-2xl max-w-4xl animate-fadeIn">
+            <div className="p-3 border border-[var(--line)] bg-white rounded-2xl overflow-hidden shadow-lg max-w-4xl animate-fadeIn">
               {activePlayer === 'youtube' ? (
                 <div className="animate-fadeIn aspect-video w-full">
                   <iframe

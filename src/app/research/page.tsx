@@ -375,37 +375,27 @@ export default function ResearchPage() {
 
   return (
     <>
-      {/* Header Banner */}
-      <section className="pt-20 pb-12 px-4 sm:px-6 lg:px-8 border-b border-white/10 relative overflow-hidden" id="search-section">
-        <div className="max-w-7xl mx-auto space-y-4">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-violet-500/10 border border-violet-500/20 text-xs font-mono text-zinc-300">
-            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-            <span className="text-violet-400 font-bold uppercase tracking-wider text-[11px]">
-              05 / Evidence &amp; Inquiries
-            </span>
-            <span className="text-zinc-600">&bull;</span>
-            <span className="text-zinc-300 text-xs">Clinical Research &amp; Biostatistics Vault</span>
-          </div>
+      {/* ── Page Header Block ── */}
+      <section className="pagehead border-b border-[var(--line)] bg-[var(--paper-2)]/50" id="search-section">
+        <div className="shell">
+          <nav className="crumbs" aria-label="Breadcrumb">
+            <Link href="/">Home</Link>
+            <span>/</span>
+            <span className="text-[var(--ink)]">Research</span>
+          </nav>
 
-          <h1 className="font-display font-bold text-4xl sm:text-6xl text-white tracking-tight">
-            Research &amp; <span className="text-gradient">Clinical Studies</span>
+          <p className="micro red">Evidence &bull; Biostatistics Vault</p>
+          <h1 className="mt-3">
+            Research &amp; <em>Clinical Studies.</em>
           </h1>
-          <p className="text-zinc-400 text-base max-w-2xl leading-relaxed">
-            Browse structured clinical research, epidemiological data, and nursing practice audits. Benedict Adurosakin serves as co-author on all published research in this database.
+          <p className="lede">
+            Browse structured clinical research, epidemiological surveys, and nursing practice audits.
+            Benedict Adurosakin serves as co-author on all published research in this database.
           </p>
         </div>
       </section>
 
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 flex-grow w-full space-y-12">
-        <ScrollReveal className="w-full">
-          <div className="space-y-4">
-            <span className="font-mono text-xs uppercase tracking-widest text-violet-400 font-semibold">Clinical Studies &amp; Evidence Vault</span>
-            <p className="text-sm text-zinc-400 max-w-2xl font-light leading-relaxed">
-              Explore methodological frameworks, cross-sectional surveys, and biostatistical models across Maternal Health, Infectious Diseases, and Workforce Well-being.
-            </p>
-          </div>
-        </ScrollReveal>
-
+      <section className="shell py-16 flex-grow w-full space-y-12">
         {/* ADMIN REGISTRATION PANEL */}
         {isAdmin && (
           <ScrollReveal className="w-full">
@@ -572,19 +562,19 @@ export default function ResearchPage() {
                   placeholder="Search by title, author, school, or disease..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="w-full bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl py-3.5 pl-11 pr-4 outline-none focus:ring-1 focus:ring-cyan-500 transition-all text-sm text-black dark:text-zinc-100"
+                  className="w-full bg-white border border-[var(--line)] rounded-xl py-3.5 pl-11 pr-4 outline-none focus:border-[var(--red)] transition-all text-sm text-[var(--ink)] placeholder:text-[var(--faint)] shadow-xs"
                 />
-                <i className="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-zinc-400 text-sm"></i>
+                <i className="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-[var(--faint)] text-sm"></i>
               </div>
               
-              <div className="flex items-center gap-2 border border-zinc-200 dark:border-zinc-800/80 rounded-xl p-1 bg-zinc-50 dark:bg-zinc-900/40 shrink-0">
+              <div className="flex items-center gap-2 border border-[var(--line)] rounded-xl p-1 bg-white shrink-0 shadow-xs">
                 <button
                   type="button"
                   onClick={() => setViewMode('grid')}
-                  className={`px-3.5 py-2 rounded-lg text-[10px] font-mono tracking-wider uppercase transition cursor-pointer flex items-center gap-1.5 ${
+                  className={`px-3.5 py-2 rounded-lg text-xs font-mono tracking-wider uppercase transition cursor-pointer flex items-center gap-1.5 ${
                     viewMode === 'grid'
-                      ? 'bg-zinc-900 text-white dark:bg-zinc-800 shadow-sm border border-zinc-250 dark:border-zinc-700/60 font-bold'
-                      : 'text-zinc-400 hover:text-zinc-655 dark:hover:text-zinc-300'
+                      ? 'bg-[var(--ink)] text-white shadow-xs font-bold'
+                      : 'text-[var(--mute)] hover:text-[var(--ink)]'
                   }`}
                 >
                   <i className="fa-solid fa-border-all"></i>
@@ -593,10 +583,10 @@ export default function ResearchPage() {
                 <button
                   type="button"
                   onClick={() => setViewMode('list')}
-                  className={`px-3.5 py-2 rounded-lg text-[10px] font-mono tracking-wider uppercase transition cursor-pointer flex items-center gap-1.5 ${
+                  className={`px-3.5 py-2 rounded-lg text-xs font-mono tracking-wider uppercase transition cursor-pointer flex items-center gap-1.5 ${
                     viewMode === 'list'
-                      ? 'bg-zinc-900 text-white dark:bg-zinc-800 shadow-sm border border-zinc-250 dark:border-zinc-700/60 font-bold'
-                      : 'text-zinc-400 hover:text-zinc-655 dark:hover:text-zinc-300'
+                      ? 'bg-[var(--ink)] text-white shadow-xs font-bold'
+                      : 'text-[var(--mute)] hover:text-[var(--ink)]'
                   }`}
                 >
                   <i className="fa-solid fa-list"></i>
@@ -613,10 +603,10 @@ export default function ResearchPage() {
                   onClick={() => {
                     setActiveCategory(cat);
                   }}
-                  className={`px-3.5 py-1.5 rounded-full text-[10px] font-mono tracking-wider uppercase transition border cursor-pointer ${
+                  className={`px-4 py-2 rounded-full text-xs font-mono tracking-wider uppercase transition border cursor-pointer ${
                     activeCategory === cat
-                      ? 'bg-zinc-900 border-zinc-900 text-white dark:bg-white dark:border-white dark:text-black font-bold'
-                      : 'bg-zinc-50 border-zinc-200 dark:bg-zinc-900/40 dark:border-zinc-800 text-zinc-500 hover:border-zinc-300 dark:hover:border-zinc-700'
+                      ? 'bg-[var(--red)] border-[var(--red)] text-white font-bold shadow-xs'
+                      : 'bg-white border-[var(--line)] text-[var(--mute)] hover:border-[var(--ink)] hover:text-[var(--ink)]'
                   }`}
                 >
                   {cat}
@@ -629,16 +619,16 @@ export default function ResearchPage() {
         {/* ACTIVE FILTER STATUS BANNER */}
         {activeFilter && (
           <ScrollReveal className="w-full">
-            <div className="flex items-center justify-between p-3.5 bg-cyan-550/10 border border-cyan-500/20 text-cyan-600 dark:text-cyan-400 rounded-xl text-xs font-mono animate-fadeIn mb-2">
+            <div className="flex items-center justify-between p-4 bg-[var(--paper-2)] border border-[var(--line)] text-[var(--ink)] rounded-2xl text-xs font-mono animate-fadeIn mb-2 shadow-xs">
               <div className="flex items-center gap-2">
-                <i className="fa-solid fa-filter text-cyan-500"></i>
+                <i className="fa-solid fa-filter text-[var(--red)]"></i>
                 <span>
-                  Filtering by <strong>{activeFilter.type === 'author' ? 'Author' : activeFilter.type === 'coAuthor' ? 'Co-Author' : 'Institution'}</strong>: "{activeFilter.value}"
+                  Filtering by <strong className="text-[var(--ink)] font-bold">{activeFilter.type === 'author' ? 'Author' : activeFilter.type === 'coAuthor' ? 'Co-Author' : 'Institution'}</strong>: &ldquo;{activeFilter.value}&rdquo;
                 </span>
               </div>
               <button
                 onClick={() => setActiveFilter(null)}
-                className="hover:text-cyan-300 transition-colors uppercase font-bold text-[9px] tracking-wider cursor-pointer bg-zinc-150 dark:bg-zinc-900 px-2 py-1 rounded"
+                className="hover:text-[var(--red)] transition-colors uppercase font-bold text-xs tracking-wider cursor-pointer bg-white border border-[var(--line)] px-2.5 py-1 rounded-lg"
               >
                 Clear [x]
               </button>
@@ -650,44 +640,44 @@ export default function ResearchPage() {
         {activeFilter && (
           <ScrollReveal className="w-full">
             {activeFilter.type === 'author' || activeFilter.type === 'coAuthor' ? (
-              <div className="bento border-cyan-500/20 bg-gradient-to-br from-cyan-500/5 to-transparent p-6 mb-6 rounded-xl animate-fadeIn">
+              <div className="p-6 mb-6 rounded-2xl bg-white border border-[var(--line)] shadow-xs animate-fadeIn">
                 <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                   <div className="flex items-start gap-4">
-                    <div className="w-12 h-12 rounded-full bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-500 shrink-0">
+                    <div className="w-12 h-12 rounded-full bg-[var(--paper-2)] border border-[var(--line)] flex items-center justify-center text-[var(--red)] shrink-0">
                       <i className="fa-solid fa-user-doctor text-xl"></i>
                     </div>
                     <div className="space-y-1">
-                      <span className="font-mono text-[9px] uppercase tracking-wider text-cyan-500 font-bold">Academic Author Profile</span>
-                      <h3 className="text-xl font-bold font-name italic text-zinc-900 dark:text-zinc-50">{activeFilter.value}</h3>
-                      <p className="text-xs text-zinc-550 dark:text-zinc-400 font-light leading-relaxed">
-                        Showing all research papers co-authored or authored by <strong>{activeFilter.value}</strong> in the Nursing Evidence Vault.
+                      <span className="font-mono text-[10px] uppercase tracking-wider text-[var(--red)] font-bold">Academic Author Profile</span>
+                      <h3 className="text-xl font-extrabold text-[var(--ink)] tracking-tight">{activeFilter.value}</h3>
+                      <p className="text-xs text-[var(--mute)] leading-relaxed">
+                        Showing all research papers co-authored or authored by <strong className="text-[var(--ink)]">{activeFilter.value}</strong> in the Clinical Evidence Vault.
                       </p>
                     </div>
                   </div>
-                  <div className="bg-zinc-50 dark:bg-zinc-900/60 px-4 py-2 border border-zinc-200 dark:border-zinc-800 rounded-lg text-center shrink-0">
-                    <span className="font-mono text-[9px] uppercase tracking-wider text-zinc-450 block">Publications</span>
-                    <span className="text-lg font-bold text-black dark:text-white font-mono">{filteredPapers.length}</span>
+                  <div className="bg-[var(--paper-2)] px-4 py-2 border border-[var(--line)] rounded-xl text-center shrink-0">
+                    <span className="font-mono text-[10px] uppercase tracking-wider text-[var(--faint)] block font-semibold">Publications</span>
+                    <span className="text-lg font-extrabold text-[var(--ink)] font-mono">{filteredPapers.length}</span>
                   </div>
                 </div>
               </div>
             ) : activeFilter.type === 'institution' ? (
-              <div className="bento border-purple-500/20 bg-gradient-to-br from-purple-500/5 to-transparent p-6 mb-6 rounded-xl animate-fadeIn">
+              <div className="p-6 mb-6 rounded-2xl bg-white border border-[var(--line)] shadow-xs animate-fadeIn">
                 <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                   <div className="flex items-start gap-4">
-                    <div className="w-12 h-12 rounded-full bg-purple-500/10 border border-purple-500/20 flex items-center justify-center text-purple-500 shrink-0">
+                    <div className="w-12 h-12 rounded-full bg-[var(--paper-2)] border border-[var(--line)] flex items-center justify-center text-[var(--red)] shrink-0">
                       <i className="fa-solid fa-graduation-cap text-xl"></i>
                     </div>
                     <div className="space-y-1">
-                      <span className="font-mono text-[9px] uppercase tracking-wider text-purple-500 font-bold">Academic Institution</span>
-                      <h3 className="text-xl font-bold font-name italic text-zinc-900 dark:text-zinc-50">{activeFilter.value}</h3>
-                      <p className="text-xs text-zinc-550 dark:text-zinc-400 font-light leading-relaxed">
-                        Displaying publications affiliated with <strong>{activeFilter.value}</strong> in this archive.
+                      <span className="font-mono text-[10px] uppercase tracking-wider text-[var(--red)] font-bold">Academic Institution</span>
+                      <h3 className="text-xl font-extrabold text-[var(--ink)] tracking-tight">{activeFilter.value}</h3>
+                      <p className="text-xs text-[var(--mute)] leading-relaxed">
+                        Displaying publications affiliated with <strong className="text-[var(--ink)]">{activeFilter.value}</strong> in this archive.
                       </p>
                     </div>
                   </div>
-                  <div className="bg-zinc-50 dark:bg-zinc-900/60 px-4 py-2 border border-zinc-200 dark:border-zinc-800 rounded-lg text-center shrink-0">
-                    <span className="font-mono text-[9px] uppercase tracking-wider text-zinc-455 block">Publications</span>
-                    <span className="text-lg font-bold text-black dark:text-white font-mono">{filteredPapers.length}</span>
+                  <div className="bg-[var(--paper-2)] px-4 py-2 border border-[var(--line)] rounded-xl text-center shrink-0">
+                    <span className="font-mono text-[10px] uppercase tracking-wider text-[var(--faint)] block font-semibold">Publications</span>
+                    <span className="text-lg font-extrabold text-[var(--ink)] font-mono">{filteredPapers.length}</span>
                   </div>
                 </div>
               </div>
@@ -700,51 +690,51 @@ export default function ResearchPage() {
           <ScrollReveal className="w-full" delay={200}>
             {loading ? (
               <div className="text-center py-16">
-                <i className="fa-solid fa-spinner fa-spin text-2xl text-zinc-400 mb-4 block"></i>
-                <p className="text-xs text-zinc-500 italic">Syncing paper index with clinical vaults...</p>
+                <i className="fa-solid fa-spinner fa-spin text-2xl text-[var(--red)] mb-4 block"></i>
+                <p className="text-xs text-[var(--mute)] italic font-mono">Syncing paper index with clinical vaults...</p>
               </div>
             ) : filteredPapers.length === 0 ? (
-              <div className="py-16 text-center border border-dashed border-zinc-200 dark:border-zinc-800 rounded-2xl animate-fadeIn">
-                <i className="fa-regular fa-folder-open text-4xl text-zinc-400 mb-4 block"></i>
-                <p className="text-xs text-zinc-500 italic">No matching research studies found.</p>
+              <div className="py-16 text-center border border-dashed border-[var(--line)] rounded-2xl bg-white animate-fadeIn">
+                <i className="fa-regular fa-folder-open text-4xl text-[var(--faint)] mb-4 block"></i>
+                <p className="text-xs text-[var(--mute)] italic">No matching research studies found.</p>
               </div>
             ) : viewMode === 'list' ? (
               /* LIST VIEW */
-              <div className="flex flex-col divide-y divide-zinc-200 dark:divide-zinc-850 border border-zinc-200 dark:border-zinc-800 rounded-2xl bg-zinc-50/20 dark:bg-zinc-950/20 overflow-hidden shadow-sm">
+              <div className="flex flex-col divide-y divide-[var(--line)] border border-[var(--line)] rounded-2xl bg-white overflow-hidden shadow-xs">
                 {filteredPapers.map((paper) => (
                   <div
                     key={paper.id}
                     onClick={() => setSelectedPaper(paper)}
-                    className="p-5 flex flex-col md:flex-row justify-between items-start md:items-center gap-4 hover:bg-zinc-100/40 dark:hover:bg-zinc-900/30 transition duration-200 cursor-pointer"
+                    className="p-5 flex flex-col md:flex-row justify-between items-start md:items-center gap-4 hover:bg-[var(--paper-2)]/40 transition duration-200 cursor-pointer"
                   >
                     <div className="space-y-2 flex-grow max-w-4xl">
                       <div className="flex items-center gap-3 flex-wrap">
-                        <span className="text-[9px] font-mono bg-cyan-50 dark:bg-cyan-950/40 text-cyan-600 dark:text-cyan-400 px-2 py-0.5 rounded uppercase tracking-wider">
+                        <span className="text-[10px] font-mono bg-[var(--paper-2)] text-[var(--red)] border border-[var(--line)] px-2.5 py-0.5 rounded-full uppercase tracking-wider font-bold">
                           {paper.theme || 'General'}
                         </span>
-                        <span className="text-[9px] font-mono text-zinc-400">
+                        <span className="text-xs font-mono text-[var(--faint)]">
                           {(paper.date || '').split(',').pop()?.trim() || paper.date || 'Recent'}
                         </span>
                         {paper.authors?.coAuthor?.includes('Benedict') || paper.authors?.main?.includes('Adurosakin') ? (
-                          <span className="text-[9px] font-mono text-zinc-450 uppercase tracking-widest bg-zinc-100 dark:bg-zinc-900 px-1.5 py-0.5 rounded font-bold">
+                          <span className="text-[10px] font-mono text-[var(--ink)] uppercase tracking-wider bg-[var(--paper-2)] px-2.5 py-0.5 rounded-full border border-[var(--line)] font-bold">
                             {paper.id === 'nurse-ratios' ? 'LEAD RESEARCHER' : 'CO-AUTHOR'}
                           </span>
                         ) : null}
                       </div>
                       
-                      <h3 className="font-name italic text-base font-bold text-zinc-900 dark:text-zinc-100 hover:text-cyan-500 transition-colors leading-snug">
+                      <h3 className="text-base font-extrabold text-[var(--ink)] hover:text-[var(--red)] transition-colors leading-snug">
                         {paper.title || 'Untitled'}
                       </h3>
                       
-                      <div className="flex flex-wrap gap-x-4 gap-y-1 text-[10px] font-mono text-zinc-400">
+                      <div className="flex flex-wrap gap-x-4 gap-y-1 text-xs font-mono text-[var(--ink)]">
                         <div>
-                          Authors:{' '}
+                          <span className="font-bold text-[var(--ink)]">Authors:</span>{' '}
                           <button
                             onClick={(e) => {
                               e.stopPropagation();
                               applyFilter('author', paper.authors?.main || '');
                             }}
-                            className="text-zinc-700 dark:text-zinc-300 hover:text-cyan-555 dark:hover:text-cyan-455 hover:underline font-bold bg-transparent border-none p-0 inline-block cursor-pointer text-left"
+                            className="text-[var(--ink)] font-bold hover:text-[var(--red)] underline bg-transparent border-none p-0 inline-block cursor-pointer text-left"
                           >
                             {paper.authors?.main || 'Anonymous'}
                           </button>
@@ -754,20 +744,20 @@ export default function ResearchPage() {
                               e.stopPropagation();
                               applyFilter('coAuthor', paper.authors?.coAuthor || '');
                             }}
-                            className="underline text-zinc-550 dark:text-zinc-300 hover:text-cyan-555 dark:hover:text-cyan-455 bg-transparent border-none p-0 inline-block cursor-pointer text-left font-bold"
+                            className="text-[var(--ink)] font-bold hover:text-[var(--red)] underline bg-transparent border-none p-0 inline-block cursor-pointer text-left"
                           >
                             {paper.authors?.coAuthor || 'Benedict Adurosakin'}
                           </button>
                         </div>
-                        <div className="hidden sm:block text-zinc-500">|</div>
+                        <div className="hidden sm:block text-[var(--line)]">|</div>
                         <div>
-                          School:{' '}
+                          <span className="font-bold text-[var(--ink)]">Location:</span>{' '}
                           <button
                             onClick={(e) => {
                               e.stopPropagation();
                               applyFilter('institution', paper.institution || '');
                             }}
-                            className="hover:text-cyan-555 dark:hover:text-cyan-455 hover:underline bg-transparent border-none p-0 text-left cursor-pointer truncate max-w-xs md:max-w-md inline-block"
+                            className="text-[var(--ink)] hover:text-[var(--red)] underline bg-transparent border-none p-0 text-left cursor-pointer truncate max-w-xs md:max-w-md inline-block font-semibold"
                           >
                             {paper.institution || 'Independent'}
                           </button>
@@ -782,7 +772,7 @@ export default function ResearchPage() {
                             e.stopPropagation();
                             handleDeleteResearch(paper.id);
                           }}
-                          className="text-[10px] font-mono text-red-500 hover:underline cursor-pointer bg-red-500/5 px-2.5 py-1.5 rounded-lg border border-red-500/10 hover:bg-red-500/10 transition-colors border-none"
+                          className="text-[10px] font-mono text-[var(--red)] hover:underline cursor-pointer bg-[var(--red)]/10 px-2.5 py-1.5 rounded-lg border border-[var(--red)]/20"
                         >
                           Delete
                         </button>
@@ -790,9 +780,10 @@ export default function ResearchPage() {
                       <Link
                         href={`/research/request?paperId=${paper.id}`}
                         onClick={(e) => e.stopPropagation()}
-                        className="text-[10px] font-mono bg-zinc-950 hover:bg-zinc-850 dark:bg-zinc-800 dark:hover:bg-zinc-700 text-white px-3.5 py-2 rounded-lg transition font-bold shadow-sm"
+                        className="btn btn-red text-xs py-1.5 px-3.5"
                       >
-                        {paper.actionType === 'data' ? 'Methodology Data ➜' : 'Request Paper ➜'}
+                        <span>{paper.actionType === 'data' ? 'Methodology Data' : 'Request Paper'}</span>
+                        <span className="ar">&rarr;</span>
                       </Link>
                     </div>
                   </div>
@@ -805,29 +796,29 @@ export default function ResearchPage() {
                   <div
                     key={paper.id}
                     onClick={() => setSelectedPaper(paper)}
-                    className="bento flex flex-col justify-between group hover:border-cyan-500/40 dark:hover:border-cyan-400/30 hover:shadow-[0_8px_30px_rgb(0,0,0,0.04)] transition duration-300 cursor-pointer relative overflow-hidden"
+                    className="p-6 sm:p-7 rounded-2xl border border-[var(--line)] bg-white hover:border-[var(--ink)] shadow-xs hover:shadow-md transition-all duration-300 flex flex-col justify-between group cursor-pointer space-y-4"
                   >
-                    <div className="space-y-4">
+                    <div className="space-y-3">
                       <div className="flex justify-between items-center">
-                        <span className="text-[9px] font-mono bg-cyan-50 dark:bg-cyan-950/40 text-cyan-600 dark:text-cyan-400 px-2 py-0.5 rounded uppercase tracking-wider">
+                        <span className="text-[10px] font-mono bg-[var(--paper-2)] border border-[var(--line)] text-[var(--red)] px-2.5 py-1 rounded-full uppercase tracking-wider font-bold">
                           {paper.theme || 'General'}
                         </span>
-                        <span className="text-[9px] font-mono text-zinc-400">{(paper.date || '').split(',')[1]?.trim() || paper.date || 'Recent'}</span>
+                        <span className="text-xs font-mono text-[var(--ink)] font-bold">{(paper.date || '').split(',')[1]?.trim() || paper.date || 'Recent'}</span>
                       </div>
                       
-                      <h3 className="font-name italic text-lg font-bold text-zinc-900 dark:text-zinc-100 group-hover:text-cyan-500 transition-colors leading-snug">
+                      <h3 className="text-lg sm:text-xl font-extrabold text-[var(--ink)] group-hover:text-[var(--red)] transition-colors leading-snug">
                         {paper.title || 'Untitled'}
                       </h3>
                       
-                      <div className="space-y-1.5 text-[10px] font-mono text-zinc-400">
+                      <div className="space-y-1.5 text-xs font-mono text-[var(--ink)]">
                         <div>
-                          Authors:{' '}
+                          <span className="font-bold text-[var(--ink)]">Authors:</span>{' '}
                           <button
                             onClick={(e) => {
                               e.stopPropagation();
                               applyFilter('author', paper.authors?.main || '');
                             }}
-                            className="text-zinc-700 dark:text-zinc-300 hover:text-cyan-555 dark:hover:text-cyan-455 hover:underline font-bold bg-transparent border-none p-0 inline-block cursor-pointer text-left"
+                            className="text-[var(--ink)] font-bold hover:text-[var(--red)] underline bg-transparent border-none p-0 inline-block cursor-pointer text-left"
                           >
                             {paper.authors?.main || 'Anonymous'}
                           </button>
@@ -837,37 +828,38 @@ export default function ResearchPage() {
                               e.stopPropagation();
                               applyFilter('coAuthor', paper.authors?.coAuthor || '');
                             }}
-                            className="underline text-zinc-555 dark:text-zinc-300 hover:text-cyan-555 dark:hover:text-cyan-455 bg-transparent border-none p-0 inline-block cursor-pointer text-left font-bold"
+                            className="text-[var(--ink)] font-bold hover:text-[var(--red)] underline bg-transparent border-none p-0 inline-block cursor-pointer text-left"
                           >
                             {paper.authors?.coAuthor || 'Benedict Adurosakin'}
                           </button>
                         </div>
                         <div>
-                          Location:{' '}
+                          <span className="font-bold text-[var(--ink)]">Location:</span>{' '}
                           <button
                             onClick={(e) => {
                               e.stopPropagation();
                               applyFilter('institution', paper.institution || '');
                             }}
-                            className="hover:text-cyan-555 dark:hover:text-cyan-455 hover:underline bg-transparent border-none p-0 text-left cursor-pointer max-w-full truncate inline-block"
+                            className="text-[var(--ink)] hover:text-[var(--red)] underline bg-transparent border-none p-0 text-left cursor-pointer max-w-full truncate inline-block font-semibold"
                           >
                             {paper.institution || 'Independent'}
                           </button>
                         </div>
                       </div>
 
-                      <p className="text-xs text-zinc-500 leading-relaxed font-light line-clamp-3">
+                      <p className="text-xs sm:text-sm text-[var(--ink)] leading-relaxed line-clamp-3 font-normal">
                         {paper.snippet}
                       </p>
                     </div>
 
-                    <div className="mt-6 pt-4 border-t border-zinc-100 dark:border-zinc-900/60 flex justify-between items-center">
+                    <div className="pt-4 border-t border-[var(--line)] flex justify-between items-center">
                       <Link
                         href={`/research/request?paperId=${paper.id}`}
                         onClick={(e) => e.stopPropagation()}
-                        className="text-[10px] font-mono text-cyan-500 hover:underline font-bold"
+                        className="text-xs font-bold text-[var(--red)] hover:underline flex items-center gap-1"
                       >
-                        {paper.actionType === 'data' ? 'Methodology Data ➜' : 'Request Full Paper ➜'}
+                        <span>{paper.actionType === 'data' ? 'Methodology Data' : 'Request Full Paper'}</span>
+                        <span>&rarr;</span>
                       </Link>
                       <div className="flex items-center gap-2">
                         {isAdmin && (
@@ -876,12 +868,12 @@ export default function ResearchPage() {
                               e.stopPropagation();
                               handleDeleteResearch(paper.id);
                             }}
-                            className="text-[10px] font-mono text-red-500 hover:underline cursor-pointer mr-2"
+                            className="text-[10px] font-mono text-[var(--red)] hover:underline cursor-pointer mr-2"
                           >
                             Delete
                           </button>
                         )}
-                        <span className="text-[9px] font-mono text-zinc-400 uppercase tracking-widest bg-zinc-50 dark:bg-zinc-900 px-2 py-0.5 rounded font-bold">
+                        <span className="text-[10px] font-mono text-[var(--ink)] uppercase tracking-wider bg-[var(--paper-2)] px-2.5 py-1 rounded-full border border-[var(--ink)]/30 font-bold">
                           {paper.id === 'nurse-ratios' ? 'LEAD RESEARCHER' : 'CO-AUTHOR'}
                         </span>
                       </div>
@@ -896,142 +888,143 @@ export default function ResearchPage() {
 
       {/* PAPER DETAIL MODAL DIALOG - HIGH FIDELITY READING PANEL */}
       {selectedPaper && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-fadeIn">
-          <div className="bg-white dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 rounded-2xl w-full max-w-5xl max-h-[90vh] overflow-hidden shadow-2xl relative flex flex-col">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-md animate-fadeIn">
+          <div className="bg-white border border-[var(--line)] rounded-3xl w-full max-w-5xl max-h-[90vh] overflow-hidden shadow-2xl relative flex flex-col">
             
             {/* Sticky Modal Header Bar */}
-            <div className="p-4 md:p-6 border-b border-zinc-200 dark:border-zinc-850 flex items-center justify-between bg-white dark:bg-zinc-950 z-10 shrink-0">
-              <span className="text-[10px] font-mono bg-cyan-50 dark:bg-cyan-950/40 text-cyan-600 dark:text-cyan-400 px-2.5 py-1 rounded uppercase tracking-wider">
+            <div className="p-4 md:p-6 border-b border-[var(--line)] flex items-center justify-between bg-[var(--paper-2)]/60 z-10 shrink-0">
+              <span className="text-xs font-mono bg-white border border-[var(--line)] text-[var(--red)] px-3 py-1 rounded-full uppercase tracking-wider font-bold">
                 {selectedPaper.theme}
               </span>
               
               <div className="flex items-center gap-2">
                 <Link
                   href={`/research/request?paperId=${selectedPaper.id}`}
-                  className="bg-cyan-500 hover:bg-cyan-600 text-white font-mono text-[9px] uppercase tracking-wider px-3.5 py-2 rounded-lg transition-colors font-bold flex items-center gap-1.5 shadow-sm cursor-pointer"
+                  className="btn btn-red text-xs py-2 px-4 shadow-sm cursor-pointer"
                 >
-                  <i className="fa-solid fa-envelope"></i>
                   <span>{selectedPaper.actionType === 'data' ? 'REQUEST DATA' : 'REQUEST PREPRINT'}</span>
+                  <span className="ar">&rarr;</span>
                 </Link>
                 <button
                   onClick={() => setSelectedPaper(null)}
-                  className="w-8 h-8 flex items-center justify-center rounded-full bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-900 dark:hover:bg-zinc-800 text-zinc-500 dark:text-zinc-400 hover:text-black dark:hover:text-white transition cursor-pointer"
+                  className="w-9 h-9 flex items-center justify-center rounded-full bg-white hover:bg-[var(--paper-2)] text-[var(--ink)] border border-[var(--line)] transition cursor-pointer text-lg font-bold"
+                  aria-label="Close dialog"
                 >
-                  <i className="fa-solid fa-xmark text-sm"></i>
+                  &times;
                 </button>
               </div>
             </div>
 
             {/* Main Dual-Column Content */}
-            <div className="grid md:grid-cols-12 overflow-y-auto flex-grow divide-y md:divide-y-0 md:divide-x divide-zinc-200 dark:divide-zinc-850">
+            <div className="grid md:grid-cols-12 overflow-y-auto flex-grow divide-y md:divide-y-0 md:divide-x divide-[var(--line)]">
               
               {/* LEFT COLUMN: ARTICLE BODY */}
               <div className="md:col-span-8 p-6 md:p-8 space-y-8 overflow-y-auto max-h-[calc(90vh-140px)]">
                 <div className="space-y-4">
-                  <h2 className="font-name italic text-2xl md:text-3xl font-medium text-black dark:text-zinc-50 leading-tight">
+                  <h2 className="text-2xl md:text-3xl font-extrabold text-[var(--ink)] leading-tight tracking-tight">
                     {selectedPaper.title}
                   </h2>
                   
                   {/* Dense Mobile Metadata View (hidden on desktop) */}
-                  <div className="block md:hidden space-y-1.5 text-xs text-zinc-450 font-mono border-y border-zinc-100 dark:border-zinc-905/70 py-3">
-                    <p>Main: <span className="text-zinc-800 dark:text-zinc-200 font-bold">{selectedPaper.authors?.main}</span></p>
-                    <p>Co: <span className="underline">{selectedPaper.authors?.coAuthor}</span></p>
-                    <p>School: <span className="text-zinc-850 dark:text-zinc-200">{selectedPaper.institution}</span></p>
+                  <div className="block md:hidden space-y-1.5 text-xs text-[var(--mute)] font-mono border-y border-[var(--line)] py-3">
+                    <p>Main: <span className="text-[var(--ink)] font-bold">{selectedPaper.authors?.main}</span></p>
+                    <p>Co: <span className="text-[var(--ink)] font-bold underline">{selectedPaper.authors?.coAuthor}</span></p>
+                    <p>School: <span className="text-[var(--ink)]">{selectedPaper.institution}</span></p>
                   </div>
                 </div>
 
                 {/* Document Sections */}
-                <div className="space-y-6 text-sm text-zinc-650 dark:text-zinc-350 leading-relaxed font-light scroll-smooth font-research">
-                  <div className="space-y-2 border-l-2 border-cyan-500/20 pl-4 animate-fadeIn">
-                    <h4 className="font-mono text-[10px] uppercase tracking-widest text-cyan-555 font-bold">Introduction</h4>
-                    <p className="indent-4 leading-relaxed text-zinc-800 dark:text-zinc-300 font-light">{selectedPaper.introduction}</p>
+                <div className="space-y-6 text-sm text-[var(--ink)] leading-relaxed font-normal">
+                  <div className="space-y-2 border-l-4 border-[var(--red)] pl-4 animate-fadeIn">
+                    <h4 className="font-mono text-xs uppercase tracking-widest text-[var(--red)] font-bold">Introduction</h4>
+                    <p className="leading-relaxed text-[var(--ink)]">{selectedPaper.introduction}</p>
                   </div>
 
                   {selectedPaper.methodology && (
-                    <div className="space-y-2 border-l-2 border-cyan-500/20 pl-4 animate-fadeIn">
-                      <h4 className="font-mono text-[10px] uppercase tracking-widest text-cyan-555 font-bold">Methodology / Methods</h4>
-                      <p className="indent-4 leading-relaxed text-zinc-800 dark:text-zinc-300 font-light">{selectedPaper.methodology}</p>
+                    <div className="space-y-2 border-l-4 border-[var(--red)] pl-4 animate-fadeIn">
+                      <h4 className="font-mono text-xs uppercase tracking-widest text-[var(--red)] font-bold">Methodology / Methods</h4>
+                      <p className="leading-relaxed text-[var(--ink)]">{selectedPaper.methodology}</p>
                     </div>
                   )}
 
                   {selectedPaper.results && (
-                    <div className="space-y-2 border-l-2 border-cyan-500/20 pl-4 animate-fadeIn">
-                      <h4 className="font-mono text-[10px] uppercase tracking-widest text-cyan-555 font-bold">Results / Findings</h4>
-                      <p className="indent-4 leading-relaxed text-zinc-800 dark:text-zinc-300 font-light">{selectedPaper.results}</p>
+                    <div className="space-y-2 border-l-4 border-[var(--red)] pl-4 animate-fadeIn">
+                      <h4 className="font-mono text-xs uppercase tracking-widest text-[var(--red)] font-bold">Results / Findings</h4>
+                      <p className="leading-relaxed text-[var(--ink)]">{selectedPaper.results}</p>
                     </div>
                   )}
 
                   {selectedPaper.conclusion && (
-                    <div className="space-y-2 border-l-2 border-cyan-500/20 pl-4 animate-fadeIn">
-                      <h4 className="font-mono text-[10px] uppercase tracking-widest text-cyan-555 font-bold">Conclusion</h4>
-                      <p className="indent-4 leading-relaxed text-zinc-800 dark:text-zinc-300 font-light">{selectedPaper.conclusion}</p>
+                    <div className="space-y-2 border-l-4 border-[var(--red)] pl-4 animate-fadeIn">
+                      <h4 className="font-mono text-xs uppercase tracking-widest text-[var(--red)] font-bold">Conclusion</h4>
+                      <p className="leading-relaxed text-[var(--ink)]">{selectedPaper.conclusion}</p>
                     </div>
                   )}
 
                   {selectedPaper.recommendations && (
-                    <div className="space-y-2 border-l-2 border-cyan-500/20 pl-4 animate-fadeIn">
-                      <h4 className="font-mono text-[10px] uppercase tracking-widest text-cyan-555 font-bold">Recommendations</h4>
-                      <p className="indent-4 leading-relaxed text-zinc-800 dark:text-zinc-300 font-light">{selectedPaper.recommendations}</p>
+                    <div className="space-y-2 border-l-4 border-[var(--red)] pl-4 animate-fadeIn">
+                      <h4 className="font-mono text-xs uppercase tracking-widest text-[var(--red)] font-bold">Recommendations</h4>
+                      <p className="leading-relaxed text-[var(--ink)]">{selectedPaper.recommendations}</p>
                     </div>
                   )}
                 </div>
               </div>
 
               {/* RIGHT COLUMN: SIDEBAR METADATA & UTILITIES */}
-              <div className="md:col-span-4 p-6 bg-zinc-50/50 dark:bg-zinc-950/40 space-y-6 overflow-y-auto max-h-[calc(90vh-140px)]">
+              <div className="md:col-span-4 p-6 bg-[var(--paper-2)]/40 space-y-6 overflow-y-auto max-h-[calc(90vh-140px)]">
                 
                 {/* Academic Metadata Card */}
                 <div className="space-y-3">
-                  <h4 className="font-mono text-[10px] uppercase tracking-widest text-zinc-450 font-bold">Document Metadata</h4>
+                  <h4 className="font-mono text-xs uppercase tracking-widest text-[var(--ink)] font-bold">Document Metadata</h4>
                   <div className="space-y-3 text-xs font-mono">
                     
-                    <div className="bg-white dark:bg-zinc-900 border border-zinc-200/60 dark:border-zinc-800/80 p-3.5 rounded-xl space-y-3 shadow-sm">
+                    <div className="bg-white border border-[var(--line)] p-4 rounded-2xl space-y-3 shadow-xs">
                       <div>
-                        <span className="text-[9px] uppercase tracking-wider text-zinc-455 block mb-1">Lead Author</span>
+                        <span className="text-[10px] uppercase tracking-wider text-[var(--faint)] block mb-1 font-bold">Lead Author</span>
                         <button
                           onClick={() => {
                             applyFilter('author', selectedPaper.authors?.main || '');
                             setSelectedPaper(null);
                           }}
-                          className="text-left font-bold text-zinc-900 dark:text-zinc-100 hover:text-cyan-555 hover:underline cursor-pointer flex items-center gap-1.5 w-full text-xs font-mono border-none bg-transparent p-0"
+                          className="text-left font-bold text-[var(--ink)] hover:text-[var(--red)] hover:underline cursor-pointer flex items-center gap-1.5 w-full text-xs font-mono border-none bg-transparent p-0"
                         >
-                          <i className="fa-solid fa-user text-[10px] text-cyan-555"></i>
+                          <i className="fa-solid fa-user text-[10px] text-[var(--red)]"></i>
                           <span className="truncate">{selectedPaper.authors?.main || 'Anonymous'}</span>
                         </button>
                       </div>
                       
-                      <div className="border-t border-zinc-100 dark:border-zinc-850/80 pt-2.5">
-                        <span className="text-[9px] uppercase tracking-wider text-zinc-455 block mb-1">Co-Author</span>
+                      <div className="border-t border-[var(--line)] pt-2.5">
+                        <span className="text-[10px] uppercase tracking-wider text-[var(--faint)] block mb-1 font-bold">Co-Author</span>
                         <button
                           onClick={() => {
                             applyFilter('coAuthor', selectedPaper.authors?.coAuthor || '');
                             setSelectedPaper(null);
                           }}
-                          className="text-left font-bold text-zinc-900 dark:text-zinc-100 hover:text-cyan-555 hover:underline cursor-pointer flex items-center gap-1.5 w-full text-xs font-mono border-none bg-transparent p-0"
+                          className="text-left font-bold text-[var(--ink)] hover:text-[var(--red)] hover:underline cursor-pointer flex items-center gap-1.5 w-full text-xs font-mono border-none bg-transparent p-0"
                         >
-                          <i className="fa-solid fa-user-doctor text-[10px] text-cyan-555"></i>
+                          <i className="fa-solid fa-user-doctor text-[10px] text-[var(--red)]"></i>
                           <span className="truncate">{selectedPaper.authors?.coAuthor || 'Benedict Adurosakin'}</span>
                         </button>
                       </div>
                       
-                      <div className="border-t border-zinc-100 dark:border-zinc-850/80 pt-2.5">
-                        <span className="text-[9px] uppercase tracking-wider text-zinc-455 block mb-1">Institution Location</span>
+                      <div className="border-t border-[var(--line)] pt-2.5">
+                        <span className="text-[10px] uppercase tracking-wider text-[var(--faint)] block mb-1 font-bold">Institution Location</span>
                         <button
                           onClick={() => {
                             applyFilter('institution', selectedPaper.institution || '');
                             setSelectedPaper(null);
                           }}
-                          className="text-left font-bold text-zinc-900 dark:text-zinc-100 hover:text-cyan-555 hover:underline cursor-pointer flex items-start gap-1.5 w-full text-xs font-mono border-none bg-transparent p-0"
+                          className="text-left font-bold text-[var(--ink)] hover:text-[var(--red)] hover:underline cursor-pointer flex items-start gap-1.5 w-full text-xs font-mono border-none bg-transparent p-0"
                         >
-                          <i className="fa-solid fa-graduation-cap text-[10px] text-cyan-555 mt-0.5"></i>
+                          <i className="fa-solid fa-graduation-cap text-[10px] text-[var(--red)] mt-0.5"></i>
                           <span className="leading-snug">{selectedPaper.institution || 'Independent'}</span>
                         </button>
                       </div>
 
-                      <div className="border-t border-zinc-100 dark:border-zinc-850/80 pt-2.5">
-                        <span className="text-[9px] uppercase tracking-wider text-zinc-455 block">Published Date</span>
-                        <span className="font-bold text-zinc-900 dark:text-zinc-100 flex items-center gap-1.5 mt-1">
-                          <i className="fa-solid fa-calendar-days text-[10px] text-cyan-555"></i>
+                      <div className="border-t border-[var(--line)] pt-2.5">
+                        <span className="text-[10px] uppercase tracking-wider text-[var(--faint)] block font-bold">Published Date</span>
+                        <span className="font-bold text-[var(--ink)] flex items-center gap-1.5 mt-1">
+                          <i className="fa-solid fa-calendar-days text-[10px] text-[var(--red)]"></i>
                           <span>{selectedPaper.date || 'Recent'}</span>
                         </span>
                       </div>
@@ -1041,18 +1034,18 @@ export default function ResearchPage() {
 
                 {/* Scholarly Citation Generator Widget */}
                 <div className="space-y-3">
-                  <h4 className="font-mono text-[10px] uppercase tracking-widest text-zinc-450 font-bold">How to Cite</h4>
-                  <div className="bg-white dark:bg-zinc-900 border border-zinc-200/60 dark:border-zinc-800/80 p-3.5 rounded-xl space-y-3.5 shadow-sm">
+                  <h4 className="font-mono text-xs uppercase tracking-widest text-[var(--ink)] font-bold">How to Cite</h4>
+                  <div className="bg-white border border-[var(--line)] p-4 rounded-2xl space-y-3.5 shadow-xs">
                     {/* Citation selector */}
-                    <div className="flex gap-1.5 border-b border-zinc-100 dark:border-zinc-850 pb-2 flex-wrap">
+                    <div className="flex gap-1.5 border-b border-[var(--line)] pb-2 flex-wrap">
                       {(['APA', 'MLA', 'Harvard', 'Vancouver'] as const).map((fmt) => (
                         <button
                           key={fmt}
                           onClick={() => setCitationFormat(fmt)}
-                          className={`text-[8px] font-mono px-2 py-0.5 rounded transition uppercase tracking-wider cursor-pointer ${
+                          className={`text-[9px] font-mono px-2.5 py-1 rounded-md transition uppercase tracking-wider cursor-pointer ${
                             citationFormat === fmt
-                              ? 'bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 font-bold'
-                              : 'text-zinc-400 hover:text-zinc-655 dark:hover:text-zinc-300'
+                              ? 'bg-[var(--red)] text-white font-bold'
+                              : 'text-[var(--mute)] hover:text-[var(--ink)] bg-[var(--paper)]'
                           }`}
                         >
                           {fmt}
@@ -1060,18 +1053,18 @@ export default function ResearchPage() {
                       ))}
                     </div>
                     {/* Citations string */}
-                    <div className="text-[10px] font-mono text-zinc-550 dark:text-zinc-400 leading-relaxed break-words bg-zinc-50 dark:bg-zinc-955/60 p-2.5 rounded border border-zinc-150 dark:border-zinc-850">
+                    <div className="text-xs font-mono text-[var(--ink)] leading-relaxed break-words bg-[var(--paper)] p-3 rounded-xl border border-[var(--line)]">
                       {generateCitationNode(selectedPaper, citationFormat)}
                     </div>
                     {/* Copy Button */}
                     <button
                       onClick={() => copyCitationToClipboard(selectedPaper)}
-                      className="w-full bg-zinc-900 hover:bg-zinc-850 dark:bg-zinc-800 dark:hover:bg-zinc-700 text-white font-mono text-[9px] uppercase tracking-wider py-2.5 rounded-lg transition-all font-bold flex items-center justify-center gap-1.5 cursor-pointer shadow-sm border-none"
+                      className="btn btn-red text-xs py-2 px-4 w-full justify-center cursor-pointer shadow-xs"
                     >
                       {copiedCitation ? (
                         <>
-                          <i className="fa-solid fa-check text-emerald-500"></i>
-                          <span>COPIED!</span>
+                          <i className="fa-solid fa-check"></i>
+                          <span>COPIED TO CLIPBOARD!</span>
                         </>
                       ) : (
                         <>
@@ -1086,20 +1079,20 @@ export default function ResearchPage() {
                 {/* Related Papers list inside modal */}
                 {getRelatedPapers(selectedPaper).length > 0 && (
                   <div className="space-y-3">
-                    <h4 className="font-mono text-[10px] uppercase tracking-widest text-zinc-455 font-bold">Related Studies in Vault</h4>
+                    <h4 className="font-mono text-xs uppercase tracking-widest text-[var(--ink)] font-bold">Related Studies in Vault</h4>
                     <div className="space-y-2">
                       {getRelatedPapers(selectedPaper).map((rp) => (
                         <div
                           key={rp.id}
                           onClick={() => setSelectedPaper(rp)}
-                          className="p-3 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 hover:border-cyan-500/40 dark:hover:border-cyan-500/30 hover:shadow-md rounded-xl cursor-pointer transition duration-300 flex flex-col gap-1.5"
+                          className="p-3.5 bg-white border border-[var(--line)] hover:border-[var(--ink)] rounded-xl cursor-pointer transition shadow-xs flex flex-col gap-1.5"
                         >
-                          <h5 className="text-[11px] font-bold text-zinc-900 dark:text-zinc-100 line-clamp-2 leading-snug">{rp.title || 'Untitled'}</h5>
-                          <div className="flex justify-between items-center text-[8px] text-zinc-400 font-mono mt-1 border-t border-zinc-100 dark:border-zinc-850/50 pt-1">
+                          <h5 className="text-xs font-bold text-[var(--ink)] line-clamp-2 leading-snug">{rp.title || 'Untitled'}</h5>
+                          <div className="flex justify-between items-center text-[10px] text-[var(--mute)] font-mono mt-1 border-t border-[var(--line)]/60 pt-1.5">
                             <span>by {rp.authors?.main?.split(' ').pop() || rp.authors?.main || 'Anonymous'}</span>
-                            <span className="text-cyan-555 font-bold uppercase tracking-widest text-[7px] flex items-center gap-0.5">
+                            <span className="text-[var(--red)] font-bold uppercase tracking-widest flex items-center gap-1">
                               <span>Read</span>
-                              <i className="fa-solid fa-arrow-right text-[8px]"></i>
+                              <span>&rarr;</span>
                             </span>
                           </div>
                         </div>

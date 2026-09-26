@@ -1,8 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import AdminModal from './AdminModal';
 import Link from 'next/link';
+import AdminModal from './AdminModal';
 
 interface FooterProps {
   commitMessage?: string;
@@ -13,114 +13,157 @@ export default function Footer({ commitMessage = 'active-production' }: FooterPr
 
   return (
     <>
-      <footer className="w-full mt-24 border-t border-white/[0.08] bg-[#0a0a0f] py-16 px-6 lg:px-8 relative overflow-hidden">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-10 pb-12 border-b border-white/[0.08]">
-          
-          {/* Brand & Identity */}
-          <div className="md:col-span-5 space-y-4">
-            <div className="flex items-center gap-3">
-              <div className="w-8 h-8 rounded-full overflow-hidden border border-white/20 bg-zinc-900">
-                <img src="/benedict.png" alt="Benedict Adurosakin" className="w-full h-full object-cover object-top" />
+      <footer>
+        <div className="shell">
+          <div className="fgrid">
+            {/* Column 1: Brand & Tagline */}
+            <div>
+              <div className="flex items-center gap-3.5 mb-4">
+                <div className="w-11 h-11 rounded-full overflow-hidden border border-white/20 bg-white/5 shrink-0">
+                  <img
+                    src="/benedict.png"
+                    alt="Benedict Adurosakin"
+                    className="w-full h-full object-cover object-top"
+                  />
+                </div>
+                <div>
+                  <h3 className="text-white text-base font-extrabold tracking-tight leading-snug">
+                    Benedict Adurosakin
+                  </h3>
+                  <p className="micro text-[0.62rem] text-[var(--faint)]">
+                    RN &bull; Software Engineer
+                  </p>
+                </div>
               </div>
-              <span className="font-display font-bold text-lg text-white">Benedict Adurosakin</span>
+
+              <p className="text-sm text-white/80 font-medium leading-relaxed mb-3">
+                Clinical precision. Scalable systems. Empathetic software.
+              </p>
+              <p style={{ color: 'var(--faint)', fontSize: '.82rem' }}>
+                Lagos, Nigeria<br />
+                Serving clinical teams &amp; engineering orgs worldwide
+              </p>
+
+              <ul className="socials">
+                <li>
+                  <a
+                    href="https://github.com/Benedictspr"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="GitHub"
+                    title="GitHub"
+                  >
+                    <i className="fa-brands fa-github text-sm"></i>
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://www.linkedin.com/in/benedict-adurosakin-736774398"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="LinkedIn"
+                    title="LinkedIn"
+                  >
+                    <i className="fa-brands fa-linkedin text-sm"></i>
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://x.com/icreate_idesign"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="X / Twitter"
+                    title="X / Twitter"
+                  >
+                    <i className="fa-brands fa-x-twitter text-sm"></i>
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://www.instagram.com/icreate.idesign"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Instagram"
+                    title="Instagram"
+                  >
+                    <i className="fa-brands fa-instagram text-sm"></i>
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://web.facebook.com/profile.php?id=61578122076472"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Facebook"
+                    title="Facebook"
+                  >
+                    <i className="fa-brands fa-facebook text-sm"></i>
+                  </a>
+                </li>
+              </ul>
             </div>
-            <p className="text-zinc-400 text-xs sm:text-sm leading-relaxed max-w-sm">
-              Registered Nurse, Software Engineer &amp; Clinical Informaticist. Bridging critical bedside care, healthcare data architectures, and empathetic digital tools.
-            </p>
-            <div className="flex items-center gap-2 text-xs font-mono text-zinc-400">
-              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-              <span>Available for Clinical Informatics &amp; SWE roles worldwide</span>
+
+            {/* Column 2: Disciplines */}
+            <div>
+              <h4>Disciplines</h4>
+              <ul>
+                <li><Link href="/tech">Clinical Informatics</Link></li>
+                <li><Link href="/nursing">Critical Care Nursing</Link></li>
+                <li><Link href="/tech">Offline-First Software</Link></li>
+                <li><Link href="/tech">AI Emergency Triage</Link></li>
+                <li><Link href="/research">Biostatistical Audits</Link></li>
+              </ul>
+            </div>
+
+            {/* Column 3: Directory */}
+            <div>
+              <h4>Directory</h4>
+              <ul>
+                <li><Link href="/about">About &bull; Background</Link></li>
+                <li><Link href="/tech">Work &bull; Systems</Link></li>
+                <li><Link href="/nursing">Clinical ICU Practice</Link></li>
+                <li><Link href="/research">Research Vault</Link></li>
+                <li><Link href="/writing">Literary Writing</Link></li>
+                <li><Link href="/podcasts">Podcast Series</Link></li>
+              </ul>
+            </div>
+
+            {/* Column 4: Start Here */}
+            <div>
+              <h4>Start here</h4>
+              <ul>
+                <li><Link href="/contact">Book a consultation</Link></li>
+                <li>
+                  <a href="mailto:benedictadurosakin@gmail.com">
+                    benedictadurosakin@gmail.com
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://wa.me/2349061790548?text=Hi%20Benedict%2C%20I%20found%20you%20on%20your%20portfolio%20and%20wanted%20to%20discuss%20"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    WhatsApp Direct
+                  </a>
+                </li>
+                <li className="pt-2">
+                  <button
+                    onClick={() => setIsAdminOpen(true)}
+                    className="text-xs text-[var(--faint)] hover:text-[var(--red)] transition bg-transparent border-none p-0 cursor-pointer flex items-center gap-1.5"
+                  >
+                    <span>Staff Admin</span>
+                    <span className="text-[10px] font-mono opacity-70">({commitMessage})</span>
+                  </button>
+                </li>
+              </ul>
             </div>
           </div>
 
-          {/* Navigation Links */}
-          <div className="md:col-span-4 grid grid-cols-2 gap-4 text-xs font-mono">
-            <div className="space-y-2.5">
-              <span className="text-[10px] text-zinc-500 uppercase tracking-widest block font-semibold">Directory</span>
-              <Link href="/" className="block text-zinc-400 hover:text-white transition">01 / Home &bull; About</Link>
-              <Link href="/tech" className="block text-zinc-400 hover:text-white transition">02 / Tech &bull; Software</Link>
-              <Link href="/nursing" className="block text-zinc-400 hover:text-white transition">03 / Nursing Clinical</Link>
-            </div>
-            <div className="space-y-2.5">
-              <span className="text-[10px] text-zinc-500 uppercase tracking-widest block font-semibold">Discourse</span>
-              <Link href="/research" className="block text-zinc-400 hover:text-white transition">04 / Research Vault</Link>
-              <Link href="/writing" className="block text-zinc-400 hover:text-white transition">05 / Literary Writing</Link>
-              <Link href="/podcasts" className="block text-zinc-400 hover:text-white transition">06 / Podcast Series</Link>
-              <Link href="/contact" className="block text-zinc-400 hover:text-white transition">07 / Contact &bull; Hire</Link>
-            </div>
-          </div>
-
-          {/* Socials & Connect */}
-          <div className="md:col-span-3 space-y-4">
-            <span className="text-[10px] text-zinc-500 uppercase tracking-widest block font-mono font-semibold">Connect</span>
-            <div className="flex flex-wrap gap-2.5">
-              <a
-                href="https://github.com/Benedictspr"
-                target="_blank"
-                rel="noopener noreferrer"
-                title="GitHub"
-                className="w-9 h-9 rounded-full bg-white/[0.04] border border-white/10 flex items-center justify-center text-zinc-400 hover:text-white hover:border-violet-500/40 hover:bg-violet-600/10 transition"
-              >
-                <i className="fa-brands fa-github text-base"></i>
-              </a>
-              <a
-                href="https://www.linkedin.com/in/benedict-adurosakin-736774398"
-                target="_blank"
-                rel="noopener noreferrer"
-                title="LinkedIn"
-                className="w-9 h-9 rounded-full bg-white/[0.04] border border-white/10 flex items-center justify-center text-zinc-400 hover:text-white hover:border-violet-500/40 hover:bg-violet-600/10 transition"
-              >
-                <i className="fa-brands fa-linkedin text-base"></i>
-              </a>
-              <a
-                href="https://x.com/icreate_idesign"
-                target="_blank"
-                rel="noopener noreferrer"
-                title="X / Twitter"
-                className="w-9 h-9 rounded-full bg-white/[0.04] border border-white/10 flex items-center justify-center text-zinc-400 hover:text-white hover:border-violet-500/40 hover:bg-violet-600/10 transition"
-              >
-                <i className="fa-brands fa-x-twitter text-base"></i>
-              </a>
-              <a
-                href="https://www.instagram.com/icreate.idesign"
-                target="_blank"
-                rel="noopener noreferrer"
-                title="Instagram"
-                className="w-9 h-9 rounded-full bg-white/[0.04] border border-white/10 flex items-center justify-center text-zinc-400 hover:text-white hover:border-violet-500/40 hover:bg-violet-600/10 transition"
-              >
-                <i className="fa-brands fa-instagram text-base"></i>
-              </a>
-              <a
-                href="https://web.facebook.com/profile.php?id=61578122076472"
-                target="_blank"
-                rel="noopener noreferrer"
-                title="Facebook"
-                className="w-9 h-9 rounded-full bg-white/[0.04] border border-white/10 flex items-center justify-center text-zinc-400 hover:text-white hover:border-violet-500/40 hover:bg-violet-600/10 transition"
-              >
-                <i className="fa-brands fa-facebook text-base"></i>
-              </a>
-            </div>
-            <p className="text-[11px] font-mono text-zinc-500">
-              Build: <span className="text-violet-400">{commitMessage}</span>
-            </p>
-          </div>
-        </div>
-
-        {/* Bottom Bar */}
-        <div className="max-w-7xl mx-auto pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-zinc-500">
-          <div>
-            &copy; 2026{' '}
-            <button
-              onClick={() => setIsAdminOpen(true)}
-              className="hover:text-white transition bg-transparent border-none p-0 cursor-pointer underline underline-offset-4 decoration-zinc-700"
-              title="Admin Portal"
-            >
-              Benedict Adurosakin
-            </button>
-            . All rights reserved.
-          </div>
-          <div className="flex items-center gap-2">
-            <span>Designed with Jack Mkimbo Architecture</span>
+          {/* Bottom Bar */}
+          <div className="fbase">
+            <p>&copy; {new Date().getFullYear()} Benedict Adurosakin. All rights reserved.</p>
+            <p>Built with Next.js &amp; TypeScript</p>
           </div>
         </div>
       </footer>

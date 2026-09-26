@@ -55,256 +55,224 @@ export default function NursingPage() {
 
   const getDefaultProfile = () => {
     return `
-      <p>Registered Nurse with strong specialization in Clinical Informatics, Health Data Analysis, and over three years of hands-on clinical experience providing comprehensive patient care in obstetric, medical-surgical, pediatric, and emergency settings.</p>
-      <p>Skilled in patient assessment, clinical monitoring, documentation, and assisting with medical procedures while maintaining strict adherence to hospital protocols and professional nursing standards. Compassionate, detail-oriented, and effective in fast-paced clinical environments.</p>
+      <p>Registered Nurse with strong specialization in Clinical Informatics, Health Data Analysis, and over three years of hands-on clinical experience providing comprehensive patient care in intensive care, obstetric, medical-surgical, and emergency environments.</p>
+      <p>Skilled in patient hemodynamic assessment, mechanical ventilation monitoring, medication administration, and multidisciplinary emergency response while maintaining strict adherence to clinical safety protocols and professional nursing standards.</p>
     `;
   };
 
   const clinicalCompetencies = [
-    "Direct Patient Care & Bedside Nursing",
-    "Obstetric & Midwifery Care (Antenatal, Intrapartum, Postnatal)",
-    "Patient Assessment, Monitoring & Documentation",
-    "Assistance with Clinical Procedures & Treatments",
-    "Medication Administration & IV Therapy",
-    "Infection Prevention & Control",
-    "Emergency Response & Triage",
-    "Patient & Family Health Education",
-    "Accurate Medical Records Management",
-    "Multidisciplinary Team Collaboration"
+    'Direct Patient Care & Critical Bedside Nursing',
+    'Intensive Care Unit (ICU) Telemetry & Ventilator Monitoring',
+    'Obstetric & Midwifery Care (Antenatal, Intrapartum, Postnatal)',
+    'Hemodynamic Assessment & Patient Deterioration Recognition',
+    'Emergency Resuscitation & Triage Protocol Execution',
+    'Medication Administration, Blood Transfusions & IV Infusions',
+    'Infection Prevention & Strict Hospital Biosecurity',
+    'Electronic & Paper Health Records Management (EHR/EMR)',
+    'Patient & Family Health Literacy Education',
+    'Multidisciplinary Team Collaboration & Clinical Handovers',
   ];
 
   const clinicalExperience = [
     {
-      hospital: "R-Jolad Hospital, Lagos",
-      role: "Registered Nurse (ICU & Private Ward Rotations)",
-      dates: "April 2026 – Present",
+      hospital: 'R-Jolad Hospital, Lagos',
+      role: 'Registered Nurse (ICU & Private Ward Rotations)',
+      dates: 'April 2026 – Present',
       bullets: [
-        "Rotated through the Intensive Care Unit (ICU) and Private Ward, providing specialized nursing care across critical and general patient populations.",
-        "Conduct comprehensive patient assessments, monitor vital signs, and promptly identify changes in patients' clinical conditions.",
-        "Provide continuous nursing care for critically ill patients, including close monitoring, medication administration, fluid management, and documentation.",
-        "Assist physicians and multidisciplinary teams during emergency interventions, clinical procedures, and patient management.",
-        "Administer prescribed medications, intravenous therapies, blood products, and other treatments while adhering to safety protocols.",
-        "Maintain accurate and confidential electronic and paper-based patient records in accordance with hospital policies and professional standards.",
-        "Educate patients and relatives on treatment plans, medications, discharge instructions, and preventive healthcare measures.",
-        "Ensure strict compliance with infection prevention and control guidelines while maintaining a safe clinical environment."
-      ]
+        'Rotated through the Intensive Care Unit (ICU) and Private Medical Ward, providing specialized nursing care across critical patient populations.',
+        'Conduct comprehensive patient assessments, continuous arterial and cardiac telemetry monitoring, and prompt recognition of decompensation markers.',
+        'Titrate critical inotrope and sedative infusions, manage invasive lines, and assist medical teams during emergency resuscitations and intubations.',
+        'Maintain accurate, real-time clinical documentation in electronic and bedside flowsheet records adhering to hospital policy.',
+        'Ensure rigorous infection prevention and biosecurity protocols across high-acuity suites.',
+      ],
     },
     {
-      hospital: "Prince of Peace Specialist Hospital, Ikorodu, Lagos",
-      role: "Registered Nurse (Obstetrics & Gynecology; Rotations)",
-      dates: "April 2023 – April 2026",
+      hospital: 'Prince of Peace Specialist Hospital, Lagos',
+      role: 'Registered Nurse (Obstetrics & Gynecology Rotations)',
+      dates: 'April 2023 – April 2026',
       bullets: [
-        "Provided high-quality antenatal, intrapartum, and postnatal nursing care to women and newborns.",
-        "Assisted doctors during deliveries, clinical procedures, examinations, and emergency interventions.",
-        "Monitored patient vital signs, clinical progress, and treatment responses, ensuring timely reporting of abnormalities.",
-        "Administered medications, IV fluids, and treatments in line with physicians’ orders.",
-        "Maintained accurate, complete, and confidential patient records in compliance with hospital protocols.",
-        "Educated patients and family members on maternal health, newborn care, medication adherence, and disease prevention.",
-        "Ensured strict adherence to infection prevention and control guidelines."
-      ]
+        'Delivered high-quality antenatal, intrapartum, and neonatal resuscitation care across maternity and surgical units.',
+        'Assisted obstetricians during emergency caesarean sections, instrument deliveries, and post-partum hemorrhage stabilization.',
+        'Administered intravenous fluid therapy, oxytocic regimens, and post-operative pain protocols with zero dosage deviations.',
+        'Educated mothers on neonatal lactation, danger signs, and postpartum infection prevention.',
+      ],
     },
     {
-      hospital: "Beautiful Gate Medical Centre, Ikorodu, Lagos",
-      role: "Staff Nurse",
-      dates: "January 2022 – February 2023",
+      hospital: 'Beautiful Gate Medical Centre, Lagos',
+      role: 'Staff Nurse (Acute & Emergency)',
+      dates: 'January 2022 – February 2023',
       bullets: [
-        "Delivered direct nursing care including patient assessment, wound care, and post-operative monitoring.",
-        "Assisted doctors with minor procedures, emergency care, and patient stabilization.",
-        "Administered medications and documented care accurately.",
-        "Provided health education to patients and caregivers.",
-        "Collaborated with the healthcare team to ensure continuity and quality of care."
-      ]
+        'Delivered direct acute bedside care including emergency wound debridement, suturing assistance, and acute trauma stabilization.',
+        'Assisted physicians with minor surgeries, emergency fluid resuscitation, and triage intake sorting.',
+        'Managed ward drug inventory, monitored sterile stock, and verified patient care continuity.',
+      ],
     },
     {
-      hospital: "Amaslaw Homecare Services Ltd, Isheri-Olofin",
-      role: "Home Health Nurse",
-      dates: "January 2021 – December 2021",
+      hospital: 'Amaslaw Homecare Services Ltd, Lagos',
+      role: 'Home Health Nurse',
+      dates: 'January 2021 – December 2021',
       bullets: [
-        "Provided personalized nursing care including medication management, wound care, and monitoring of chronic conditions.",
-        "Educated patients and families on home-based care and health management.",
-        "Maintained detailed nursing records and communicated patient progress to supervising clinicians."
-      ]
-    }
+        'Provided personalized nursing care for geriatric and chronic illness patients, focusing on medication adherence and mobility rehabilitation.',
+        'Trained family caregivers in safe patient transfers, decubitus ulcer prevention, and emergency contact protocols.',
+      ],
+    },
   ];
 
   const educationList = [
     {
-      degree: "Bachelor of Nursing Science (BNSc)",
-      school: "Ahmadu Bello University (DLC), Zaria",
-      status: "In View (500 Level)",
-      timeline: "May 2024 – January 2027"
+      degree: 'Bachelor of Nursing Science (BNSc)',
+      school: 'Ahmadu Bello University (DLC), Zaria',
+      status: 'In View (500 Level)',
+      timeline: 'May 2024 – January 2027',
     },
     {
-      degree: "Health and Social Care (Dementia Care)",
-      school: "University of Derby Online Learning",
-      status: "Certificate Completed",
-      timeline: "April 2026"
+      degree: 'Health and Social Care (Dementia Care)',
+      school: 'University of Derby Online Learning, UK',
+      status: 'Certificate Completed',
+      timeline: 'April 2026',
     },
     {
-      degree: "Diploma in Registered Nursing",
-      school: "School of Nursing, University of Ilorin Teaching Hospital",
-      status: "Registered Nurse License",
-      timeline: "November 2020"
-    }
+      degree: 'Diploma in Registered Nursing (RN)',
+      school: 'School of Nursing, University of Ilorin Teaching Hospital',
+      status: 'Licensed Registered Nurse',
+      timeline: 'November 2020',
+    },
   ];
 
   return (
     <>
-      {/* Header Banner */}
-      <section className="pt-16 pb-12 px-6 lg:px-8 border-b border-white/[0.08] bg-white/[0.01]">
-        <div className="max-w-7xl mx-auto space-y-4">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/10 bg-white/[0.03] backdrop-blur-sm w-fit">
-            <span className="w-2 h-2 rounded-full bg-violet-400"></span>
-            <span className="text-violet-400 font-mono text-xs font-semibold uppercase tracking-wider">
-              01 / Bedside Care &amp; Clinical Practice
-            </span>
-            <span className="text-zinc-600">&bull;</span>
-            <span className="text-zinc-300 text-xs font-mono">ICU, Obstetric &amp; Surgical Care</span>
-          </div>
+      {/* ── Page Header Block ── */}
+      <section className="pagehead border-b border-[var(--line)] bg-[var(--paper-2)]/50">
+        <div className="shell">
+          <nav className="crumbs" aria-label="Breadcrumb">
+            <Link href="/">Home</Link>
+            <span>/</span>
+            <span className="text-[var(--ink)]">Clinical Practice</span>
+          </nav>
 
-          <h1 className="font-display font-bold text-4xl sm:text-6xl text-white tracking-tight">
-            Nursing &amp; <span className="text-gradient">Clinical Care</span>
+          <p className="micro red">Bedside Rigor &bull; Critical Care Practice</p>
+          <h1 className="mt-3">
+            Critical Care Nursing &amp; <em>Clinical Accuracy.</em>
           </h1>
-          <p className="text-zinc-400 text-sm sm:text-base max-w-2xl leading-relaxed">
-            Delivering evidence-based clinical nursing care with technical precision, empathetic communication, and deep commitment to patient advocacy across ward and ICU environments.
+          <p className="lede">
+            Delivering evidence-based clinical nursing care with technical precision, empathetic
+            advocacy, and acute triage discipline across hospital wards and Intensive Care Units.
           </p>
         </div>
       </section>
 
-      {/* Main Content Body */}
-      <section className="max-w-7xl mx-auto px-6 lg:px-8 py-16 flex-grow w-full space-y-16">
-        
-        {/* PROFILE BLOCK */}
-        <div className="space-y-6">
-          <div className="flex items-center gap-4">
-            <span className="font-mono text-xs uppercase tracking-widest text-violet-400 font-semibold">
-              Overview
-            </span>
-            <div className="h-[1px] flex-grow bg-white/10"></div>
-            <span className="font-mono text-[11px] text-zinc-500 uppercase">Professional Profile</span>
+      {/* ── Main Content Body ── */}
+      <div className="shell py-16 space-y-20">
+
+        {/* ── Stat Strip for Clinical Track Record ── */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 p-6 rounded-2xl bg-white border border-[var(--line)]">
+          <div className="space-y-1">
+            <span className="text-3xl font-extrabold text-[var(--ink)] tracking-tight">5+</span>
+            <p className="text-xs text-[var(--mute)]">Years Acute Ward &amp; ICU Care</p>
           </div>
-          
-          {loadingProfile ? (
-            <div className="bento text-zinc-500 italic text-center font-mono text-xs">
-              Loading clinical profile telemetry...
-            </div>
-          ) : (
-            <div>
-              <div
-                ref={profileRef}
-                contentEditable={isEditingProfile}
-                suppressContentEditableWarning
-                className={`bento leading-relaxed text-zinc-300 space-y-6 outline-none border-l-4 border-l-violet-500 ${
-                  isEditingProfile ? 'ring-2 ring-violet-400' : ''
-                }`}
-                dangerouslySetInnerHTML={{ __html: profileText }}
-              />
-              {isAdmin && (
-                <div className="mt-4 flex gap-3">
-                  {isEditingProfile ? (
-                    <>
-                      <button
-                        onClick={handleSaveProfile}
-                        className="px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-mono font-bold rounded-lg transition cursor-pointer"
-                      >
-                        SAVE PROFILE
-                      </button>
-                      <button
-                        onClick={() => {
-                          setIsEditingProfile(false);
-                          if (profileRef.current) profileRef.current.innerHTML = profileText;
-                        }}
-                        className="px-4 py-2 bg-zinc-700 hover:bg-zinc-600 text-white text-xs font-mono font-bold rounded-lg transition cursor-pointer"
-                      >
-                        CANCEL
-                      </button>
-                    </>
-                  ) : (
+          <div className="space-y-1 border-l border-[var(--line)] pl-6">
+            <span className="text-3xl font-extrabold text-[var(--red)] tracking-tight">100%</span>
+            <p className="text-xs text-[var(--mute)]">Clinical Protocol Adherence</p>
+          </div>
+          <div className="space-y-1 border-l border-[var(--line)] pl-6">
+            <span className="text-3xl font-extrabold text-[var(--ink)] tracking-tight">4</span>
+            <p className="text-xs text-[var(--mute)]">Hospital Rotations Managed</p>
+          </div>
+          <div className="space-y-1 border-l border-[var(--line)] pl-6">
+            <span className="text-3xl font-extrabold text-[var(--ink)] tracking-tight">BNSc</span>
+            <p className="text-xs text-[var(--mute)]">Nursing Science Candidate</p>
+          </div>
+        </div>
+
+        {/* ── Clinical Overview Narrative (Admin Editable) ── */}
+        <div className="space-y-4">
+          <div className="flex items-center justify-between">
+            <p className="micro red">Clinical Profile &bull; Statement</p>
+            {isAdmin && (
+              <button
+                onClick={() => setIsEditingProfile(!isEditingProfile)}
+                className="text-xs font-mono text-[var(--red)] underline cursor-pointer"
+              >
+                {isEditingProfile ? 'Done Editing' : 'Edit Statement'}
+              </button>
+            )}
+          </div>
+
+          <div className="p-8 rounded-2xl bg-white border border-[var(--line)] shadow-xs">
+            {loadingProfile ? (
+              <p className="text-xs font-mono text-[var(--faint)]">Loading clinical profile telemetry...</p>
+            ) : (
+              <div>
+                <div
+                  ref={profileRef}
+                  contentEditable={isEditingProfile}
+                  suppressContentEditableWarning
+                  className={`prose max-w-none text-base text-[var(--ink)] leading-relaxed space-y-4 outline-none ${
+                    isEditingProfile ? 'ring-2 ring-[var(--red)] p-2 rounded' : ''
+                  }`}
+                  dangerouslySetInnerHTML={{ __html: profileText }}
+                />
+                {isEditingProfile && (
+                  <div className="mt-4 flex gap-3">
                     <button
-                      onClick={() => setIsEditingProfile(true)}
-                      className="px-4 py-2 bg-white text-black hover:bg-zinc-200 text-xs font-mono font-bold rounded-lg transition cursor-pointer"
+                      onClick={handleSaveProfile}
+                      className="btn btn-red text-xs py-1.5 px-4"
                     >
-                      EDIT PROFILE
+                      Save Changes
                     </button>
-                  )}
-                </div>
-              )}
+                    <button
+                      onClick={() => setIsEditingProfile(false)}
+                      className="btn btn-line text-xs py-1.5 px-4"
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
+        </div>
+
+        {/* ── Clinical Experience History ── */}
+        <div className="space-y-8">
+          <div className="sechead mb-8">
+            <div>
+              <p className="micro red" style={{ marginBottom: '0.8rem' }}>
+                Hospital Appointments
+              </p>
+              <h2>Clinical Rotations &amp; Appointments.</h2>
             </div>
-          )}
-        </div>
+            <div className="side">
+              <p>
+                Hands-on practice across Intensive Care Units, high-risk obstetrics, and emergency
+                surgical centers.
+              </p>
+            </div>
+          </div>
 
-        {/* CLINICAL COMPETENCIES */}
-        <div className="space-y-6">
-          <div className="flex items-center gap-4">
-            <span className="font-mono text-xs uppercase tracking-widest text-emerald-400 font-semibold">
-              Competencies
-            </span>
-            <div className="h-[1px] flex-grow bg-white/10"></div>
-            <span className="font-mono text-[11px] text-zinc-500 uppercase">Clinical Skills Matrix</span>
-          </div>
-          <div className="bento grid sm:grid-cols-2 gap-4">
-            {clinicalCompetencies.map((comp, idx) => (
-              <div key={idx} className="flex items-start gap-3 text-sm text-zinc-300">
-                <span className="text-violet-400 font-bold font-mono mt-0.5">&bull;</span>
-                <span className="leading-snug">{comp}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* EDUCATION & CREDENTIALS */}
-        <div className="space-y-6">
-          <div className="flex items-center gap-4">
-            <span className="font-mono text-xs uppercase tracking-widest text-purple-400 font-semibold">
-              Academics
-            </span>
-            <div className="h-[1px] flex-grow bg-white/10"></div>
-            <span className="font-mono text-[11px] text-zinc-500 uppercase">Nursing Education</span>
-          </div>
-          <div className="grid md:grid-cols-3 gap-6">
-            {educationList.map((edu, idx) => (
-              <div key={idx} className="bento flex flex-col justify-between card-hover space-y-4">
-                <div>
-                  <h4 className="font-display font-bold text-white text-base mb-1">{edu.degree}</h4>
-                  <p className="text-xs text-zinc-400">{edu.school}</p>
-                </div>
-                <div className="pt-3 border-t border-white/10 flex justify-between items-center text-xs font-mono text-zinc-500">
-                  <span>{edu.timeline}</span>
-                  <span className="text-violet-400 uppercase font-semibold">{edu.status}</span>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* CLINICAL EXPERIENCE */}
-        <div className="space-y-6">
-          <div className="flex items-center gap-4">
-            <span className="font-mono text-xs uppercase tracking-widest text-violet-400 font-semibold">
-              History
-            </span>
-            <div className="h-[1px] flex-grow bg-white/10"></div>
-            <span className="font-mono text-[11px] text-zinc-500 uppercase">Professional Clinical Experience</span>
-          </div>
           <div className="space-y-6">
             {clinicalExperience.map((exp, idx) => (
-              <div key={idx} className="bento border-l-4 border-l-violet-500 space-y-4">
-                <div className="flex flex-wrap justify-between items-start gap-2">
+              <div key={idx} className="wcard space-y-4">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-[var(--line)] pb-4">
                   <div>
-                    <h3 className="font-display font-bold text-xl sm:text-2xl text-white">
-                      {exp.hospital}
-                    </h3>
-                    <p className="text-xs sm:text-sm font-mono text-violet-400 mt-1 font-semibold">
+                    <h3 className="text-xl font-extrabold text-[var(--ink)] tracking-tight">
                       {exp.role}
+                    </h3>
+                    <p className="text-xs font-mono text-[var(--red)] font-semibold mt-0.5">
+                      {exp.hospital}
                     </p>
                   </div>
-                  <span className="text-xs font-mono text-zinc-400 bg-white/5 border border-white/10 px-3 py-1 rounded-full">
+                  <span className="text-xs font-mono text-[var(--ink)] font-bold bg-[var(--paper-2)] px-3 py-1 rounded-full border border-[var(--line)] whitespace-nowrap shrink-0">
                     {exp.dates}
                   </span>
                 </div>
-                <ul className="space-y-2 pt-2 text-xs sm:text-sm text-zinc-400 leading-relaxed list-disc list-inside">
-                  {exp.bullets.map((bullet, bidx) => (
-                    <li key={bidx} className="pl-2 -indent-4 align-top">{bullet}</li>
+
+                <ul className="space-y-2 list-none p-0 m-0">
+                  {exp.bullets.map((bullet, i) => (
+                    <li key={i} className="text-xs sm:text-sm text-[var(--mute)] flex items-start gap-2.5">
+                      <span className="w-1.5 h-1.5 rounded-full bg-[var(--red)] shrink-0 mt-2"></span>
+                      <span className="leading-relaxed">{bullet}</span>
+                    </li>
                   ))}
                 </ul>
               </div>
@@ -312,37 +280,86 @@ export default function NursingPage() {
           </div>
         </div>
 
-        {/* CLINICAL RESEARCH VAULT */}
-        <div className="space-y-6">
-          <div className="flex items-center gap-4">
-            <span className="font-mono text-xs uppercase tracking-widest text-amber-400 font-semibold">
-              Evidence
-            </span>
-            <div className="h-[1px] flex-grow bg-white/10"></div>
-            <span className="font-mono text-[11px] text-zinc-500 uppercase">Clinical Research &amp; Publications</span>
-          </div>
-          <div className="bento flex flex-col md:flex-row justify-between items-start md:items-center gap-6 group card-hover">
-            <div className="space-y-2">
-              <h4 className="text-2xl font-bold text-white font-display">
-                Nursing Evidence Vault
-              </h4>
-              <p className="text-xs sm:text-sm text-zinc-400 leading-relaxed font-light max-w-xl">
-                Explore clinical audits, maternal health studies, vaccine uptake research, and nursing workload audits where Benedict Adurosakin serves as co-author.
+        {/* ── Clinical Competencies Grid ── */}
+        <div className="space-y-8">
+          <div className="sechead mb-8">
+            <div>
+              <p className="micro red" style={{ marginBottom: '0.8rem' }}>
+                Skills Matrix
+              </p>
+              <h2>Clinical Competencies.</h2>
+            </div>
+            <div className="side">
+              <p>
+                Core nursing proficiencies maintained under strict regulatory compliance and
+                evidence-based standards.
               </p>
             </div>
-            <Link
-              href="/research"
-              className="btn-primary !text-xs !py-3 !px-6 whitespace-nowrap"
-            >
-              <span>Enter Research Library</span>
-              <span>&rarr;</span>
+          </div>
+
+          <div className="grid sm:grid-cols-2 gap-4">
+            {clinicalCompetencies.map((comp, idx) => (
+              <div
+                key={idx}
+                className="p-4 rounded-xl bg-white border border-[var(--line)] flex items-center gap-3 text-xs sm:text-sm font-semibold text-[var(--ink)]"
+              >
+                <span className="w-2 h-2 rounded-full bg-[var(--red)]"></span>
+                <span>{comp}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* ── Education & Nursing Qualifications ── */}
+        <div className="space-y-6">
+          <div className="sechead mb-6">
+            <div>
+              <p className="micro red" style={{ marginBottom: '0.8rem' }}>
+                Credentials
+              </p>
+              <h2>Academic Degrees &amp; Licensures.</h2>
+            </div>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-6">
+            {educationList.map((edu, i) => (
+              <div key={i} className="p-6 rounded-2xl bg-white border border-[var(--line)] space-y-2">
+                <span className="text-[10px] font-mono text-[var(--red)] font-bold bg-[var(--paper-2)] px-2.5 py-1 rounded border border-[var(--line)]">
+                  {edu.status}
+                </span>
+                <h4 className="text-base font-extrabold text-[var(--ink)] pt-2">{edu.degree}</h4>
+                <p className="text-xs text-[var(--mute)]">{edu.school}</p>
+                <p className="text-[11px] font-mono text-[var(--faint)] pt-1">{edu.timeline}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* ── Quote Block ── */}
+        <div className="quote">
+          <p className="micro text-[var(--red)]" style={{ marginBottom: '1rem' }}>
+            Clinical Philosophy
+          </p>
+          <blockquote className="text-white">
+            &ldquo;Healthcare technology is never neutral. It either empowers a nurse to catch an
+            early warning sign, or it creates cognitive fatigue that compromises care. I engineer for
+            the bedside.&rdquo;
+          </blockquote>
+          <div className="mt-8 flex flex-wrap items-center gap-4">
+            <Link href="/contact" className="btn btn-red">
+              <span>Contact Benedict</span>
+              <span className="ar">&rarr;</span>
+            </Link>
+            <Link href="/tech" className="btn btn-line">
+              <span>View Tech Systems</span>
+              <span className="ar">&rarr;</span>
             </Link>
           </div>
         </div>
 
-      </section>
+      </div>
 
-      <Footer commitMessage="clinical-record-synced" />
+      <Footer commitMessage="nursing-aiby-adapted" />
     </>
   );
 }

@@ -170,22 +170,23 @@ ${uName || '[Your Name]'}`;
   if (success && selectedPaper) {
     return (
       <ScrollReveal className="max-w-xl mx-auto py-12 text-center space-y-6">
-        <div className="w-16 h-16 bg-emerald-500/10 border border-emerald-500/20 text-emerald-500 rounded-full flex items-center justify-center mx-auto text-2xl animate-bounce shadow-lg shadow-emerald-500/5">
+        <div className="w-16 h-16 bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 rounded-full flex items-center justify-center mx-auto text-2xl animate-bounce shadow-lg shadow-emerald-500/5">
           <i className="fa-solid fa-circle-check"></i>
         </div>
         <div className="space-y-2">
-          <h2 className="text-2xl font-bold font-name italic text-zinc-900 dark:text-zinc-50">Request Dispatched</h2>
-          <p className="text-xs text-zinc-450 uppercase tracking-widest font-mono">Mail Sent to Benedict Adurosakin</p>
+          <h2 className="text-2xl sm:text-3xl font-extrabold text-[var(--ink)]">Request Dispatched</h2>
+          <p className="text-xs text-[var(--red)] uppercase tracking-widest font-mono font-bold">Mail Sent to Benedict Adurosakin</p>
         </div>
-        <div className="bento leading-relaxed text-sm text-zinc-500 dark:text-zinc-400 font-light">
-          A prepared request for <strong className="text-black dark:text-white font-medium">"{selectedPaper.title}"</strong> has been automatically emailed to Benedict. 
-          He will receive your contact details and message, allowing him to reply directly to you at <span className="text-cyan-500 font-mono underline">{email}</span>.
+        <div className="p-6 rounded-2xl bg-white border border-[var(--line)] leading-relaxed text-sm text-[var(--mute)] shadow-xs">
+          A prepared request for <strong className="text-[var(--ink)] font-bold">&ldquo;{selectedPaper.title}&rdquo;</strong> has been automatically emailed to Benedict. 
+          He will receive your contact details and message, allowing him to reply directly to you at <span className="text-[var(--red)] font-mono underline font-bold">{email}</span>.
         </div>
         <button
           onClick={() => router.push('/research')}
-          className="bg-black dark:bg-white text-white dark:text-black font-mono text-[10px] uppercase tracking-wider px-6 py-3.5 rounded-lg hover:opacity-90 transition font-bold cursor-pointer"
+          className="btn btn-red py-3 px-6 rounded-xl font-bold cursor-pointer"
         >
-          Return to Library
+          <span>Return to Research Vault</span>
+          <span className="ar">&rarr;</span>
         </button>
       </ScrollReveal>
     );
@@ -197,17 +198,17 @@ ${uName || '[Your Name]'}`;
       {/* LEFT COLUMN: PAPER SUMMARY CARD */}
       <div className="md:col-span-4 space-y-4">
         <ScrollReveal className="w-full">
-          <div className="bento space-y-4 relative border-l-4 border-l-cyan-500">
-            <span className="font-mono text-[9px] uppercase tracking-widest text-cyan-600 dark:text-cyan-400">Selected Manuscript</span>
+          <div className="p-6 rounded-2xl bg-white border border-[var(--line)] space-y-4 shadow-xs">
+            <span className="font-mono text-xs uppercase tracking-widest text-[var(--red)] font-bold">Selected Manuscript</span>
             
             {papers.length > 0 ? (
               <div className="space-y-4">
                 <div className="space-y-1">
-                  <label className="font-mono text-[9px] text-zinc-450 block">Choose Another Paper</label>
+                  <label className="font-mono text-xs text-[var(--faint)] block font-semibold">Choose Another Paper</label>
                   <select
                     value={selectedPaper?.id || ''}
                     onChange={(e) => handlePaperSelect(e.target.value)}
-                    className="w-full bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-md p-2 outline-none text-xs text-black dark:text-white cursor-pointer"
+                    className="w-full bg-[var(--paper)] border border-[var(--line)] rounded-lg p-2.5 outline-none text-xs text-[var(--ink)] font-semibold cursor-pointer"
                   >
                     <option value="" disabled>Select paper</option>
                     {papers.map((p) => (
@@ -219,24 +220,24 @@ ${uName || '[Your Name]'}`;
                 </div>
                 
                 {selectedPaper && (
-                  <div className="space-y-4 pt-2">
-                    <span className="text-[8px] font-mono bg-zinc-100 dark:bg-zinc-900 text-zinc-500 dark:text-zinc-400 px-2 py-0.5 rounded uppercase tracking-wider inline-block">
+                  <div className="space-y-3 pt-2">
+                    <span className="text-[10px] font-mono bg-[var(--paper-2)] text-[var(--red)] border border-[var(--line)] px-2.5 py-0.5 rounded-full uppercase tracking-wider font-bold inline-block">
                       {selectedPaper.theme}
                     </span>
-                    <h3 className="font-name italic font-bold text-base text-zinc-900 dark:text-zinc-150 leading-snug">
+                    <h3 className="font-extrabold text-base text-[var(--ink)] leading-snug">
                       {selectedPaper.title}
                     </h3>
-                    <div className="space-y-1 text-[10px] font-mono text-zinc-550 dark:text-zinc-400 leading-normal border-t border-zinc-100 dark:border-zinc-900/60 pt-3">
-                      <p>Main Author: <span className="font-bold text-zinc-700 dark:text-zinc-200">{selectedPaper.authors.main}</span></p>
-                      <p>Co-Author: <span className="underline">{selectedPaper.authors.coAuthor}</span></p>
-                      <p className="truncate">School: {selectedPaper.institution}</p>
-                      <p>Published: {selectedPaper.date}</p>
+                    <div className="space-y-1.5 text-xs font-mono text-[var(--mute)] leading-normal border-t border-[var(--line)] pt-3">
+                      <p>Main Author: <span className="font-bold text-[var(--ink)]">{selectedPaper.authors.main}</span></p>
+                      <p>Co-Author: <span className="underline text-[var(--ink)] font-bold">{selectedPaper.authors.coAuthor}</span></p>
+                      <p className="truncate">School: <span className="text-[var(--ink)]">{selectedPaper.institution}</span></p>
+                      <p>Published: <span className="text-[var(--ink)] font-semibold">{selectedPaper.date}</span></p>
                     </div>
                   </div>
                 )}
               </div>
             ) : (
-              <p className="text-xs text-zinc-500 italic">No papers loaded.</p>
+              <p className="text-xs text-[var(--mute)] italic font-mono">No papers loaded.</p>
             )}
           </div>
         </ScrollReveal>
@@ -245,19 +246,19 @@ ${uName || '[Your Name]'}`;
       {/* RIGHT COLUMN: REQUEST MOCK EMAIL CLIENT */}
       <div className="md:col-span-8">
         <ScrollReveal className="w-full" delay={100}>
-          <form onSubmit={handleSubmit} className="bento p-0 overflow-hidden border-zinc-250 dark:border-zinc-800/80 shadow-md">
+          <form onSubmit={handleSubmit} className="p-0 overflow-hidden border border-[var(--line)] rounded-2xl bg-white shadow-sm">
             
             {/* Mock Email Title Bar */}
-            <div className="bg-zinc-100 dark:bg-zinc-900 px-4 py-3 border-b border-zinc-200 dark:border-zinc-800 flex items-center justify-between">
+            <div className="bg-[var(--paper-2)] px-4 py-3 border-b border-[var(--line)] flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <div className="flex gap-1">
+                <div className="flex gap-1.5">
                   <span className="w-2.5 h-2.5 rounded-full bg-red-400"></span>
-                  <span className="w-2.5 h-2.5 rounded-full bg-yellow-400"></span>
-                  <span className="w-2.5 h-2.5 rounded-full bg-green-400"></span>
+                  <span className="w-2.5 h-2.5 rounded-full bg-amber-400"></span>
+                  <span className="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
                 </div>
-                <span className="font-mono text-[10px] text-zinc-450 uppercase tracking-widest ml-2">New Message — Request Paper</span>
+                <span className="font-mono text-[10px] text-[var(--mute)] uppercase tracking-widest ml-2 font-bold">New Message — Request Paper</span>
               </div>
-              <span className="text-[9px] font-mono bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 px-2 py-0.5 rounded font-bold uppercase tracking-wider">
+              <span className="text-[9px] font-mono bg-red-500/10 text-[var(--red)] border border-red-500/20 px-2 py-0.5 rounded font-bold uppercase tracking-wider">
                 AUTO-SEND ENVELOPE
               </span>
             </div>
@@ -265,60 +266,60 @@ ${uName || '[Your Name]'}`;
             <div className="p-6 space-y-6">
               
               {/* Recipient Field (Pre-set to Benedict) */}
-              <div className="flex items-center gap-3 border-b border-zinc-100 dark:border-zinc-900/60 pb-3">
-                <span className="font-mono text-[10px] text-zinc-400 w-12 shrink-0">To:</span>
-                <span className="text-xs font-mono text-zinc-800 dark:text-zinc-200 bg-zinc-50 dark:bg-zinc-900/80 px-3 py-1 rounded-md border border-zinc-200/50 dark:border-zinc-800/50">
+              <div className="flex items-center gap-3 border-b border-[var(--line)] pb-3">
+                <span className="font-mono text-[10px] text-[var(--mute)] w-12 shrink-0 font-bold uppercase">To:</span>
+                <span className="text-xs font-mono text-[var(--ink)] bg-[var(--paper-2)] px-3 py-1 rounded-md border border-[var(--line)] font-medium">
                   Benedict Adurosakin &lt;benedictadurosakin@gmail.com&gt;
                 </span>
               </div>
 
               {/* Subject Field (Auto generated) */}
               {selectedPaper && (
-                <div className="flex items-center gap-3 border-b border-zinc-100 dark:border-zinc-900/60 pb-3">
-                  <span className="font-mono text-[10px] text-zinc-400 w-12 shrink-0">Subject:</span>
-                  <span className="text-xs font-bold text-zinc-800 dark:text-zinc-200">
-                    [Paper Request] "{selectedPaper.title}"
+                <div className="flex items-center gap-3 border-b border-[var(--line)] pb-3">
+                  <span className="font-mono text-[10px] text-[var(--mute)] w-12 shrink-0 font-bold uppercase">Subject:</span>
+                  <span className="text-xs font-bold text-[var(--ink)]">
+                    [Paper Request] &ldquo;{selectedPaper.title}&rdquo;
                   </span>
                 </div>
               )}
 
               {/* Sender Details Input Fields */}
-              <div className="space-y-4 bg-zinc-50/50 dark:bg-zinc-950/20 p-4 border border-zinc-200/60 dark:border-zinc-800 rounded-xl">
-                <span className="font-mono text-[9px] uppercase tracking-widest text-zinc-400 block mb-2">Requester Info (Required)</span>
+              <div className="space-y-4 bg-[var(--paper-2)] p-4 border border-[var(--line)] rounded-xl">
+                <span className="font-mono text-[9px] uppercase tracking-widest text-[var(--mute)] block mb-2 font-bold">Requester Info (Required)</span>
                 
                 <div className="grid md:grid-cols-2 gap-4">
                   <div className="space-y-1.5">
-                    <label className="font-mono text-[9px] uppercase tracking-wider text-zinc-450">Full Name</label>
+                    <label className="font-mono text-[9px] uppercase tracking-wider text-[var(--mute)] font-bold">Full Name</label>
                     <input
                       type="text"
                       value={name}
                       onChange={(e) => setName(e.target.value)}
                       placeholder="e.g. Dr. Jane Smith"
-                      className="w-full bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-lg p-2.5 outline-none focus:ring-1 focus:ring-cyan-500 transition-all text-xs text-black dark:text-white"
+                      className="w-full bg-white border border-[var(--line)] rounded-lg p-2.5 outline-none focus:ring-1 focus:ring-[var(--red)] transition-all text-xs text-[var(--ink)] font-medium"
                       required
                     />
                   </div>
                   <div className="space-y-1.5">
-                    <label className="font-mono text-[9px] uppercase tracking-wider text-zinc-450">Email Address (To Reply To)</label>
+                    <label className="font-mono text-[9px] uppercase tracking-wider text-[var(--mute)] font-bold">Email Address (To Reply To)</label>
                     <input
                       type="email"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       placeholder="name@institution.edu"
-                      className="w-full bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-lg p-2.5 outline-none focus:ring-1 focus:ring-cyan-500 transition-all text-xs text-black dark:text-white"
+                      className="w-full bg-white border border-[var(--line)] rounded-lg p-2.5 outline-none focus:ring-1 focus:ring-[var(--red)] transition-all text-xs text-[var(--ink)] font-medium"
                       required
                     />
                   </div>
                 </div>
 
                 <div className="space-y-1.5">
-                  <label className="font-mono text-[9px] uppercase tracking-wider text-zinc-450">Phone Number (Required for confirmation/follow-up)</label>
+                  <label className="font-mono text-[9px] uppercase tracking-wider text-[var(--mute)] font-bold">Phone Number (Required for confirmation/follow-up)</label>
                   <input
                     type="tel"
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
                     placeholder="e.g. +234..."
-                    className="w-full bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-lg p-2.5 outline-none focus:ring-1 focus:ring-cyan-500 transition-all text-xs text-black dark:text-white"
+                    className="w-full bg-white border border-[var(--line)] rounded-lg p-2.5 outline-none focus:ring-1 focus:ring-[var(--red)] transition-all text-xs text-[var(--ink)] font-medium"
                     required
                   />
                 </div>
@@ -328,12 +329,12 @@ ${uName || '[Your Name]'}`;
               {selectedPaper && (
                 <div className="space-y-2">
                   <div className="flex justify-between items-center">
-                    <label className="font-mono text-[9px] uppercase tracking-widest text-zinc-455">Prepared Mail Body Preview</label>
+                    <label className="font-mono text-[9px] uppercase tracking-widest text-[var(--mute)] font-bold">Prepared Mail Body Preview</label>
                     {isMessageEdited && (
                       <button
                         type="button"
                         onClick={() => setIsMessageEdited(false)}
-                        className="text-[9px] font-mono text-cyan-555 hover:underline cursor-pointer border-none bg-transparent"
+                        className="text-[9px] font-mono text-[var(--red)] hover:underline cursor-pointer border-none bg-transparent font-bold"
                       >
                         Reset Message
                       </button>
@@ -346,24 +347,24 @@ ${uName || '[Your Name]'}`;
                       setIsMessageEdited(true);
                     }}
                     rows={11}
-                    className="w-full bg-zinc-50 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-850 rounded-lg p-4 outline-none focus:ring-1 focus:ring-cyan-500 transition-all text-xs font-mono text-zinc-700 dark:text-zinc-300 leading-relaxed shadow-inner"
+                    className="w-full bg-white border border-[var(--line)] rounded-lg p-4 outline-none focus:ring-1 focus:ring-[var(--red)] transition-all text-xs font-mono text-[var(--ink)] leading-relaxed shadow-inner"
                     required
                   />
                 </div>
               )}
 
-              {error && <p className="text-xs text-red-500 font-mono">{error}</p>}
+              {error && <p className="text-xs text-red-500 font-mono font-bold">{error}</p>}
               
               {showMailtoFallback && selectedPaper && (
-                <div className="p-4 bg-amber-500/10 border border-amber-500/20 text-amber-600 dark:text-amber-400 rounded-xl space-y-3">
+                <div className="p-4 bg-amber-500/10 border border-amber-500/20 text-amber-900 rounded-xl space-y-3">
                   <p className="text-[11px] leading-relaxed">
-                    <strong>SMTP Dispatch Failed:</strong> Google rejected the mail server authentication. You can send this request directly using your device's default mail app:
+                    <strong>SMTP Dispatch Notice:</strong> You can send this request directly using your device's default mail app:
                   </p>
                   <a
                     href={`mailto:benedictadurosakin@gmail.com?subject=${encodeURIComponent(
                       `[Paper Request] "${selectedPaper.title}"`
                     )}&body=${encodeURIComponent(message)}`}
-                    className="inline-flex items-center gap-2 px-4 py-2.5 bg-amber-500 hover:bg-amber-600 dark:bg-amber-600 dark:hover:bg-amber-500 text-black dark:text-white font-mono text-[9px] uppercase tracking-wider rounded-lg font-bold transition-all no-underline shadow-sm"
+                    className="inline-flex items-center gap-2 px-4 py-2.5 bg-amber-500 hover:bg-amber-600 text-white font-mono text-[9px] uppercase tracking-wider rounded-lg font-bold transition-all no-underline shadow-sm"
                   >
                     <i className="fa-solid fa-envelope"></i>
                     <span>Send via Your Email App</span>
@@ -375,7 +376,7 @@ ${uName || '[Your Name]'}`;
               <button
                 type="submit"
                 disabled={submitting || !selectedPaper}
-                className="w-full py-3 bg-cyan-500 hover:bg-cyan-600 text-white font-bold text-[10px] uppercase tracking-[0.2em] rounded-lg transition-colors disabled:opacity-50 cursor-pointer shadow-md flex items-center justify-center gap-2 border-none"
+                className="w-full py-3 bg-[var(--ink)] hover:bg-[var(--red)] text-white font-bold text-[10px] uppercase tracking-[0.2em] rounded-lg transition-colors disabled:opacity-50 cursor-pointer shadow-md flex items-center justify-center gap-2 border-none"
               >
                 {submitting ? (
                   <>
@@ -401,20 +402,26 @@ ${uName || '[Your Name]'}`;
 export default function RequestPage() {
   return (
     <>
-      <header className="pt-12 px-6 md:px-12 w-full">
-        <div className="flex justify-between items-end mb-10">
-          <h1 className="font-name italic font-medium text-4xl md:text-5xl text-zinc-950 dark:text-zinc-50">
-            Request Paper
+      <header className="pt-12 px-6 md:px-12 w-full max-w-7xl mx-auto">
+        <div className="mb-8">
+          <div className="inline-flex items-center gap-2 px-3 py-1 bg-[var(--paper-2)] border border-[var(--line)] rounded-full text-[10px] font-mono uppercase tracking-wider text-[var(--red)] font-bold mb-3">
+            <i className="fa-solid fa-file-signature text-[9px]"></i>
+            Direct Manuscript Access
+          </div>
+          <h1 className="text-3xl md:text-5xl font-extrabold text-[var(--ink)] tracking-tight">
+            Request Research Manuscript
           </h1>
+          <p className="text-xs md:text-sm text-[var(--mute)] font-mono mt-2">
+            Secure request envelope connecting academic peers and clinical institutions directly to Benedict Adurosakin.
+          </p>
         </div>
-        <Navbar />
       </header>
 
-      <section className="px-6 md:px-12 pb-20 flex-grow w-full">
+      <section className="px-6 md:px-12 pb-20 flex-grow w-full max-w-7xl mx-auto">
         <Suspense fallback={
           <div className="text-center py-24">
-            <i className="fa-solid fa-spinner fa-spin text-2xl text-zinc-400 mb-4 block"></i>
-            <p className="text-xs text-zinc-500 italic">Initializing library loader...</p>
+            <i className="fa-solid fa-spinner fa-spin text-2xl text-[var(--mute)] mb-4 block"></i>
+            <p className="text-xs text-[var(--mute)] italic font-mono">Initializing library loader...</p>
           </div>
         }>
           <RequestFormContent />

@@ -10,7 +10,7 @@ interface ConstellationMeshProps {
 
 export default function ConstellationMesh({
   className = '',
-  speed = 1.0,
+  speed = 1.5,
   pointsCount,
 }: ConstellationMeshProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -32,9 +32,9 @@ export default function ConstellationMesh({
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
     let raf: number | null = null;
 
-    const count = pointsCount || (window.innerWidth < 768 ? 18 : 32);
-    const reach = 0.26;
-    const lineOpacity = 0.35;
+    const count = pointsCount || (window.innerWidth < 768 ? 16 : 28);
+    const reach = 0.25;
+    const maxLineOpacity = 0.55;
 
     function seedPoints() {
       pts = [];
@@ -64,15 +64,16 @@ export default function ConstellationMesh({
       context.clearRect(0, 0, width, height);
       const linkDist = Math.max(width, height) * reach;
 
+      // Connecting Lines (Warm paper tint)
       for (let i = 0; i < pts.length; i++) {
         const p1 = pts[i];
         for (let j = i + 1; j < pts.length; j++) {
           const p2 = pts[j];
           const dist = Math.hypot(p1.x - p2.x, p1.y - p2.y);
           if (dist < linkDist) {
-            const alpha = lineOpacity * (1 - dist / linkDist);
-            context.strokeStyle = `rgba(148, 163, 184, ${alpha.toFixed(3)})`;
-            context.lineWidth = 0.85;
+            const alpha = maxLineOpacity * (1 - dist / linkDist);
+            context.strokeStyle = `rgba(246, 244, 241, ${alpha.toFixed(3)})`;
+            context.lineWidth = 1;
             context.beginPath();
             context.moveTo(p1.x, p1.y);
             context.lineTo(p2.x, p2.y);
@@ -80,17 +81,10 @@ export default function ConstellationMesh({
           }
         }
 
-        // Alternating nodes: Cyan / Violet / Amber
-        if (i % 3 === 0) {
-          context.fillStyle = 'rgba(6, 182, 212, 0.7)'; // Cyan
-        } else if (i % 3 === 1) {
-          context.fillStyle = 'rgba(124, 58, 237, 0.7)'; // Violet
-        } else {
-          context.fillStyle = 'rgba(255, 74, 43, 0.7)'; // Coral
-        }
-
+        // Drifting Point Nodes: Signature Coral Red (#FF4A2B)
+        context.fillStyle = 'rgba(255, 74, 43, 0.65)';
         context.beginPath();
-        context.arc(p1.x, p1.y, 2.2, 0, Math.PI * 2);
+        context.arc(p1.x, p1.y, 1.8, 0, Math.PI * 2);
         context.fill();
       }
     }
@@ -107,8 +101,20 @@ export default function ConstellationMesh({
       raf = requestAnimationFrame(step);
     }
 
+    function start() {
+      if (!raf && !reduceMotion) raf = requestAnimationFrame(step);
+    }
+
+    function stop() {
+      if (raf) {
+        cancelAnimationFrame(raf);
+        raf = null;
+      }
+    }
+
     resize();
-    step();
+    draw();
+    start();
 
     const handleResize = () => {
       resize();
@@ -116,15 +122,19 @@ export default function ConstellationMesh({
     };
 
     window.addEventListener('resize', handleResize, { passive: true });
+    document.addEventListener('visibilitychange', () => {
+      document.hidden ? stop() : start();
+    });
 
     return () => {
       window.removeEventListener('resize', handleResize);
-      if (raf) cancelAnimationFrame(raf);
+      stop();
     };
   }, [speed, pointsCount]);
 
   return (
     <canvas
+      id="mesh"
       ref={canvasRef}
       aria-hidden="true"
       className={`pointer-events-none absolute inset-0 w-full h-full ${className}`}
