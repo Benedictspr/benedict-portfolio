@@ -121,7 +121,7 @@ export default function Home() {
               
               {/* Left Column: Headlines & High-Intent Messaging */}
               <div className="lg:col-span-8">
-                <p className="micro red rv text-[0.62rem] sm:text-[0.68rem] tracking-[0.16em] sm:tracking-[0.34em] leading-normal sm:leading-relaxed" style={{ marginBottom: '1.4rem' }}>
+                <p className="micro red rv" style={{ marginBottom: '1.4rem' }}>
                   Software Engineer &bull; Registered Nurse &bull; Clinical Informaticist
                 </p>
 
@@ -147,12 +147,12 @@ export default function Home() {
                   <div className="acts">
                     <button
                       onClick={() => startTour(0)}
-                      className="btn btn-red flex items-center justify-center gap-2 cursor-pointer w-full sm:w-auto"
+                      className="btn btn-red flex items-center gap-2 cursor-pointer"
                     >
                       <span>Take a Tour</span>
                       <span className="ar">&rarr;</span>
                     </button>
-                    <Link href="/contact" className="btn btn-line flex items-center justify-center w-full sm:w-auto">
+                    <Link href="/contact" className="btn btn-line">
                       <span>Start a project</span>
                       <span className="ar">&rarr;</span>
                     </Link>

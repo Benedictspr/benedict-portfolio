@@ -72,9 +72,6 @@
 
 html {
   scroll-behavior: smooth;
-  overflow-x: clip;
-  max-width: 100vw;
-  width: 100%;
 }
 
 body {
@@ -86,25 +83,21 @@ body {
   line-height: 1.7;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  overflow-x: clip;
-  max-width: 100vw;
-  width: 100%;
+  overflow-x: hidden;
 }
 
-@layer base {
-  :where(h1, h2, h3, h4) {
-    font-weight: 800;
-    letter-spacing: -.045em;
-    line-height: .98;
-    margin: 0;
-    color: var(--ink);
-  }
+:where(h1, h2, h3, h4) {
+  font-weight: 800;
+  letter-spacing: -.045em;
+  line-height: .98;
+  margin: 0;
+  color: var(--ink);
+}
 
-  :where(p) {
-    margin: 0 0 1.1rem;
-    color: var(--mute);
-    max-width: 58ch;
-  }
+:where(p) {
+  margin: 0 0 1.1rem;
+  color: var(--mute);
+  max-width: 58ch;
 }
 
 a {
@@ -1271,6 +1264,10 @@ footer p {
 }
 
 @media (max-width: 640px) {
+  html, body {
+    overflow-x: clip;
+    max-width: 100vw;
+  }
   .herowrap {
     border-radius: 0 0 20px 20px;
     margin-top: -64px;

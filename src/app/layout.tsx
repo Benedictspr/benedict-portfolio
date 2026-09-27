@@ -57,7 +57,7 @@ export default function RootLayout({
           href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css"
         />
       </head>
-      <body className="min-h-screen flex flex-col selection:bg-[#FF4A2B]/20 selection:text-[#FF4A2B] relative overflow-x-clip max-w-[100vw] w-full">
+      <body className="min-h-screen flex flex-col selection:bg-[#FF4A2B]/20 selection:text-[#FF4A2B] relative overflow-x-hidden">
         <AdminProvider>
           <TourProvider>
             {/* Main Navigation */}
