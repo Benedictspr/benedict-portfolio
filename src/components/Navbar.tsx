@@ -104,7 +104,7 @@ export default function Navbar() {
 
           <Link
             href="/contact"
-            className="btn btn-solid text-xs py-2 px-4.5 sm:px-5 whitespace-nowrap shrink-0"
+            className="hidden sm:inline-flex btn btn-solid text-xs py-2 px-4.5 sm:px-5 whitespace-nowrap shrink-0"
           >
             <span className="whitespace-nowrap">Start a project</span>
             <span className="ar shrink-0">&rarr;</span>

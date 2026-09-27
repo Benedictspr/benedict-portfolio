@@ -32,7 +32,7 @@ export default function GuidedTour() {
           aria-modal="true"
           aria-labelledby="welcome-tour-title"
         >
-          <div className="relative w-full max-w-lg bg-[#0D1117] border border-white/15 rounded-3xl p-6 sm:p-8 text-white shadow-2xl overflow-hidden">
+          <div className="relative w-full max-w-lg bg-[#0D1117] border border-white/20 rounded-3xl p-5 sm:p-8 text-white shadow-2xl overflow-y-auto max-h-[92vh] my-auto">
             {/* Ambient Red Glow in background */}
             <div className="absolute -top-24 -right-24 w-56 h-56 rounded-full bg-[#FF4A2B]/15 blur-3xl pointer-events-none" />
             <div className="absolute -bottom-24 -left-24 w-56 h-56 rounded-full bg-[#FF4A2B]/10 blur-3xl pointer-events-none" />
@@ -48,13 +48,13 @@ export default function GuidedTour() {
                 <span className="absolute bottom-1 right-1 w-3 h-3 rounded-full bg-emerald-500 border-2 border-[#0D1117]"></span>
               </div>
               <div>
-                <p className="text-[11px] font-mono font-semibold uppercase tracking-wider text-[#FF4A2B]">
+                <p className="text-[11px] font-mono font-semibold uppercase tracking-wider !text-[#FF4A2B]" style={{ color: '#FF4A2B' }}>
                   Interactive Guided Tour
                 </p>
-                <h3 id="welcome-tour-title" className="text-xl sm:text-2xl font-extrabold text-white tracking-tight leading-tight mt-0.5">
+                <h3 id="welcome-tour-title" className="text-xl sm:text-2xl font-extrabold !text-white tracking-tight leading-tight mt-0.5" style={{ color: '#ffffff' }}>
                   Benedict O. Adurosakin
                 </h3>
-                <p className="text-xs text-white/60 font-mono mt-0.5">
+                <p className="text-xs !text-white/70 font-mono mt-0.5" style={{ color: 'rgba(255, 255, 255, 0.7)' }}>
                   SWE &bull; Critical Care RN &bull; Researcher
                 </p>
               </div>
@@ -62,44 +62,44 @@ export default function GuidedTour() {
 
             {/* Greeting Headline & Intro */}
             <div className="space-y-3 mb-6">
-              <div className="inline-block px-3 py-1 rounded-full bg-[#FF4A2B]/10 border border-[#FF4A2B]/30 text-xs font-semibold text-[#FF4A2B]">
+              <div className="inline-block px-3 py-1 rounded-full bg-[#FF4A2B]/15 border border-[#FF4A2B]/35 text-xs font-semibold !text-[#FF4A2B]" style={{ color: '#FF4A2B' }}>
                 Welcome to my portfolio
               </div>
-              <h4 className="text-lg sm:text-xl font-bold text-white leading-snug">
+              <h4 className="text-lg sm:text-xl font-bold !text-white leading-snug" style={{ color: '#ffffff' }}>
                 &ldquo;Hi, my name is Benedict Olorunwa Adurosakin, let me take you around.&rdquo;
               </h4>
-              <p className="text-sm text-white/70 leading-relaxed">
-                My work spans several distinct worlds: <strong>offline-first software engineering</strong>,{' '}
-                <strong>critical care ICU nursing</strong>, and <strong>clinical research</strong>. 
+              <p className="text-sm !text-white/85 leading-relaxed" style={{ color: 'rgba(255, 255, 255, 0.85)' }}>
+                My work spans several distinct worlds: <strong className="!text-white font-semibold" style={{ color: '#ffffff' }}>offline-first software engineering</strong>,{' '}
+                <strong className="!text-white font-semibold" style={{ color: '#ffffff' }}>critical care ICU nursing</strong>, and <strong className="!text-white font-semibold" style={{ color: '#ffffff' }}>clinical research</strong>. 
                 I&apos;d love to show you the key highlights of each page without you needing to hunt around.
               </p>
             </div>
 
             {/* Quick Tour Stops Preview */}
-            <div className="grid grid-cols-3 gap-2 py-3 px-3.5 rounded-2xl bg-white/5 border border-white/10 mb-6 text-[11px] font-mono text-white/75">
+            <div className="grid grid-cols-3 gap-2 py-3 px-3.5 rounded-2xl bg-white/5 border border-white/10 mb-6 text-[11px] font-mono !text-white/85" style={{ color: 'rgba(255, 255, 255, 0.85)' }}>
               <div className="flex items-center gap-1.5">
                 <span className="w-1.5 h-1.5 rounded-full bg-[#FF4A2B]"></span>
-                <span>Work &amp; Tech</span>
+                <span className="!text-white/85" style={{ color: 'rgba(255, 255, 255, 0.85)' }}>Work &amp; Tech</span>
               </div>
               <div className="flex items-center gap-1.5">
                 <span className="w-1.5 h-1.5 rounded-full bg-[#FF4A2B]"></span>
-                <span>Clinical ICU</span>
+                <span className="!text-white/85" style={{ color: 'rgba(255, 255, 255, 0.85)' }}>Clinical ICU</span>
               </div>
               <div className="flex items-center gap-1.5">
                 <span className="w-1.5 h-1.5 rounded-full bg-[#FF4A2B]"></span>
-                <span>Research</span>
+                <span className="!text-white/85" style={{ color: 'rgba(255, 255, 255, 0.85)' }}>Research</span>
               </div>
               <div className="flex items-center gap-1.5">
                 <span className="w-1.5 h-1.5 rounded-full bg-[#FF4A2B]"></span>
-                <span>Writing</span>
+                <span className="!text-white/85" style={{ color: 'rgba(255, 255, 255, 0.85)' }}>Writing</span>
               </div>
               <div className="flex items-center gap-1.5">
                 <span className="w-1.5 h-1.5 rounded-full bg-[#FF4A2B]"></span>
-                <span>Podcasts</span>
+                <span className="!text-white/85" style={{ color: 'rgba(255, 255, 255, 0.85)' }}>Podcasts</span>
               </div>
               <div className="flex items-center gap-1.5">
                 <span className="w-1.5 h-1.5 rounded-full bg-[#FF4A2B]"></span>
-                <span>Contact</span>
+                <span className="!text-white/85" style={{ color: 'rgba(255, 255, 255, 0.85)' }}>Contact</span>
               </div>
             </div>
 
@@ -107,14 +107,16 @@ export default function GuidedTour() {
             <div className="flex flex-col sm:flex-row items-center gap-3">
               <button
                 onClick={() => startTour(0)}
-                className="w-full sm:flex-1 py-3 px-5 rounded-xl bg-[#FF4A2B] hover:bg-[#D8330F] text-white font-bold text-sm flex items-center justify-center gap-2 shadow-lg transition-all duration-200 cursor-pointer"
+                className="w-full sm:flex-1 py-3 px-5 rounded-xl bg-[#FF4A2B] hover:bg-[#D8330F] !text-white font-bold text-sm flex items-center justify-center gap-2 shadow-lg transition-all duration-200 cursor-pointer"
+                style={{ color: '#ffffff' }}
               >
                 <span>Take Me Around</span>
                 <span className="text-base">&rarr;</span>
               </button>
               <button
                 onClick={dismissWelcome}
-                className="w-full sm:w-auto py-3 px-5 rounded-xl bg-white/10 hover:bg-white/15 text-white/80 hover:text-white font-semibold text-sm transition-colors cursor-pointer text-center"
+                className="w-full sm:w-auto py-3 px-5 rounded-xl bg-white/10 hover:bg-white/15 !text-white/90 hover:!text-white font-semibold text-sm transition-colors cursor-pointer text-center"
+                style={{ color: 'rgba(255, 255, 255, 0.9)' }}
               >
                 Explore on My Own
               </button>
@@ -174,7 +176,7 @@ export default function GuidedTour() {
               <span className="absolute bottom-0.5 right-0.5 w-2 h-2 rounded-full bg-emerald-400"></span>
             </div>
             <div className="flex-1 min-w-0">
-              <h4 className="text-base sm:text-lg font-extrabold text-white tracking-tight leading-snug">
+              <h4 className="text-base sm:text-lg font-extrabold !text-white tracking-tight leading-snug" style={{ color: '#ffffff' }}>
                 {currentTourStep.title}
               </h4>
               <p className="text-xs text-[#FF4A2B] font-medium italic truncate">
@@ -184,13 +186,13 @@ export default function GuidedTour() {
           </div>
 
           {/* Step Narrative */}
-          <p className="text-xs sm:text-[13px] text-white/80 leading-relaxed mb-4">
+          <p className="text-xs sm:text-[13px] !text-white/85 leading-relaxed mb-4" style={{ color: 'rgba(255, 255, 255, 0.85)' }}>
             {currentTourStep.description}
           </p>
 
           {/* Key Highlights to Check on This Page */}
           <div className="space-y-2 mb-4 bg-white/5 border border-white/10 p-3 rounded-2xl">
-            <p className="text-[10px] font-mono font-bold uppercase tracking-wider text-white/50">
+            <p className="text-[10px] font-mono font-bold uppercase tracking-wider !text-white/60">
               Important Highlights on This Page:
             </p>
             <div className="space-y-1.5">
@@ -198,8 +200,8 @@ export default function GuidedTour() {
                 <div key={i} className="flex items-start gap-2 text-xs">
                   <span className="text-[#FF4A2B] font-bold mt-0.5">&bull;</span>
                   <div className="flex-1">
-                    <strong className="text-white font-semibold">{h.label}:</strong>{' '}
-                    <span className="text-white/70">{h.detail}</span>
+                    <strong className="!text-white font-semibold" style={{ color: '#ffffff' }}>{h.label}:</strong>{' '}
+                    <span className="!text-white/75" style={{ color: 'rgba(255, 255, 255, 0.75)' }}>{h.detail}</span>
                   </div>
                 </div>
               ))}
